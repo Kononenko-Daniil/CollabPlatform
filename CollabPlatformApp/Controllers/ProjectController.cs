@@ -1,5 +1,6 @@
 ﻿using CollabPlatformApp.Contexts;
 using CollabPlatformApp.Models;
+using CollabPlatformApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollabPlatformApp.Controllers
@@ -8,20 +9,23 @@ namespace CollabPlatformApp.Controllers
     [Route("/projects")]
     public class ProjectController : ControllerBase
     {
-        ProjectContext db;
-        public ProjectController(ProjectContext context) 
+        IProjectService _projectService;
+        public ProjectController(IProjectService projectService) 
         {
-            db = context;
+            _projectService = projectService;
         }
         [HttpGet]
         public IEnumerable<Project> GetProjects()
         {
-            /*if (!db.Projects.Any())
-            {
-                db.Projects.Add(new Project { Name = "Chemistry", Author = "Daniil" });
-                db.SaveChanges();
-            }*/
-            return db.Projects;
+            var result = _projectService.GetProjects();
+
+            return result;
+        }
+
+        [HttpPost]
+        public void AddProject(Project project)
+        {
+            _projectService.PostProject(project);
         }
     }
 }
