@@ -14,15 +14,22 @@ namespace CollabPlatformApp.Controllers
         {
             _projectService = projectService;
         }
-        [HttpGet]
+        [HttpGet("/get-projects")]
         public IEnumerable<Project> GetProjects()
         {
             var result = _projectService.GetProjects();
 
             return result;
         }
+        [HttpGet("/get-project-by-key")]
+        public Project GetProjectByKey(int key)
+        {
+            var result = _projectService.GetProjectByKey(key);
 
-        [HttpPost]
+            return result;
+        }
+
+        [HttpPost("/add-project")]
         public void AddProject(Project project)
         {
             _projectService.PostProject(project);

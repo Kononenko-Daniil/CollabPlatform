@@ -10,12 +10,20 @@ namespace CollabPlatformApp.Services
         {
             db = context;
         }
+
+        public Project GetProjectByKey(int key)
+        {
+            var result = db.Projects.FirstOrDefault(p => p.Key == key);
+            return result;
+        }
+
         public IEnumerable<Project> GetProjects()
         {
             var result = db.Projects.ToList();
 
             return result;
         }
+        
 
         public void PostProject(Project project)
         {
