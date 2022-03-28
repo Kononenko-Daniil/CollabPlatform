@@ -27,10 +27,19 @@ namespace CollabPlatformApp.Controllers
 
             return result;
         }
+        [HttpGet("/get-project-links")]
+        public IEnumerable<Link> GetProjectLinks(string projectId)
+        {
+            var result = _projectService.GetProjectLinks(projectId);
+
+            return result;
+        }
+
         [HttpPost("/create-project")]
         public void CreateProject(Project project)
         {
             project.Tasks.Clear();
+            project.Links.Clear();
             _projectService.CreateProject(project);
         } 
         [HttpPost("/create-task")]
@@ -38,6 +47,12 @@ namespace CollabPlatformApp.Controllers
         {
             _projectService.CreateTask(projectId, task);
         }
+        [HttpPost("/create-link")]
+        public void CreateLink(string projectId, Link link)
+        {
+            _projectService.CreateLink(projectId, link);
+        }
+
         [HttpDelete("/delete-project")]
         public void DeleteProject(string projectId)
         {
@@ -47,6 +62,11 @@ namespace CollabPlatformApp.Controllers
         public void DeleteTask(string projectId, string taskId)
         {
             _projectService.DeleteTask(projectId, taskId);
+        }
+        [HttpDelete("/delete-link")]
+        public void DeleteLink(string projectId, string linkId)
+        {
+            _projectService.DeleteLink(projectId, linkId);
         }
     }
 }

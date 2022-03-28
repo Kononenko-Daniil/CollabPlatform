@@ -32,6 +32,14 @@ namespace CollabPlatformApp.Services
             return tasks;
         }
 
+        public IEnumerable<Link> GetProjectLinks(string projectId)
+        {
+            Project project = GetProjectById(projectId);
+            List<Link> links = project.Links;
+
+            return links;
+        }
+
         public void CreateProject(Project project)
         {
             string projectId = GenerateKey();
@@ -49,6 +57,15 @@ namespace CollabPlatformApp.Services
             _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
         }
 
+        public void CreateLink(string projectId, Link link)
+        {
+            link.Id = GenerateKey();
+            link.ProjectId = projectId;
+            Project project = GetProjectById(projectId);
+            project.Links.Add(link);
+            _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
+        }
+
         public void DeleteProject(string projectId)
         {
             _projectsCollection.DeleteOne(x => x.Id == projectId);
@@ -59,6 +76,14 @@ namespace CollabPlatformApp.Services
             Project project = GetProjectById(projectId);
             Models.Task taskToRemove = project.Tasks.FirstOrDefault(x => x.Id == taskId);
             project.Tasks.Remove(taskToRemove);
+            _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
+        }
+
+        public void DeleteLink(string projectId, string linkId)
+        {
+            Project project = GetProjectById(projectId);
+            Link linkToRemove = project.Links.FirstOrDefault(x => x.Id == linkId);
+            project.Links.Remove(linkToRemove);
             _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
         }
 
