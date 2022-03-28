@@ -15,15 +15,38 @@ namespace CollabPlatformApp.Controllers
             _projectService = projectService;
         }
         
-        [HttpGet]
+        [HttpGet("/get-projects")]
         public IEnumerable<Project> GetProjects()
         {
             return _projectService.GetProjects();
         }
-        [HttpPost]
-        public void AddProject(Project project)
+        [HttpGet("/get-project-tasks")]
+        public IEnumerable<Models.Task> GetProjectTasks(string projectId)
         {
-            _projectService.PostProject(project);
+            var result = _projectService.GetProjectTasks(projectId);
+
+            return result;
+        }
+        [HttpPost("/create-project")]
+        public void CreateProject(Project project)
+        {
+            project.Tasks.Clear();
+            _projectService.CreateProject(project);
         } 
+        [HttpPost("/create-task")]
+        public void CreateTask(string projectId, Models.Task task)
+        {
+            _projectService.CreateTask(projectId, task);
+        }
+        [HttpDelete("/delete-project")]
+        public void DeleteProject(string projectId)
+        {
+            _projectService.DeleteProject(projectId);
+        }
+        [HttpDelete("/delete-task")]
+        public void DeleteTask(string projectId, string taskId)
+        {
+            _projectService.DeleteTask(projectId, taskId);
+        }
     }
 }
