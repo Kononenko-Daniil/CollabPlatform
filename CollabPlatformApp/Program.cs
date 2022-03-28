@@ -1,4 +1,5 @@
 using CollabPlatformApp.Contexts;
+using CollabPlatformApp.Database;
 using CollabPlatformApp.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,8 @@ builder.Services.AddSwaggerGen();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connection));
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.Configure<ProjectsDatabaseSettings>(
+    builder.Configuration.GetSection("ProjectsDatabase"));
 var app = builder.Build();
 
 
