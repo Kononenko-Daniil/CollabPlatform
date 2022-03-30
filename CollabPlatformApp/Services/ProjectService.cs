@@ -24,6 +24,14 @@ namespace CollabPlatformApp.Services
             return result;
         }
 
+        public Project GetProjectById(string projectId)
+        {
+            var projects = GetProjects();
+            Project result = projects.FirstOrDefault(x => x.Id == projectId);
+
+            return result;
+        }
+
         public IEnumerable<Models.Task> GetProjectTasks(string projectId)
         {
             Project project = GetProjectById(projectId);
@@ -85,14 +93,6 @@ namespace CollabPlatformApp.Services
             Link linkToRemove = project.Links.FirstOrDefault(x => x.Id == linkId);
             project.Links.Remove(linkToRemove);
             _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
-        }
-
-        public Project GetProjectById(string projectId)
-        {
-            var projects = GetProjects();
-            Project result = projects.FirstOrDefault(x => x.Id == projectId);
-
-            return result;
         }
 
         public string GenerateKey()

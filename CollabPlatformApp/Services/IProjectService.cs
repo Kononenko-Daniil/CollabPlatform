@@ -5,6 +5,7 @@ namespace CollabPlatformApp.Services
     public interface IProjectService
     {
         public IEnumerable<Project> GetProjects();
+        public Project GetProjectById(string projectId);
         public IEnumerable<Models.Task> GetProjectTasks(string projectId);
         public IEnumerable<Link> GetProjectLinks(string projectId);
 

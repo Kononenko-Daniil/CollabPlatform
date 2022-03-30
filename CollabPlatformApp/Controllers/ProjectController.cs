@@ -20,6 +20,11 @@ namespace CollabPlatformApp.Controllers
         {
             return _projectService.GetProjects();
         }
+        [HttpGet("/get-project-by-id")]
+        public Project GetProjectById(string projectId)
+        {
+            return _projectService.GetProjectById(projectId);
+        }
         [HttpGet("/get-project-tasks")]
         public IEnumerable<Models.Task> GetProjectTasks(string projectId)
         {
