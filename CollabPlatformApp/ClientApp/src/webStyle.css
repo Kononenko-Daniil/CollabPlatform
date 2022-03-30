@@ -1,0 +1,15 @@
+.pageName {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.projectElement{
+    margin-right: 10px;
+    width: auto;
+}
+.tasksLinksNumText{
+    font-weight: 400;
+}
+.doNotHave{
+    font-weight: 400;
+
+}
