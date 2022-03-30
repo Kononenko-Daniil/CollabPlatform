@@ -4,6 +4,7 @@ using CollabPlatformApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var AllowOrigins = "_allowOrigins";
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
@@ -12,6 +13,11 @@ builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer(co
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.Configure<ProjectsDatabaseSettings>(
     builder.Configuration.GetSection("ProjectsDatabase"));
+
+builder.Services.AddCors(p => p.AddPolicy(AllowOrigins, builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 var app = builder.Build();
 
 
@@ -21,6 +27,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(AllowOrigins);
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSwagger();
