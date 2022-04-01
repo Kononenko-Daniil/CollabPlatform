@@ -24,6 +24,7 @@ export class ProjectPageContainer extends Component{
                 this.setState({project: project});
             }
         )
+        console.log(this.state.project);
     }
 
     render(){

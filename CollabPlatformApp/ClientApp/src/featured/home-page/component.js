@@ -27,7 +27,7 @@ const HomePageComponent = (props) =>{
                                         <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
                                     </Link>
                                     
-                                    <Button onClick={() => OnDeleteProjectClick(project.id)} variant='danger'>Delete</Button>
+                                    <Button onClick={() => OnDeleteProjectClick(project.id)} variant='outline-danger'>Delete</Button>
                                 </Card.Body>
                             </Card>
                         )
