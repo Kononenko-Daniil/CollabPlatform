@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import HomePageComponent from './component';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 export class HomePageContainer extends Component {
   static displayName = HomePageContainer.name;
+  constructor(props){
+      super(props);
+  }
   state ={
       projects: []
   }
@@ -47,3 +51,5 @@ export class HomePageContainer extends Component {
     );
   }
 }
+
+//export default withRouter(HomePageComponent);

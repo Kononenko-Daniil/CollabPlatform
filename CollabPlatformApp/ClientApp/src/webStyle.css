@@ -10,6 +10,28 @@
     font-weight: 400;
 }
 .doNotHave{
+    margin-top: 10px;
     font-weight: 400;
-
+}
+.tasksLinksNameText{
+    font-weight: 400;
+}
+.taskElement{
+    width: auto;
+    margin-top: 10px;
+}
+.linkElement{
+    margin-right: 10px;
+    margin-top: 10px
+}
+.addForm{
+    background-color: #f0f0f0;
+    width: auto;
+    border-radius: 5px;
+    margin: auto;
+}
+.inFormElements{
+    margin-right:5px;
+    margin-top:5px;
+    margin-bottom:5px;
 }

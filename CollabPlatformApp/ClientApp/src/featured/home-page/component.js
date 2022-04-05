@@ -3,9 +3,12 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Container} from 'reactstrap';
+import { Link } from "react-router-dom";
 
 const HomePageComponent = (props) =>{
-    const {projects, OnDeleteProjectClick} = props; 
+    const {projects, 
+        OnDeleteProjectClick} = props; 
+
     return(
         <Container>
             <h1 className={"pageName"}>My projects</h1>
@@ -20,8 +23,11 @@ const HomePageComponent = (props) =>{
                                     <Card.Subtitle className="mb-2 text-muted tasksLinksNumText">
                                         Tasks: {project.tasks.length} &ensp; Links: {project.links.length}
                                     </Card.Subtitle>
-                                    <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
-                                    <Button onClick={() => OnDeleteProjectClick(project.id)} variant='danger'>Delete</Button>
+                                    <Link to={`/projects/${project.id}`}>
+                                        <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
+                                    </Link>
+                                    
+                                    <Button onClick={() => OnDeleteProjectClick(project.id)} variant='outline-danger'>Delete</Button>
                                 </Card.Body>
                             </Card>
                         )
@@ -31,10 +37,7 @@ const HomePageComponent = (props) =>{
                 <div>
                     <h5 className='doNotHave'>You don`t have any projects...</h5>
                 </div>
-                
             }
-            
-            
         </Container>
     )
 }

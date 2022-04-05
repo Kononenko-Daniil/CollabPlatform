@@ -20,6 +20,11 @@ namespace CollabPlatformApp.Controllers
         {
             return _projectService.GetProjects();
         }
+        [HttpGet("/get-project-by-id")]
+        public Project GetProjectById(string projectId)
+        {
+            return _projectService.GetProjectById(projectId);
+        }
         [HttpGet("/get-project-tasks")]
         public IEnumerable<Models.Task> GetProjectTasks(string projectId)
         {
@@ -43,13 +48,26 @@ namespace CollabPlatformApp.Controllers
             _projectService.CreateProject(project);
         } 
         [HttpPost("/create-task")]
-        public void CreateTask(string projectId, Models.Task task)
+        public void CreateTask(string projectId, string taskText)
         {
+            Models.Task task = new Models.Task()
+            {
+                Id = "",
+                ProjectId = projectId,
+                Text = taskText
+            };
             _projectService.CreateTask(projectId, task);
         }
         [HttpPost("/create-link")]
-        public void CreateLink(string projectId, Link link)
+        public void CreateLink(string projectId, string linkName, string linkUrl)
         {
+            Link link = new Link()
+            {
+                Id = "",
+                Name = linkName,
+                ProjectId = projectId,
+                Url = linkUrl
+            };
             _projectService.CreateLink(projectId, link);
         }
 
