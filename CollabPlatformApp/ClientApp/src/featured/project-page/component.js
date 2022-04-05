@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const ProjectPageComponent = (props) => {
-    const {project} = props;
+    const {project, handleLinkNameChange, handleLinkUrlChange, handleLinkSubmit} = props;
     return(
         <Container>
             <h1 className='pageName'>{project.name}</h1>
@@ -60,13 +60,15 @@ const ProjectPageComponent = (props) => {
                         </div>
                         <div className={"col col-lg-5"}>
                             <h4 className={"tasksLinksNameText"}>Links</h4> 
-                            <div className={"row addForm"}>
+                            <form onSubmit={handleLinkSubmit}>
+                                <div className={"row addForm"}>
                                     <div className="col-lg-4">
                                         <Form.Control
                                             placeholder='Link name'
                                             className="inFormElements"
                                             type="input"
                                             id="inputLinlkName"
+                                            onChange={handleLinkNameChange}
                                         />
                                     </div>
                                     <div className="col-lg-6">
@@ -75,12 +77,14 @@ const ProjectPageComponent = (props) => {
                                             className="inFormElements"
                                             type="input"
                                             id="inputLinkURL"
+                                            onChange={handleLinkUrlChange}
                                         />
                                     </div>
                                     <div className="col-lg-1">
-                                        <Button variant='success' className="inFormElements">Add...</Button>
+                                        <Button variant='success' type="submit" className="inFormElements">Add...</Button>
                                     </div>
-                            </div>
+                                </div>
+                            </form>
                             
                             {
                                 project.links.map((link, index) => 

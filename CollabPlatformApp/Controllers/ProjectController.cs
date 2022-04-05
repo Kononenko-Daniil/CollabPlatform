@@ -53,8 +53,15 @@ namespace CollabPlatformApp.Controllers
             _projectService.CreateTask(projectId, task);
         }
         [HttpPost("/create-link")]
-        public void CreateLink(string projectId, Link link)
+        public void CreateLink(string projectId, string linkName, string linkUrl)
         {
+            Link link = new Link()
+            {
+                Id = "",
+                Name = linkName,
+                ProjectId = projectId,
+                Url = linkUrl
+            };
             _projectService.CreateLink(projectId, link);
         }
 
