@@ -48,8 +48,14 @@ namespace CollabPlatformApp.Controllers
             _projectService.CreateProject(project);
         } 
         [HttpPost("/create-task")]
-        public void CreateTask(string projectId, Models.Task task)
+        public void CreateTask(string projectId, string taskText)
         {
+            Models.Task task = new Models.Task()
+            {
+                Id = "",
+                ProjectId = projectId,
+                Text = taskText
+            };
             _projectService.CreateTask(projectId, task);
         }
         [HttpPost("/create-link")]

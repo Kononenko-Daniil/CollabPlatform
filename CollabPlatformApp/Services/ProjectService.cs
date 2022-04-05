@@ -59,7 +59,6 @@ namespace CollabPlatformApp.Services
         {
             task.Id = GenerateKey();
             task.ProjectId = projectId;
-            task.CreatingTime = DateTime.Now.ToString();
             Project project = GetProjectById(projectId);
             project.Tasks.Add(task);
             _projectsCollection.ReplaceOne(x => x.Id == projectId, project);

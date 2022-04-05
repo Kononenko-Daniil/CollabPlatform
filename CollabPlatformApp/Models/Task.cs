@@ -9,7 +9,5 @@ namespace CollabPlatformApp.Models
         public string? Id { get; set; }
         public string? ProjectId { get; set; }
         public string? Text { get; set; }
-        public string? CreatingTime { get; set; }
-        public string? Deadline { get; set; }
     }
 }
