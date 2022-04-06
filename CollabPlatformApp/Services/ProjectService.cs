@@ -48,11 +48,13 @@ namespace CollabPlatformApp.Services
             return links;
         }
 
-        public void CreateProject(Project project)
+        public string CreateProject(Project project)
         {
             string projectId = GenerateKey();
             project.Id = projectId;
             _projectsCollection.InsertOne(project);
+
+            return projectId;
         }
 
         public void CreateTask(string projectId, Models.Task task)

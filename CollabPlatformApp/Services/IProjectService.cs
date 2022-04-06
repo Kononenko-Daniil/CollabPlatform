@@ -9,7 +9,7 @@ namespace CollabPlatformApp.Services
         public IEnumerable<Models.Task> GetProjectTasks(string projectId);
         public IEnumerable<Link> GetProjectLinks(string projectId);
 
-        public void CreateProject(Project project);
+        public string CreateProject(Project project);
         public void CreateTask(string projectId, Models.Task task);
         public void CreateLink(string projectId, Link link);
 

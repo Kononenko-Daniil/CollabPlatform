@@ -9,7 +9,8 @@ export class HomePageContainer extends Component {
       super(props);
   }
   state ={
-      projects: []
+      projects: [],
+      showCreateModal: false
   }
 
   componentDidMount(){
@@ -29,15 +30,22 @@ export class HomePageContainer extends Component {
       })
   }
 
-  OnDeleteProjectClick = (projectId) => {
-    console.log("delete");
-      // axios.delete("");
-      // axios({
-      //     method: 'DELETE',
-      //     url: 'https://localhost:7040/delete-project',
-      //     params: { projectId: projectId }
-      // });
-      // window.location.reload();
+  OnCreateProjectClick = () => {
+      this.setState({showCreateModal: true})
+  }
+
+  OnDeleteProjectClick = (projectId, projectName) => {
+    const deleteProject = window.confirm("Are you sure you want to delete " + projectName);
+    console.log(deleteProject);
+    if(deleteProject){
+      axios({
+          method: 'DELETE',
+          url: 'https://localhost:7040/delete-project',
+          params: { projectId: projectId }
+      }).then(res => {
+        this.getProjects();
+      });
+    }
   }
 
   render () {
@@ -46,6 +54,8 @@ export class HomePageContainer extends Component {
         <HomePageComponent 
           projects = {this.state.projects}
           OnDeleteProjectClick = {this.OnDeleteProjectClick.bind(this)}
+          showCreateModal={this.state.showCreateModal}
+          OnCreateProjectClick={this.OnCreateProjectClick.bind(this)}
           />
       </div>
     );
