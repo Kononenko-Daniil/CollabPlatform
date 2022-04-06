@@ -61,5 +61,3 @@ export class HomePageContainer extends Component {
     );
   }
 }
-
-//export default withRouter(HomePageComponent);
