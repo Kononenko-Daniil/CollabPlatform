@@ -8,3 +8,7 @@ Create projects :) Every project may contain tasks, which you should do. Also yo
 
  - Add account system
  - Add possibility for changing access rights of your projects 
+## Technology
+ - .NET 6.0 (BACK-END)
+ - React (FRONT-END)
+ - MongoDB
