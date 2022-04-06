@@ -7,10 +7,11 @@ export class HomePageContainer extends Component {
   static displayName = HomePageContainer.name;
   constructor(props){
       super(props);
+
+      this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
   }
   state ={
-      projects: [],
-      showCreateModal: false
+      projects: []
   }
 
   componentDidMount(){
@@ -28,10 +29,6 @@ export class HomePageContainer extends Component {
             const projects = res.data;
             this.setState({projects});
       })
-  }
-
-  OnCreateProjectClick = () => {
-      this.setState({showCreateModal: true})
   }
 
   OnDeleteProjectClick = (projectId, projectName) => {
@@ -53,9 +50,7 @@ export class HomePageContainer extends Component {
       <div>
         <HomePageComponent 
           projects = {this.state.projects}
-          OnDeleteProjectClick = {this.OnDeleteProjectClick.bind(this)}
-          showCreateModal={this.state.showCreateModal}
-          OnCreateProjectClick={this.OnCreateProjectClick.bind(this)}
+          OnDeleteProjectClick = {this.OnDeleteProjectClick}
           />
       </div>
     );

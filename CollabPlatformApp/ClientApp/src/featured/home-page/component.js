@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 
 const HomePageComponent = (props) =>{
     const {projects, 
-        OnDeleteProjectClick, 
-        showCreateModal, 
-        OnCreateProjectClick} = props; 
+        OnDeleteProjectClick} = props; 
 
     return(
         <Container>

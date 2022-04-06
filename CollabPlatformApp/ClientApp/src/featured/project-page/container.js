@@ -14,6 +14,8 @@ export class ProjectPageContainer extends Component{
             taskText: ""
         }
 
+        this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
+
         this.handleLinkNameChange = this.handleLinkNameChange.bind(this);
         this.handleLinkUrlChange = this.handleLinkUrlChange.bind(this);
         this.handleLinkSubmit = this.handleLinkSubmit.bind(this);
@@ -98,7 +100,7 @@ export class ProjectPageContainer extends Component{
                 handleTaskTextChange={this.handleTaskTextChange}
                 handleTaskSubmit={this.handleTaskSubmit}
 
-                OnDeleteTaskClick={this.OnDeleteTaskClick.bind(this)}
+                OnDeleteTaskClick={this.OnDeleteTaskClick}
                 taskText={this.state.taskText}
                 linkName={this.state.linkName}
                 linkUrl={this.state.linkUrl}
