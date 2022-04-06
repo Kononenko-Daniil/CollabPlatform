@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 
 const HomePageComponent = (props) =>{
     const {projects, 
-        OnDeleteProjectClick} = props; 
+        OnDeleteProjectClick, 
+        showCreateModal, 
+        OnCreateProjectClick} = props; 
 
     return(
         <Container>
@@ -27,7 +29,7 @@ const HomePageComponent = (props) =>{
                                         <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
                                     </Link>
                                     
-                                    <Button onClick={() => OnDeleteProjectClick(project.id)} variant='outline-danger'>Delete</Button>
+                                    <Button onClick={() => OnDeleteProjectClick(project.id, project.name)} variant='outline-danger'>Delete</Button>
                                 </Card.Body>
                             </Card>
                         )
@@ -41,5 +43,5 @@ const HomePageComponent = (props) =>{
         </Container>
     )
 }
-//#DE0000  ef0000 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 export default HomePageComponent;
