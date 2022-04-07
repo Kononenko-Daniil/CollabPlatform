@@ -31,18 +31,14 @@ export class HomePageContainer extends Component {
       })
   }
 
-  OnDeleteProjectClick = (projectId, projectName) => {
-    const deleteProject = window.confirm("Are you sure you want to delete " + projectName);
-    console.log(deleteProject);
-    if(deleteProject){
-      axios({
-          method: 'DELETE',
-          url: 'https://localhost:7040/delete-project',
-          params: { projectId: projectId }
-      }).then(res => {
-        this.getProjects();
-      });
-    }
+  OnDeleteProjectClick = (projectId) => {
+    axios({
+        method: 'DELETE',
+        url: 'https://localhost:7040/delete-project',
+        params: { projectId: projectId }
+    }).then(res => {
+      this.getProjects();
+    });
   }
 
   render () {
