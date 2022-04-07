@@ -9,18 +9,18 @@ const HomePageComponent = (props) =>{
     const {projects, 
         OnDeleteProjectClick} = props;
 
-    const [show, setShow] = useState(false);
+    const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
     const [projectName, setProjectName] = useState("");
     const [projectId, setProjectId] = useState("");
     const handleAcceptDelete = () => {
         OnDeleteProjectClick(projectId);
-        setShow(false);
+        setShowDeleteProjectModal(false);
     }
-    const handleCloseDeleteWindow = () => {
-        setShow(false);
+    const handleCloseDeleteModal = () => {
+        setShowDeleteProjectModal(false);
     }
-    const handleShow = (projName, projId) => {
-        setShow(true);
+    const handleShowDeleteModal = (projName, projId) => {
+        setShowDeleteProjectModal(true);
         setProjectName(projName);
         setProjectId(projId)
     }
@@ -43,7 +43,7 @@ const HomePageComponent = (props) =>{
                                         <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
                                     </Link>
                                     
-                                    <Button onClick={() => handleShow(project.name, project.id)} variant='outline-danger'>Delete</Button>
+                                    <Button onClick={() => handleShowDeleteModal(project.name, project.id)} variant='outline-danger'>Delete</Button>
                                 </Card.Body>
                             </Card>
                         )
@@ -55,18 +55,18 @@ const HomePageComponent = (props) =>{
                 </div>
             }
 
-            <Modal show={show} onHide={handleCloseDeleteWindow}>
+            <Modal show={showDeleteProjectModal} onHide={handleCloseDeleteModal}>
                 <Modal.Header closeButton>
-                <Modal.Title>Deleting project</Modal.Title>
+                    <Modal.Title>Deleting project</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete {projectName}?</Modal.Body>
+                    <Modal.Body>Are you sure you want to delete {projectName}?</Modal.Body>
                 <Modal.Footer>
-                <Button variant="outline-secondary" onClick={handleCloseDeleteWindow}>
-                    Cancel
-                </Button>
-                <Button variant="outline-danger" onClick={handleAcceptDelete}>
-                    Delete project
-                </Button>
+                    <Button variant="outline-secondary" onClick={handleCloseDeleteModal}>
+                        Cancel
+                    </Button>
+                    <Button variant="outline-danger" onClick={handleAcceptDelete}>
+                        Delete project
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </Container>

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {ReactRouterDom} from 'react-router-dom';
 import ProjectPageComponent from './component';
 import axios from 'axios';
 
@@ -93,7 +92,6 @@ export class ProjectPageContainer extends Component{
         }).then(
             res => {
                 const project = res.data;
-                console.log(project);
                 this.setState({project: project});
             }
         )

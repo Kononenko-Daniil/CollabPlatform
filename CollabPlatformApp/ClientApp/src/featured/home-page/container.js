@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import HomePageComponent from './component';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
 
 export class HomePageContainer extends Component {
   static displayName = HomePageContainer.name;
