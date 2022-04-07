@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {ReactRouterDom} from 'react-router-dom';
 import ProjectPageComponent from './component';
 import axios from 'axios';
 
@@ -13,6 +12,9 @@ export class ProjectPageContainer extends Component{
             linkUrl: "",
             taskText: ""
         }
+
+        this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
+        this.OnDeleteLinkClick = this.OnDeleteLinkClick.bind(this);
 
         this.handleLinkNameChange = this.handleLinkNameChange.bind(this);
         this.handleLinkUrlChange = this.handleLinkUrlChange.bind(this);
@@ -72,6 +74,16 @@ export class ProjectPageContainer extends Component{
         });
     }
 
+    OnDeleteLinkClick = (linkId) => {
+        axios({
+            method: 'DELETE',
+            url: 'https://localhost:7040/delete-link',
+            params: { projectId: this.state.id, linkId: linkId }
+        }).then(res => {
+            this.getProject();
+        });
+    }
+
     getProject(){
         axios({
             method: 'GET',
@@ -80,7 +92,6 @@ export class ProjectPageContainer extends Component{
         }).then(
             res => {
                 const project = res.data;
-                console.log(project);
                 this.setState({project: project});
             }
         )
@@ -98,7 +109,8 @@ export class ProjectPageContainer extends Component{
                 handleTaskTextChange={this.handleTaskTextChange}
                 handleTaskSubmit={this.handleTaskSubmit}
 
-                OnDeleteTaskClick={this.OnDeleteTaskClick.bind(this)}
+                OnDeleteTaskClick={this.OnDeleteTaskClick}
+                OnDeleteLinkClick={this.OnDeleteLinkClick}
                 taskText={this.state.taskText}
                 linkName={this.state.linkName}
                 linkUrl={this.state.linkUrl}

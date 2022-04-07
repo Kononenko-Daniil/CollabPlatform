@@ -20,9 +20,14 @@
     width: auto;
     margin-top: 10px;
 }
+.div-row{
+    display: inline-block;
+}
 .linkElement{
     margin-right: 10px;
-    margin-top: 10px
+    margin-top: 10px;
+    border-color: rgb(36, 36, 36);
+    border-width: 1px;
 }
 .addForm{
     background-color: #f0f0f0;
@@ -34,4 +39,8 @@
     margin-right:5px;
     margin-top:5px;
     margin-bottom:5px;
+}
+.loadingSpinner{
+    width: 40px;
+    height:40px;
 }
