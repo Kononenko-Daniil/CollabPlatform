@@ -1,52 +1,21 @@
 import React from "react";
 
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const ProjectLinksComponent = (props) => {
     const {project, 
-        handleLinkNameChange, 
-        handleLinkUrlChange, 
-        handleLinkSubmit, 
         OnDeleteLinkClick, 
-        linkName, 
-        linkUrl, 
-        handleShowLinkInfoModal} = props;
+        handleShowLinkInfoModal, 
+        handleShowAddLinkModal} = props;
 
     return(
         <div>
             {
                 project.links !== undefined ?
                     <div>
-                        <form onSubmit={handleLinkSubmit}>
-                            <div className={"row addForm"}>
-                                <div className="col">
-                                    <Form.Control
-                                        placeholder='Link name'
-                                        className="inFormElements"
-                                        type="input"
-                                        value={linkName}
-                                        id="inputLinlkName"
-                                        onChange={handleLinkNameChange}
-                                    />
-                                </div>
-                                <div className="col">
-                                    <Form.Control
-                                        placeholder='URL'
-                                        className="inFormElements"
-                                        type="input"
-                                        value={linkUrl}
-                                        id="inputLinkURL"
-                                        onChange={handleLinkUrlChange}
-                                    />
-                                </div>
-                                <div className="col-lg-1">
-                                    <Button variant='success' type="submit" className="inFormElements">Add</Button>
-                                </div>
-                            </div>
-                        </form>
+                        <Button variant={"outline-success"} onClick={handleShowAddLinkModal}>Add links</Button>
                         {
                             project.links.length !== 0 ?
                                 <div>
