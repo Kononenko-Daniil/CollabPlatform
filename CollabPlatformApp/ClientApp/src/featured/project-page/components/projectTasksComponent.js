@@ -1,44 +1,20 @@
 import React from "react";
 
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 
 const ProjectTasksComponent = (props) => {
     const {project, 
-        handleTaskTextChange, 
-        handleTaskSubmit, 
         OnDeleteTaskClick, 
-        taskText} = props;
+        handleShowAddTaskModal } = props;
 
     return(
         <div>
             {
                 project.tasks !== undefined ?
                     <div>
-                        
-                        <form onSubmit={handleTaskSubmit}>
-                            <div className={"row addForm"} style={{margin: 'auto'}}>
-                                <div className="col">
-                                    <Form.Control
-                                        placeholder='Task'
-                                        value={taskText}
-                                        className="inFormElements"
-                                        type="input"
-                                        id="inputTaskText"
-                                        onChange={handleTaskTextChange}
-                                    />
-                                </div>
-                                <div className="col-lg-1">
-                                    <Button 
-                                        variant='success' 
-                                        type="submit" 
-                                        className="inFormElements"
-                                        style={{width: "fit-content"}}>Add</Button>
-                                </div>
-                            </div>
-                        </form>
+                        <Button variant={"outline-success"} onClick={handleShowAddTaskModal}>Add tasks</Button>
                         {
                             project.tasks.length !== 0 ?
                             <div>
