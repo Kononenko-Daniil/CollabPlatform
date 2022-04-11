@@ -11,8 +11,11 @@ builder.Services.AddSwaggerGen();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connection));
 builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.Configure<ProjectsDatabaseSettings>(
-    builder.Configuration.GetSection("ProjectsDatabase"));
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<ILinkService, LinkService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.Configure<CollabPlatformDatabaseSettings>(
+    builder.Configuration.GetSection("CollabPlatformDatabase"));
 
 builder.Services.AddCors(p => p.AddPolicy(AllowOrigins, builder =>
 {

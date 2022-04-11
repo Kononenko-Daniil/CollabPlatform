@@ -20,10 +20,13 @@ export class CreatePageContainer extends Component{
     }
 
     handleProjectSubmit(event) {
+        const project = {
+            name: this.state.projectName
+        }
         axios({
             method: 'POST',
             url: 'https://localhost:7040/create-project',
-            params: { projectName: this.state.projectName }
+            data: project
         }).then(res=>{
             const projectId = res.data;
             window.location.href = 'https://localhost:44413/projects/'+projectId;
