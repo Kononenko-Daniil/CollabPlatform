@@ -80,7 +80,6 @@ namespace CollabPlatformApp.Controllers
             };
             _projectService.CreateLink(projectId, link);
         }
-
         [HttpDelete("/delete-project")]
         public void DeleteProject(string projectId)
         {
