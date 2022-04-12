@@ -1,4 +1,5 @@
-﻿using CollabPlatformApp.Models;
+﻿using CollabPlatformApp.Dtos;
+using CollabPlatformApp.Models;
 
 namespace CollabPlatformApp.Services
 {
@@ -6,6 +7,6 @@ namespace CollabPlatformApp.Services
     {
         public IEnumerable<User> GetUsers();
 
-        public void CreateUser(User user);
+        public void CreateUser(UserDto user);
     }
 }

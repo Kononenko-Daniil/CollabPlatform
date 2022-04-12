@@ -1,4 +1,5 @@
-﻿using CollabPlatformApp.Models;
+﻿using CollabPlatformApp.Dtos;
+using CollabPlatformApp.Models;
 using CollabPlatformApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,14 +15,14 @@ namespace CollabPlatformApp.Controllers
             _userService = userService;
         }
 
-        [HttpGet("/get-users")]
+        [HttpGet("get-users")]
         public IEnumerable<User> GetUsers()
         {
             return _userService.GetUsers();
         }
 
-        [HttpPost("/create-user")]
-        public void CreteUser(User user)
+        [HttpPost("create-user")]
+        public void CreteUser(UserDto user)
         {
             _userService.CreateUser(user);
         }

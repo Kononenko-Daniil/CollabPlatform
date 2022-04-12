@@ -1,4 +1,5 @@
 ﻿using CollabPlatformApp.Database;
+using CollabPlatformApp.Dtos;
 using CollabPlatformApp.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -23,12 +24,18 @@ namespace CollabPlatformApp.Services
             return result;
         }
 
-        public void CreateUser(User user)
+        public void CreateUser(UserDto user)
         {
             string userId = GenerateKey();
-            user.Id = userId;
-            user.Projects.Clear();
-            _usersCollection.InsertOne(user);
+            User result = new User()
+            {
+                Id = userId,
+                Name = user.Username,
+                Email = user.Email,
+                Password = user.Password,
+                Projects = new List<string>()
+            };
+            _usersCollection.InsertOne(result);
         }
 
         public string GenerateKey()
