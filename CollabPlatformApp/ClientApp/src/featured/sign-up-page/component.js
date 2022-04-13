@@ -11,13 +11,17 @@ const SignUpPageComponent = (props) => {
         handleUserSubmit, 
         userName, 
         email, 
-        password} = props;
+        password, 
+        errorUsernameMessage, 
+        errorEmailMessage, 
+        errorPasswordMessage} = props;
 
     return(
         <Container>
             <h1 className='pageName'>Sign up</h1>
-
+            
             <Form onSubmit={handleUserSubmit}>
+                <p className="errorFormText">{errorUsernameMessage}</p>
                 <Form.Control
                     style={{width: "30% "}} 
                     placeholder='Username'
@@ -27,6 +31,7 @@ const SignUpPageComponent = (props) => {
                     type="input"
                     id="inputUsername"
                 />
+                <p className="errorFormText">{errorEmailMessage}</p>
                 <Form.Control
                     style={{width: "30% "}} 
                     placeholder='Email'
@@ -36,6 +41,7 @@ const SignUpPageComponent = (props) => {
                     type="input"
                     id="inputEmail"
                 />
+                <p className="errorFormText">{errorPasswordMessage}</p>
                 <Form.Control
                     style={{width: "30% "}} 
                     placeholder='Password'

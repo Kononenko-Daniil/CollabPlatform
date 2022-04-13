@@ -2,6 +2,8 @@ using CollabPlatformApp.Contexts;
 using CollabPlatformApp.Database;
 using CollabPlatformApp.Services;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using CollabPlatformApp.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 var AllowOrigins = "_allowOrigins";
@@ -10,6 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connection));
+builder.Services.AddScoped<UserValidator>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ILinkService, LinkService>();

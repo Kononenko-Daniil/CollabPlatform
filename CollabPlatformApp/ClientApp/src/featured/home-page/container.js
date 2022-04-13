@@ -23,7 +23,7 @@ export class HomePageContainer extends Component {
           "Access-Control-Allow-Origin": "*"
         }
       };
-      axios.get("https://localhost:7040/get-projects", config)
+      axios.get("https://localhost:7040/projects/get-projects", config)
         .then(res => {
             const projects = res.data;
             this.setState({projects});
@@ -33,7 +33,7 @@ export class HomePageContainer extends Component {
   OnDeleteProjectClick = (projectId) => {
     axios({
         method: 'DELETE',
-        url: 'https://localhost:7040/delete-project',
+        url: 'https://localhost:7040/projects/delete-project',
         params: { projectId: projectId }
     }).then(res => {
       this.getProjects();
