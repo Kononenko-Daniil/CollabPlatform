@@ -13,6 +13,7 @@ export class NavbarComponent extends Component{
                         <Nav className="me-auto">
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/create-project">Create project</Nav.Link>
+                            <Nav.Link href="/sign-up">Sign up</Nav.Link>
                         </Nav>
                     </Container>
                 </Navbar>

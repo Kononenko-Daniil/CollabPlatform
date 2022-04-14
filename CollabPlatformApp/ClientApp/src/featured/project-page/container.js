@@ -29,10 +29,14 @@ export class ProjectPageContainer extends Component{
     }
 
     handleTaskSubmit(event) {
+        const task = {
+            projectId: this.state.id,
+            text: this.state.taskText
+        };
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/create-task',
-            params: { projectId: this.state.id, taskText: this.state.taskText }
+            url: 'https://localhost:7040/tasks/create-task',
+            data: task
         }).then(res=>{
             this.getProject();
         });
@@ -49,10 +53,15 @@ export class ProjectPageContainer extends Component{
     }
 
     handleLinkSubmit(event) {
+        const link = {
+            ProjectId: this.state.id,
+            Name: this.state.linkName,
+            Url: this.state.linkUrl
+        }
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/create-link',
-            params: { projectId: this.state.id, linkName: this.state.linkName, linkUrl: this.state.linkUrl }
+            url: 'https://localhost:7040/links/create-link',
+            data: link
         }).then(res=>{
             this.getProject();
         });
@@ -67,7 +76,7 @@ export class ProjectPageContainer extends Component{
     OnDeleteTaskClick = (taskId) => {
         axios({
             method: 'DELETE',
-            url: 'https://localhost:7040/delete-task',
+            url: 'https://localhost:7040/tasks/delete-task',
             params: { projectId: this.state.id, taskId: taskId }
         }).then(res=>{
             this.getProject();
@@ -77,7 +86,7 @@ export class ProjectPageContainer extends Component{
     OnDeleteLinkClick = (linkId) => {
         axios({
             method: 'DELETE',
-            url: 'https://localhost:7040/delete-link',
+            url: 'https://localhost:7040/links/delete-link',
             params: { projectId: this.state.id, linkId: linkId }
         }).then(res => {
             this.getProject();
@@ -87,7 +96,7 @@ export class ProjectPageContainer extends Component{
     getProject(){
         axios({
             method: 'GET',
-            url: 'https://localhost:7040/get-project-by-id',
+            url: 'https://localhost:7040/projects/get-project-by-id',
             params: { projectId: this.state.id }
         }).then(
             res => {
