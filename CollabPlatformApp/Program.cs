@@ -11,6 +11,7 @@ var AllowOrigins = "_allowOrigins";
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connection));
 builder.Services.AddScoped<UserValidator>();
 builder.Services.AddScoped<IProjectService, ProjectService>();

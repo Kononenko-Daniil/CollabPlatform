@@ -40,8 +40,17 @@ namespace CollabPlatformApp.Controllers
 
                 return BadRequest(error);
             }
+            if (!_userService.CheckDoubleEmail(user.Email))
+            {
+                UserSignUpError error = new UserSignUpError()
+                {
+                    ErrorType = "Email",
+                    ErrorMessage = Constants.DoubleEmailMessage
+                };
+                return BadRequest(error);
+            }
             _userService.CreateUser(user);
-
+            
             return Ok();
         }
     }

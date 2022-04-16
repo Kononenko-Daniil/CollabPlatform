@@ -9,8 +9,12 @@ namespace CollabPlatformApp.Services
     public class UserService : IUserService
     {
         private readonly IMongoCollection<User> _usersCollection;
-        public UserService(IOptions<CollabPlatformDatabaseSettings> collabPlatformDatabaseSettings)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public UserService(IOptions<CollabPlatformDatabaseSettings> collabPlatformDatabaseSettings, 
+            IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             var mongoClient = new MongoClient(collabPlatformDatabaseSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(collabPlatformDatabaseSettings.Value.DatabaseName);
             _usersCollection = mongoDatabase.GetCollection<User>(
@@ -36,6 +40,15 @@ namespace CollabPlatformApp.Services
                 Projects = new List<string>()
             };
             _usersCollection.InsertOne(result);
+            
+        }
+
+        public bool CheckDoubleEmail(string email)
+        {
+            User result = _usersCollection.Find(_ => true).ToList().FirstOrDefault(x => x.Email == email);
+            if(result != null)
+                return false;
+            return true;
         }
 
         public string GenerateKey()
