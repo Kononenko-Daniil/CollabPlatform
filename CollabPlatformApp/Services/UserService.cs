@@ -28,7 +28,14 @@ namespace CollabPlatformApp.Services
             return result;
         }
 
-        public void CreateUser(UserDto user)
+        public User GetUserById(string userId)
+        {
+            var result = GetUsers().FirstOrDefault(x => x.Id == userId);
+
+            return result;
+        }
+
+        public void CreateUser(UserSignUpDto user)
         {
             string userId = GenerateKey();
             User result = new User()
@@ -43,12 +50,33 @@ namespace CollabPlatformApp.Services
             
         }
 
-        public bool CheckDoubleEmail(string email)
+        public void SignIn(UserSignInDto user)
         {
-            User result = _usersCollection.Find(_ => true).ToList().FirstOrDefault(x => x.Email == email);
+            var userId = GetUsers().FirstOrDefault(x => x.Email == user.Email).Id;
+
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("userId", userId);
+        }
+
+        public bool EmailIsExisting(string email)
+        {
+            User result = GetUsers().FirstOrDefault(x => x.Email == email);
             if(result != null)
+                return true;
+            return false;
+        }
+
+        public bool AccountIsExisting(string email, string password)
+        {
+            if (EmailIsExisting(email))
+            {
+                User user = _usersCollection.Find(_ => true).ToList().FirstOrDefault(x => x.Email == email);
+                if(user.Password == password)
+                {
+                    return true;
+                }
                 return false;
-            return true;
+            }
+            return false;
         }
 
         public string GenerateKey()

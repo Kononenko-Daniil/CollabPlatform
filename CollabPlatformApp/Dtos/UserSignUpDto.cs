@@ -1,6 +1,6 @@
 ﻿namespace CollabPlatformApp.Dtos
 {
-    public class UserDto
+    public class UserSignUpDto
     {
         public string Username { get; set; }
         public string Email { get; set; }

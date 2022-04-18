@@ -11,6 +11,8 @@
         public const string EmptyPasswordMessage = "Enter password";
         public const string PasswordInvalidLengthMessage = "Password must contain from 5 to 20 symbols";
 
+        public const string SignInErrorMessage = "There is no such account";
+
         public const int MinUsernameLength = 4;
         public const int MaxUsernameLength = 20;
         public const int MinPasswordLength = 5;
