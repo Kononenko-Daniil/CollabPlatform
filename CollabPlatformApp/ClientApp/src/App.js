@@ -5,6 +5,7 @@ import { HomePageContainer } from './featured/home-page/container';
 import { ProjectPageContainer } from './featured/project-page/container';
 import { CreatePageContainer } from './featured/create-project-page/container';
 import { SignUpPageContainer } from './featured/sign-up-page/container';
+import { SignInPageContainer } from './featured/sign-in-page/container';
 import './webStyle.css'
 
 export default class App extends Component {
@@ -17,6 +18,7 @@ export default class App extends Component {
         <Route exact path='/projects/:id' component={ProjectPageContainer} />
         <Route exact path='/create-project' component={CreatePageContainer} />
         <Route exact path='/sign-up' component={SignUpPageContainer} />
+        <Route exact path='/sign-in' component={SignInPageContainer} />
       </Layout>
     );
   }

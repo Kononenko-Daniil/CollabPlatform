@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CollabPlatformApp.Validators
 {
-    public class UserValidator : AbstractValidator<UserDto>
+    public class UserValidator : AbstractValidator<UserSignUpDto>
     {
         public UserValidator()
         {

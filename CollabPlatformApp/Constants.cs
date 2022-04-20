@@ -6,9 +6,12 @@
         public const string UsernameInvalidLengthMessage = "Username must contain from 4 to 20 symbols";
 
         public const string EmptyEmailMessage = "Enter your email address";
+        public const string DoubleEmailMessage = "This email is already used";
 
         public const string EmptyPasswordMessage = "Enter password";
         public const string PasswordInvalidLengthMessage = "Password must contain from 5 to 20 symbols";
+
+        public const string SignInErrorMessage = "There is no such account";
 
         public const int MinUsernameLength = 4;
         public const int MaxUsernameLength = 20;

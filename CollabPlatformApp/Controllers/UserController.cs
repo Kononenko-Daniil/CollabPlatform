@@ -26,13 +26,19 @@ namespace CollabPlatformApp.Controllers
             return _userService.GetUsers();
         }
 
+        [HttpGet("get-user-by-id")]
+        public User GetUserById(string userId)
+        {
+            return _userService.GetUserById(userId);
+        }
+
         [HttpPost("create-user")]
-        public ActionResult<UserSignUpError> CreteUser(UserDto user)
+        public ActionResult<UserError> CreteUser(UserSignUpDto user)
         {
             var userValidationResult = _userValidator.Validate(user);
             if (!userValidationResult.IsValid)
             {
-                UserSignUpError error = new UserSignUpError()
+                UserError error = new UserError()
                 {
                     ErrorType = userValidationResult.Errors.First().PropertyName,
                     ErrorMessage = userValidationResult.Errors.First().ErrorMessage
@@ -40,8 +46,33 @@ namespace CollabPlatformApp.Controllers
 
                 return BadRequest(error);
             }
+            if (_userService.EmailIsExisting(user.Email))
+            {
+                UserError error = new UserError()
+                {
+                    ErrorType = "Email",
+                    ErrorMessage = Constants.DoubleEmailMessage
+                };
+                return BadRequest(error);
+            }
             _userService.CreateUser(user);
+            
+            return Ok();
+        }
 
+        [HttpPost("sign-in")]
+        public ActionResult<UserError> SignIn(UserSignInDto user)
+        {
+            if (!_userService.AccountIsExisting(user.Email, user.Password)) 
+            {
+                UserError error = new UserError()
+                {
+                    ErrorType = "SignIn",
+                    ErrorMessage = Constants.SignInErrorMessage
+                };
+                return BadRequest(error);
+            }
+            _userService.SignIn(user);
             return Ok();
         }
     }

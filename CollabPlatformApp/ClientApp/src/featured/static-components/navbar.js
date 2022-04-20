@@ -14,6 +14,7 @@ export class NavbarComponent extends Component{
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/create-project">Create project</Nav.Link>
                             <Nav.Link href="/sign-up">Sign up</Nav.Link>
+                            <Nav.Link href="/sign-in">Sign in</Nav.Link>
                         </Nav>
                     </Container>
                 </Navbar>
