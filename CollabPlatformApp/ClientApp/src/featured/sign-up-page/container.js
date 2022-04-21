@@ -52,7 +52,7 @@ export class SignUpPageContainer extends Component{
             url: 'https://localhost:7040/users/create-user',
             data: user
         }).then(res => {
-            window.location.href = 'https://localhost:44413/';
+            window.location.href = 'https://localhost:44413/sign-in';
         }).catch(this.errorCatcher);
 
         event.preventDefault();

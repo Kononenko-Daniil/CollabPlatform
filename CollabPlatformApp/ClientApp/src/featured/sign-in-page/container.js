@@ -41,7 +41,7 @@ export class SignInPageContainer extends Component{
             url: 'https://localhost:7040/users/sign-in',
             data: user
         }).then(res => {
-            window.location.href = 'https://localhost:44413/';
+            //window.location.href = 'https://localhost:44413/';
         }).catch(this.errorCatcher);
 
         event.preventDefault();
