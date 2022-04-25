@@ -2,6 +2,7 @@ using CollabPlatformApp.Contexts;
 using CollabPlatformApp.Database;
 using CollabPlatformApp.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using FluentValidation.AspNetCore;
 using CollabPlatformApp.Validators;
 
@@ -23,8 +24,15 @@ builder.Services.Configure<CollabPlatformDatabaseSettings>(
 
 builder.Services.AddCors(p => p.AddPolicy(AllowOrigins, builder =>
 {
-    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+    builder.WithOrigins("https://localhost:44413").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
 }));
+string loginPath = "/users/sign-in";
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = new Microsoft.AspNetCore.Http.PathString(loginPath);
+    });
+
 var app = builder.Build();
 
 
@@ -39,7 +47,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
