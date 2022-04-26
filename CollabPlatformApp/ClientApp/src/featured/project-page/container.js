@@ -36,7 +36,8 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'POST',
             url: 'https://localhost:7040/tasks/create-task',
-            data: task
+            data: task,
+            withCredentials: true
         }).then(res=>{
             this.getProject();
         });
@@ -61,7 +62,8 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'POST',
             url: 'https://localhost:7040/links/create-link',
-            data: link
+            data: link,
+            withCredentials: true
         }).then(res=>{
             this.getProject();
         });
@@ -77,6 +79,7 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'DELETE',
             url: 'https://localhost:7040/tasks/delete-task',
+            withCredentials: true,
             params: { projectId: this.state.id, taskId: taskId }
         }).then(res=>{
             this.getProject();
@@ -87,6 +90,7 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'DELETE',
             url: 'https://localhost:7040/links/delete-link',
+            withCredentials: true,
             params: { projectId: this.state.id, linkId: linkId }
         }).then(res => {
             this.getProject();
