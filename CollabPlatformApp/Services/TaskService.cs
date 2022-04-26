@@ -1,6 +1,7 @@
 ﻿using CollabPlatformApp.Database;
 using CollabPlatformApp.Dtos;
 using CollabPlatformApp.Models;
+using CollabPlatformApp.Repositories;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -8,19 +9,16 @@ namespace CollabPlatformApp.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly IMongoCollection<Project> _projectsCollection;
+        private readonly ITaskRepository _taskRepository;
 
-        public TaskService(IOptions<CollabPlatformDatabaseSettings> collabPlatformDatabaseSettings)
+        public TaskService(ITaskRepository taskRepository)
         {
-            var mongoClient = new MongoClient(collabPlatformDatabaseSettings.Value.ConnectionString);
-            var mongoDatabase = mongoClient.GetDatabase(collabPlatformDatabaseSettings.Value.DatabaseName);
-            _projectsCollection = mongoDatabase.GetCollection<Project>(
-                collabPlatformDatabaseSettings.Value.ProjectsCollectionName);
+            _taskRepository = taskRepository;
         }
 
         public IEnumerable<Models.Task> GetProjectTasks(string projectId)
         {
-            Project project = GetProjectById(projectId);
+            Project project = _taskRepository.GetProjectById(projectId);
             List<Models.Task> tasks = project.Tasks;
 
             return tasks;
@@ -36,25 +34,19 @@ namespace CollabPlatformApp.Services
                 ProjectId = projectId,
                 Text = task.Text,
             };
-            Project project = GetProjectById(projectId);
+
+            Project project = _taskRepository.GetProjectById(projectId);
             project.Tasks.Add(result);
-            _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
+            _taskRepository.CreateTask(projectId, project);
         }
 
         public void DeleteTask(string projectId, string taskId)
         {
-            Project project = GetProjectById(projectId);
+            Project project = _taskRepository.GetProjectById(projectId);
             Models.Task taskToRemove = project.Tasks.FirstOrDefault(x => x.Id == taskId);
             project.Tasks.Remove(taskToRemove);
-            _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
-        }
 
-        public Project GetProjectById(string projectId)
-        {
-            var projects = _projectsCollection.Find(_ => true).ToList();
-            Project result = projects.FirstOrDefault(x => x.Id == projectId);
-
-            return result;
+            _taskRepository.DeleteTask(projectId, project);
         }
 
         public string GenerateKey()
