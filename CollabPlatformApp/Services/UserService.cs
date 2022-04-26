@@ -5,34 +5,29 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using CollabPlatformApp.Repositories;
 
 namespace CollabPlatformApp.Services
 {
     public class UserService : IUserService
     {
-        private readonly IMongoCollection<User> _usersCollection;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IOptions<CollabPlatformDatabaseSettings> collabPlatformDatabaseSettings, 
-            IHttpContextAccessor httpContextAccessor)
+        public UserService(IUserRepository userRepository)
         {
-            _httpContextAccessor = httpContextAccessor;
-            var mongoClient = new MongoClient(collabPlatformDatabaseSettings.Value.ConnectionString);
-            var mongoDatabase = mongoClient.GetDatabase(collabPlatformDatabaseSettings.Value.DatabaseName);
-            _usersCollection = mongoDatabase.GetCollection<User>(
-                collabPlatformDatabaseSettings.Value.UsersCollectionName);
+            _userRepository = userRepository;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            var result = _usersCollection.Find(_ => true).ToList();
+            var result = _userRepository.GetUsers();
 
             return result;
         }
 
         public User GetUserById(string userId)
         {
-            var result = GetUsers().FirstOrDefault(x => x.Id == userId);
+            var result = _userRepository.GetUserById(userId);
 
             return result;
         }
@@ -48,21 +43,24 @@ namespace CollabPlatformApp.Services
                 Password = user.Password,
                 Projects = new List<string>()
             };
-            _usersCollection.InsertOne(result);
+
+            _userRepository.CreateUser(result);
         }
 
         public string SignIn(UserSignInDto user)
         {
-            var userId = GetUsers().FirstOrDefault(x => x.Email == user.Email).Id;
+            var _user = _userRepository.GetUserByEmail(user.Email);
+            var userId = _user.Id;
 
             return userId;
         }
 
         public bool EmailIsExisting(string email)
         {
-            User result = GetUsers().FirstOrDefault(x => x.Email == email);
+            User result = _userRepository.GetUserByEmail(email);
             if(result != null)
                 return true;
+
             return false;
         }
 
@@ -70,13 +68,15 @@ namespace CollabPlatformApp.Services
         {
             if (EmailIsExisting(email))
             {
-                User user = _usersCollection.Find(_ => true).ToList().FirstOrDefault(x => x.Email == email);
+                User user = _userRepository.GetUserByEmail(email);
                 if(user.Password == password)
                 {
                     return true;
                 }
+
                 return false;
             }
+
             return false;
         }
 
