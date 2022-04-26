@@ -1,6 +1,7 @@
 ﻿using CollabPlatformApp.Dtos;
 using CollabPlatformApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CollabPlatformApp.Controllers
 {
@@ -8,13 +9,14 @@ namespace CollabPlatformApp.Controllers
     [Route("/tasks")]
     public class TaskController : ControllerBase
     {
-        ITaskService _taskService;
+        private readonly ITaskService _taskService;
 
         public TaskController(ITaskService taskService)
         {
             _taskService = taskService;
         }
 
+        [Authorize]
         [HttpGet("get-project-tasks")]
         public IEnumerable<Models.Task> GetProjectTasks(string projectId)
         {
@@ -23,12 +25,14 @@ namespace CollabPlatformApp.Controllers
             return result;
         }
 
+        [Authorize]
         [HttpPost("create-task")]
         public void CreateTask(TaskDto task)
         {
             _taskService.CreateTask(task);
         }
 
+        [Authorize]
         [HttpDelete("delete-task")]
         public void DeleteTask(string projectId, string taskId)
         {

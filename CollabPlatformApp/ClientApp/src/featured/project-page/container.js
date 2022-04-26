@@ -5,6 +5,7 @@ import axios from 'axios';
 export class ProjectPageContainer extends Component{
     constructor(props){
         super(props);
+        
         this.state={
             id: this.props.match.params.id,
             project: {},
@@ -36,7 +37,8 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'POST',
             url: 'https://localhost:7040/tasks/create-task',
-            data: task
+            data: task,
+            withCredentials: true
         }).then(res=>{
             this.getProject();
         });
@@ -58,13 +60,16 @@ export class ProjectPageContainer extends Component{
             Name: this.state.linkName,
             Url: this.state.linkUrl
         }
+
         axios({
             method: 'POST',
             url: 'https://localhost:7040/links/create-link',
-            data: link
+            data: link,
+            withCredentials: true
         }).then(res=>{
             this.getProject();
         });
+
         this.setState({linkName: "", linkUrl: ""})
         event.preventDefault();
     }
@@ -77,6 +82,7 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'DELETE',
             url: 'https://localhost:7040/tasks/delete-task',
+            withCredentials: true,
             params: { projectId: this.state.id, taskId: taskId }
         }).then(res=>{
             this.getProject();
@@ -87,6 +93,7 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'DELETE',
             url: 'https://localhost:7040/links/delete-link',
+            withCredentials: true,
             params: { projectId: this.state.id, linkId: linkId }
         }).then(res => {
             this.getProject();

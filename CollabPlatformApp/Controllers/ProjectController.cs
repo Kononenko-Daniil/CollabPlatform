@@ -8,9 +8,9 @@ namespace CollabPlatformApp.Controllers
 {
     [ApiController]
     [Route("/projects")]
-    public class ProjectController : ControllerBase
+    public class ProjectController : BaseController
     {
-        IProjectService _projectService;
+        private readonly IProjectService _projectService;
         
         public ProjectController(IProjectService projectService) 
         {
@@ -21,28 +21,34 @@ namespace CollabPlatformApp.Controllers
         [HttpGet("get-projects")]
         public IEnumerable<Project> GetProjects()
         {
-            var userId = User.Identity.Name;
-            return _projectService.GetProjects(userId);
+            var userId = GetUserId();
+
+            var result = _projectService.GetProjects(userId);
+
+            return result;
         }
 
         [Authorize]
         [HttpGet("get-project-by-id")]
         public ActionResult<Project> GetProjectById(string projectId)
         {
-            string userId = User.Identity.Name;
-            var project = _projectService.GetProjectById(projectId, userId);
-            if(project == null)
+            var userId = GetUserId();
+
+            var result = _projectService.GetProjectById(projectId, userId);
+            if(result == null)
             {
                 return BadRequest();
             }
-            return project;
+
+            return result;
         }
 
         [Authorize]
         [HttpPost("create-project")]
         public string CreateProject([FromBody] ProjectDto project)
         {
-            string userId = User.Identity.Name;
+            var userId = GetUserId();
+
             var result = _projectService.CreateProject(project, userId);
 
             return result;
@@ -52,7 +58,8 @@ namespace CollabPlatformApp.Controllers
         [HttpDelete("delete-project")]
         public void DeleteProject(string projectId)
         {
-            string userId = User.Identity.Name;
+            var userId = GetUserId();
+
             _projectService.DeleteProject(projectId, userId);
         }
     }

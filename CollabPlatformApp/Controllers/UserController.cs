@@ -15,9 +15,11 @@ namespace CollabPlatformApp.Controllers
     [Route("/users")]
     public class UserController : ControllerBase
     {
-        IUserService _userService;
-        UserValidator _userValidator;
-        public UserController(IUserService userService, UserValidator userValidator)
+        private readonly IUserService _userService;
+        private readonly UserValidator _userValidator;
+
+        public UserController(IUserService userService, 
+            UserValidator userValidator)
         {
             _userService = userService;
             _userValidator = userValidator;
@@ -26,19 +28,24 @@ namespace CollabPlatformApp.Controllers
         [HttpGet("get-users")]
         public IEnumerable<User> GetUsers()
         {
-            return _userService.GetUsers();
+            var result = _userService.GetUsers();
+
+            return result;
         }
 
         [HttpGet("get-user-by-id")]
         public User GetUserById(string userId)
         {
-            return _userService.GetUserById(userId);
+            var result = _userService.GetUserById(userId);
+
+            return result;
         }
 
         [HttpPost("create-user")]
         public ActionResult<UserError> CreteUser(UserSignUpDto user)
         {
             var userValidationResult = _userValidator.Validate(user);
+
             if (!userValidationResult.IsValid)
             {
                 UserError error = new UserError()
@@ -56,6 +63,7 @@ namespace CollabPlatformApp.Controllers
                     ErrorType = "Email",
                     ErrorMessage = Constants.DoubleEmailMessage
                 };
+
                 return BadRequest(error);
             }
             _userService.CreateUser(user);
@@ -73,10 +81,12 @@ namespace CollabPlatformApp.Controllers
                     ErrorType = "SignIn",
                     ErrorMessage = Constants.SignInErrorMessage
                 };
+
                 return BadRequest(error);
             }
             var userId = _userService.SignIn(user);
             Authenticate(userId);
+
             return Ok();
         }
 
@@ -92,8 +102,13 @@ namespace CollabPlatformApp.Controllers
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, userId)
             };
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            ClaimsIdentity id = new ClaimsIdentity(claims, 
+                "ApplicationCookie", 
+                ClaimsIdentity.DefaultNameClaimType, 
+                ClaimsIdentity.DefaultRoleClaimType);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
+                new ClaimsPrincipal(id));
         }
     }
 }

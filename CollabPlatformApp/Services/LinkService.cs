@@ -1,6 +1,7 @@
 ﻿using CollabPlatformApp.Database;
 using CollabPlatformApp.Dtos;
 using CollabPlatformApp.Models;
+using CollabPlatformApp.Repositories;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -8,18 +9,15 @@ namespace CollabPlatformApp.Services
 {
     public class LinkService : ILinkService
     {
-        private readonly IMongoCollection<Project> _projectsCollection;
-        public LinkService(IOptions<CollabPlatformDatabaseSettings> collabPlatformDatabaseSettings)
+        private readonly ILinkRepository _linkRepository;
+        public LinkService(ILinkRepository linkRepository)
         {
-            var mongoClient = new MongoClient(collabPlatformDatabaseSettings.Value.ConnectionString);
-            var mongoDatabase = mongoClient.GetDatabase(collabPlatformDatabaseSettings.Value.DatabaseName);
-            _projectsCollection = mongoDatabase.GetCollection<Project>(
-                collabPlatformDatabaseSettings.Value.ProjectsCollectionName);
+            _linkRepository = linkRepository;
         }
 
         public IEnumerable<Link> GetProjectLinks(string projectId)
         {
-            Project project = GetProjectById(projectId);
+            Project project = _linkRepository.GetProjectById(projectId);
             List<Link> links = project.Links;
 
             return links;
@@ -36,25 +34,17 @@ namespace CollabPlatformApp.Services
                 Name = link.Name,
                 Url = link.Url
             };
-            Project project = GetProjectById(projectId);
+            Project project = _linkRepository.GetProjectById(projectId);
             project.Links.Add(result);
-            _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
+            _linkRepository.CreateLink(projectId, project);
         }
 
         public void DeleteLink(string projectId, string linkId)
         {
-            Project project = GetProjectById(projectId);
+            Project project = _linkRepository.GetProjectById(projectId);
             Link linkToRemove = project.Links.FirstOrDefault(x => x.Id == linkId);
             project.Links.Remove(linkToRemove);
-            _projectsCollection.ReplaceOne(x => x.Id == projectId, project);
-        }
-
-        public Project GetProjectById(string projectId)
-        {
-            var projects = _projectsCollection.Find(_ => true).ToList();
-            Project result = projects.FirstOrDefault(x => x.Id == projectId);
-
-            return result;
+            _linkRepository.DeleteLink(projectId, project);
         }
 
         public string GenerateKey()
