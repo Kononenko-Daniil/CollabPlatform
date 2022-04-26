@@ -80,6 +80,12 @@ namespace CollabPlatformApp.Controllers
             return Ok();
         }
 
+        [HttpPost("log-out")]
+        public async void LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+
         private async void Authenticate(string userId)
         {
             var claims = new List<Claim>

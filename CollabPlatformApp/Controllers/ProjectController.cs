@@ -21,17 +21,21 @@ namespace CollabPlatformApp.Controllers
         [HttpGet("get-projects")]
         public IEnumerable<Project> GetProjects()
         {
-            //var userId = HttpContext.Request.Cookies["userId"];
             var userId = User.Identity.Name;
             return _projectService.GetProjects(userId);
         }
 
         [Authorize]
         [HttpGet("get-project-by-id")]
-        public Project GetProjectById(string projectId)
+        public ActionResult<Project> GetProjectById(string projectId)
         {
             string userId = User.Identity.Name;
-            return _projectService.GetProjectById(projectId, userId);
+            var project = _projectService.GetProjectById(projectId, userId);
+            if(project == null)
+            {
+                return BadRequest();
+            }
+            return project;
         }
 
         [Authorize]
