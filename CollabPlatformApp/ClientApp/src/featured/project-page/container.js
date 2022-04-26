@@ -5,6 +5,7 @@ import axios from 'axios';
 export class ProjectPageContainer extends Component{
     constructor(props){
         super(props);
+        
         this.state={
             id: this.props.match.params.id,
             project: {},
@@ -59,6 +60,7 @@ export class ProjectPageContainer extends Component{
             Name: this.state.linkName,
             Url: this.state.linkUrl
         }
+
         axios({
             method: 'POST',
             url: 'https://localhost:7040/links/create-link',
@@ -67,6 +69,7 @@ export class ProjectPageContainer extends Component{
         }).then(res=>{
             this.getProject();
         });
+
         this.setState({linkName: "", linkUrl: ""})
         event.preventDefault();
     }

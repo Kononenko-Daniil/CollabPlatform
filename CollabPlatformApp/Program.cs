@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using FluentValidation.AspNetCore;
 using CollabPlatformApp.Validators;
+using CollabPlatformApp.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var AllowOrigins = "_allowOrigins";
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.Configure<CollabPlatformDatabaseSettings>(
     builder.Configuration.GetSection("CollabPlatformDatabase"));
 

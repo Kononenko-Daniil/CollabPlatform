@@ -9,6 +9,7 @@ namespace CollabPlatformApp.Services
     public class TaskService : ITaskService
     {
         private readonly IMongoCollection<Project> _projectsCollection;
+
         public TaskService(IOptions<CollabPlatformDatabaseSettings> collabPlatformDatabaseSettings)
         {
             var mongoClient = new MongoClient(collabPlatformDatabaseSettings.Value.ConnectionString);

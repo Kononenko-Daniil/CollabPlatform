@@ -9,7 +9,7 @@ namespace CollabPlatformApp.Controllers
     [Route("/tasks")]
     public class TaskController : ControllerBase
     {
-        ITaskService _taskService;
+        private readonly ITaskService _taskService;
 
         public TaskController(ITaskService taskService)
         {

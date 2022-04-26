@@ -10,7 +10,8 @@ namespace CollabPlatformApp.Controllers
     [Route("/links")]
     public class LinkController : ControllerBase
     {
-        ILinkService _linkService;
+        private readonly ILinkService _linkService;
+
         public LinkController(ILinkService linkService)
         {
             _linkService = linkService;
