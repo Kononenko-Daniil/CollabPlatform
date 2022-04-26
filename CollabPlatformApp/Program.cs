@@ -22,6 +22,7 @@ builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ILinkRepository, LinkRepository>();
 builder.Services.Configure<CollabPlatformDatabaseSettings>(
     builder.Configuration.GetSection("CollabPlatformDatabase"));
 
