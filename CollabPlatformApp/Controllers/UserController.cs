@@ -5,6 +5,9 @@ using CollabPlatformApp.Validators;
 using CollabPlatformApp.RequestErrors;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace CollabPlatformApp.Controllers
 {
@@ -72,8 +75,25 @@ namespace CollabPlatformApp.Controllers
                 };
                 return BadRequest(error);
             }
-            _userService.SignIn(user);
+            var userId = _userService.SignIn(user);
+            Authenticate(userId);
             return Ok();
+        }
+
+        [HttpPost("log-out")]
+        public async void LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+
+        private async void Authenticate(string userId)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userId)
+            };
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
     }
 }

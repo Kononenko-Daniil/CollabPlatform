@@ -3,6 +3,8 @@ using CollabPlatformApp.Dtos;
 using CollabPlatformApp.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CollabPlatformApp.Services
 {
@@ -47,14 +49,13 @@ namespace CollabPlatformApp.Services
                 Projects = new List<string>()
             };
             _usersCollection.InsertOne(result);
-            
         }
 
-        public void SignIn(UserSignInDto user)
+        public string SignIn(UserSignInDto user)
         {
             var userId = GetUsers().FirstOrDefault(x => x.Email == user.Email).Id;
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("userId", userId);
+            return userId;
         }
 
         public bool EmailIsExisting(string email)

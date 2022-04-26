@@ -25,7 +25,8 @@ export class CreatePageContainer extends Component{
         }
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/create-project',
+            url: 'https://localhost:7040/projects/create-project',
+            withCredentials: true,
             data: project
         }).then(res=>{
             const projectId = res.data;

@@ -35,12 +35,14 @@ export class SignInPageContainer extends Component{
             Email: this.state.email,
             Password: this.state.password
         }
-
+        
         axios({
             method: 'POST',
             url: 'https://localhost:7040/users/sign-in',
-            data: user
+            data: user,
+            withCredentials: true
         }).then(res => {
+            console.log(document.cookie);    
             window.location.href = 'https://localhost:44413/';
         }).catch(this.errorCatcher);
 
@@ -55,7 +57,6 @@ export class SignInPageContainer extends Component{
             this.setState({errorMessage: errorMessage});
         }
     }
-
 
     render(){
         return(

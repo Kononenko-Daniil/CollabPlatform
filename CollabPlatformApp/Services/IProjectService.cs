@@ -5,11 +5,11 @@ namespace CollabPlatformApp.Services
 {
     public interface IProjectService
     {
-        public IEnumerable<Project> GetProjects();
-        public Project GetProjectById(string projectId);
+        public IEnumerable<Project> GetProjects(string userId);
+        public Project GetProjectById(string projectId, string userId);
 
-        public string CreateProject(ProjectDto project);
+        public string CreateProject(ProjectDto project, string userId);
 
-        public void DeleteProject(string projectId);
+        public void DeleteProject(string projectId, string userId);
     }
 }

@@ -97,7 +97,8 @@ export class ProjectPageContainer extends Component{
         axios({
             method: 'GET',
             url: 'https://localhost:7040/projects/get-project-by-id',
-            params: { projectId: this.state.id }
+            params: { projectId: this.state.id },
+            withCredentials: true
         }).then(
             res => {
                 const project = res.data;
