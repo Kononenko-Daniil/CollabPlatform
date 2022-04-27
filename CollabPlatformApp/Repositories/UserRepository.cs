@@ -38,5 +38,10 @@ namespace CollabPlatformApp.Repositories
         {
             _usersCollection.InsertOne(user);
         }
+
+        public void UpdateUserProjects(string userId, User user)
+        {
+            _usersCollection.ReplaceOne(x => x.Id == userId, user);
+        }
     }
 }

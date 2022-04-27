@@ -8,15 +8,18 @@ namespace CollabPlatformApp.Services
     public class ProjectService : IProjectService
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ProjectService(IProjectRepository projectRepository)
+        public ProjectService(IProjectRepository projectRepository, 
+            IUserRepository userRepository)
         {
             _projectRepository = projectRepository;
+            _userRepository = userRepository;
         }
 
         public IEnumerable<Project> GetProjects(string userId)
         {
-            var user = _projectRepository.GetUser(userId);
+            var user = _userRepository.GetUserById(userId);
             var projects = _projectRepository.GetProjects();
             var projectIds = user.Projects;
             List<Project> result = new List<Project>();
@@ -40,10 +43,10 @@ namespace CollabPlatformApp.Services
 
         public string CreateProject(ProjectDto project, string userId)
         {
-            var user = _projectRepository.GetUser(userId);
+            var user = _userRepository.GetUserById(userId);
             string projectId = GenerateKey();
             user.Projects.Add(projectId);
-            _projectRepository.UpdateUserProjects(userId, user);
+            _userRepository.UpdateUserProjects(userId, user);
 
             Project result = new Project()
             {
@@ -63,11 +66,11 @@ namespace CollabPlatformApp.Services
         {
             _projectRepository.DeleteProject(projectId);
 
-            var user = _projectRepository.GetUser(userId);
+            var user = _userRepository.GetUserById(userId);
             var project = user.Projects.FirstOrDefault(x => x == projectId);
             user.Projects.Remove(project);
 
-            _projectRepository.UpdateUserProjects(userId, user);
+            _userRepository.UpdateUserProjects(userId, user);
         }
 
         public string GenerateKey()
