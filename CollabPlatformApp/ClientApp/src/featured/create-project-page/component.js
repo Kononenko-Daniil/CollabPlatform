@@ -16,7 +16,7 @@ const CreateProjectComponent = (props) => {
                 <p className="errorFormText">{errorProjectNameMessage}</p>
                 <Form.Control
                         style={{width: "30% "}} 
-                        placeholder='Project name'
+                        placeholder='Project title'
                         value={projectName}
                         className="inFormElements"
                         type="input"

@@ -12,7 +12,8 @@ export class ProjectPageContainer extends Component{
             project: {},
             linkName: "",
             linkUrl: "",
-            taskText: ""
+            taskText: "",
+            errorTaskTextMessage: ""
         }
 
         this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
@@ -24,6 +25,24 @@ export class ProjectPageContainer extends Component{
 
         this.handleTaskTextChange = this.handleTaskTextChange.bind(this);
         this.handleTaskSubmit = this.handleTaskSubmit.bind(this);
+
+        this.errorCatcher = this.errorCatcher.bind(this);
+        this.cleanErrorMeassages = this.cleanErrorMeassages.bind(this);
+    }
+
+    cleanErrorMeassages = () => {
+        this.setState({
+            errorTaskTextMessage: ""
+        });
+    }
+
+    errorCatcher = (error) => {
+        const errorType = error.response.data.errorType;
+        const errorMessage = error.response.data.errorMessage;
+
+        if(errorType === "Text"){
+            this.setState({errorTaskTextMessage: errorMessage});
+        }
     }
 
     handleTaskTextChange(event) {
@@ -43,7 +62,8 @@ export class ProjectPageContainer extends Component{
             withCredentials: true
         }).then(res=>{
             this.getProject();
-        });
+            this.cleanErrorMeassages();
+        }).catch(this.errorCatcher);
         this.setState({taskText: ""});
         event.preventDefault();
     }
@@ -133,6 +153,8 @@ export class ProjectPageContainer extends Component{
                 taskText={this.state.taskText}
                 linkName={this.state.linkName}
                 linkUrl={this.state.linkUrl}
+
+                errorTaskTextMessage={this.state.errorTaskTextMessage}
                 />
         )
     }

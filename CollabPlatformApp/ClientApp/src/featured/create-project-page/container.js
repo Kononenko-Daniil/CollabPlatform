@@ -24,6 +24,10 @@ export class CreatePageContainer extends Component{
     }
 
     handleProjectSubmit(event) {
+        this.setState({
+            errorProjectNameMessage: ""
+        });
+
         const project = {
             name: this.state.projectName
         }

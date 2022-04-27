@@ -22,7 +22,8 @@ const ProjectPageComponent = (props) => {
         OnDeleteLinkClick,
         taskText, 
         linkName, 
-        linkUrl } = props;
+        linkUrl, 
+        errorTaskTextMessage } = props;
 
     const [key, setKey] = useState('tasks');
 
@@ -99,6 +100,7 @@ const ProjectPageComponent = (props) => {
                 </Modal.Header>
                 <Form onSubmit={handleTaskSubmit}>
                     <Modal.Body>
+                        <p className="errorFormText">{errorTaskTextMessage}</p>
                         <Form.Control
                             placeholder='Task'
                             value={taskText}

@@ -27,6 +27,8 @@
         public const int MaxProjectNameLength = 23;
 
         //Task validation messages
+        public const string EmptyTaskText = "Enter text";
+
         //Link validation messages
     }
 }
