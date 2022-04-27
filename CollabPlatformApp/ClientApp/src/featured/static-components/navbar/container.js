@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import constants from '../../../Constants';
 import NavbarComponent from './component';
 
 export class NavbarContainer extends Component{
@@ -12,10 +13,10 @@ export class NavbarContainer extends Component{
     OnLogOutClick = () => {
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/users/log-out',
+            url: constants.apiPort + '/users/log-out',
             withCredentials: true
         }).then(res => {
-            window.location.href = 'https://localhost:44413/';
+            window.location.href = constants.reactAppPort + '/';
         })
     }
 

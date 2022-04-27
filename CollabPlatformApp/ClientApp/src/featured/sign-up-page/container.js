@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SignUpPageComponent from './component';
 import axios from 'axios';
+import constants from '../../Constants';
 
 export class SignUpPageContainer extends Component{
     constructor(props){
@@ -49,10 +50,10 @@ export class SignUpPageContainer extends Component{
 
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/users/create-user',
+            url: constants.apiPort + '/users/create-user',
             data: user
         }).then(res => {
-            window.location.href = 'https://localhost:44413/sign-in';
+            window.location.href = constants.reactAppPort + '/sign-in';
         }).catch(this.errorCatcher);
 
         event.preventDefault();

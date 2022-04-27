@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CreatePageComponent from './component';
 import axios from 'axios';
+import constants from '../../Constants';
 
 export class CreatePageContainer extends Component{
     static displayName = CreatePageContainer.name;
@@ -23,14 +24,15 @@ export class CreatePageContainer extends Component{
         const project = {
             name: this.state.projectName
         }
+        
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/projects/create-project',
+            url: constants.apiPort + '/projects/create-project',
             withCredentials: true,
             data: project
         }).then(res=>{
             const projectId = res.data;
-            window.location.href = 'https://localhost:44413/projects/'+projectId;
+            window.location.href = constants.reactAppPort + '/projects/' + projectId;
         });
         event.preventDefault();
     }

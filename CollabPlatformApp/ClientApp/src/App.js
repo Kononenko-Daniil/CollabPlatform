@@ -6,7 +6,8 @@ import { ProjectPageContainer } from './featured/project-page/container';
 import { CreatePageContainer } from './featured/create-project-page/container';
 import { SignUpPageContainer } from './featured/sign-up-page/container';
 import { SignInPageContainer } from './featured/sign-in-page/container';
-import './webStyle.css'
+import './webStyle.css';
+import './Constants';
 
 export default class App extends Component {
   static displayName = App.name;
