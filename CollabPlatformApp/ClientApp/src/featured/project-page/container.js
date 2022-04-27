@@ -32,10 +32,8 @@ export class ProjectPageContainer extends Component{
         this.clearErrorMessages = this.clearErrorMessages.bind(this);
     }
 
-    clearErrorMessages = () => {
-        this.setState({errorTaskTextMessage: ""});
-        this.setState({errorLinkNameMessage: ""});
-        this.setState({errorLinkUrlMessage: ""});
+    componentDidMount(){
+        this.getProject();
     }
 
     errorCatcher = (error) => {
@@ -51,8 +49,10 @@ export class ProjectPageContainer extends Component{
         }
     }
 
-    handleTaskTextChange(event) {
-        this.setState({taskText: event.target.value});
+    clearErrorMessages = () => {
+        this.setState({errorTaskTextMessage: ""});
+        this.setState({errorLinkNameMessage: ""});
+        this.setState({errorLinkUrlMessage: ""});
     }
 
     handleTaskSubmit(event) {
@@ -77,14 +77,6 @@ export class ProjectPageContainer extends Component{
         event.preventDefault();
     }
 
-    handleLinkNameChange(event) {
-        this.setState({linkName: event.target.value});
-    }
-
-    handleLinkUrlChange(event) {
-        this.setState({linkUrl: event.target.value});
-    }
-
     handleLinkSubmit(event) {
         const link = {
             ProjectId: this.state.id,
@@ -107,8 +99,16 @@ export class ProjectPageContainer extends Component{
         event.preventDefault();
     }
 
-    componentDidMount(){
-        this.getProject();
+    handleTaskTextChange(event) {
+        this.setState({taskText: event.target.value});
+    }
+
+    handleLinkNameChange(event) {
+        this.setState({linkName: event.target.value});
+    }
+
+    handleLinkUrlChange(event) {
+        this.setState({linkUrl: event.target.value});
     }
 
     OnDeleteTaskClick = (taskId) => {
