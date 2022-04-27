@@ -11,14 +11,6 @@ namespace CollabPlatformApp.Repositories
             base(collabPlatformDatabaseSettings)
         { }
 
-        public Project GetProjectById(string projectId)
-        {
-            var projects = _projectsCollection.Find(_ => true).ToList();
-            Project result = projects.FirstOrDefault(x => x.Id == projectId);
-
-            return result;
-        }
-
         public void CreateTask(string projectId, Project project)
         {
             _projectsCollection.ReplaceOne(x => x.Id == projectId, project);

@@ -59,7 +59,9 @@ const HomePageComponent = (props) =>{
                 <Modal.Header closeButton>
                     <Modal.Title>Deleting project</Modal.Title>
                 </Modal.Header>
-                    <Modal.Body>Are you sure you want to delete {projectName}?</Modal.Body>
+                <Modal.Body>
+                    Are you sure you want to delete {projectName}?
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-secondary" onClick={handleCloseDeleteModal}>
                         Cancel

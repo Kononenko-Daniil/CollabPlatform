@@ -18,6 +18,14 @@ namespace CollabPlatformApp.Repositories
             return result;
         }
 
+        public Project GetProjectById(string projectId)
+        {
+            var projects = GetProjects();
+            Project result = projects.FirstOrDefault(x => x.Id == projectId);
+
+            return result;
+        }
+
         public void InsertProject(Project project)
         {
             _projectsCollection.InsertOne(project);
