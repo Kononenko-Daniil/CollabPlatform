@@ -30,6 +30,9 @@ export class ProjectPageContainer extends Component{
 
         this.errorCatcher = this.errorCatcher.bind(this);
         this.clearErrorMessages = this.clearErrorMessages.bind(this);
+
+        this.OnClearTaskForm = this.OnClearTaskForm.bind(this);
+        this.OnClearLinkForm = this.OnClearLinkForm.bind(this);
     }
 
     componentDidMount(){
@@ -133,6 +136,18 @@ export class ProjectPageContainer extends Component{
         });
     }
 
+    OnClearTaskForm = () => {
+        this.setState({errorTaskTextMessage: ""});
+        this.setState({taskText: ""});
+    }
+
+    OnClearLinkForm = () => {
+        this.setState({errorLinkNameMessage: ""});
+        this.setState({errorLinkUrlMessage: ""});
+        this.setState({linkName: ""});
+        this.setState({linkUrl: ""});
+    }
+
     getProject(){
         axios({
             method: 'GET',
@@ -168,6 +183,9 @@ export class ProjectPageContainer extends Component{
                 errorTaskTextMessage={this.state.errorTaskTextMessage}
                 errorLinkNameMessage={this.state.errorLinkNameMessage}
                 errorLinkUrlMessage={this.state.errorLinkUrlMessage}
+
+                OnClearTaskForm={this.OnClearTaskForm}
+                OnClearLinkForm={this.OnClearLinkForm}
                 />
         )
     }

@@ -25,7 +25,9 @@ const ProjectPageComponent = (props) => {
         linkUrl, 
         errorTaskTextMessage, 
         errorLinkNameMessage, 
-        errorLinkUrlMessage } = props;
+        errorLinkUrlMessage, 
+        OnClearTaskForm, 
+        OnClearLinkForm } = props;
 
     const [key, setKey] = useState('tasks');
 
@@ -107,12 +109,13 @@ const ProjectPageComponent = (props) => {
                             placeholder='Task'
                             value={taskText}
                             className="inFormElements"
-                            type="input"
+                            as="textarea"
                             id="inputTaskText"
                             onChange={handleTaskTextChange}
                         />
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button variant={"outline-danger"} onClick={() => OnClearTaskForm()}>Clear form</Button>
                         <Button variant={"outline-success"} type={"submit"}>Add task</Button>
                     </Modal.Footer>
                 </Form>
@@ -137,13 +140,14 @@ const ProjectPageComponent = (props) => {
                         <Form.Control
                             placeholder='URL'
                             className="inFormElements"
-                            type="input"
+                            as="textarea"
                             value={linkUrl}
                             id="inputLinkURL"
                             onChange={handleLinkUrlChange}
                         />
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button variant={"outline-danger"} onClick={() => OnClearLinkForm()}>Clear form</Button>
                         <Button variant={"outline-success"} type={"submit"}>Add link</Button>
                     </Modal.Footer>
                 </Form>
