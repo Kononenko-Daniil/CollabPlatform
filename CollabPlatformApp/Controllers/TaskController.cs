@@ -2,6 +2,8 @@
 using CollabPlatformApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using CollabPlatformApp.Validators;
+using CollabPlatformApp.RequestErrors;
 
 namespace CollabPlatformApp.Controllers
 {
@@ -10,10 +12,13 @@ namespace CollabPlatformApp.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskService _taskService;
+        private readonly TaskValidator _taskValidator;
 
-        public TaskController(ITaskService taskService)
+        public TaskController(ITaskService taskService, 
+            TaskValidator taskValidator)
         {
             _taskService = taskService;
+            _taskValidator = taskValidator;
         }
 
         [Authorize]
@@ -27,9 +32,23 @@ namespace CollabPlatformApp.Controllers
 
         [Authorize]
         [HttpPost("create-task")]
-        public void CreateTask(TaskDto task)
+        public ActionResult<BaseRequestError> CreateTask(TaskDto task)
         {
+            var taskValidationResult = _taskValidator.Validate(task);
+            if (!taskValidationResult.IsValid)
+            {
+                BaseRequestError error = new BaseRequestError()
+                {
+                    ErrorType = taskValidationResult.Errors.First().PropertyName,
+                    ErrorMessage = taskValidationResult.Errors.First().ErrorMessage
+                };
+
+                return BadRequest(error);
+            }
+
             _taskService.CreateTask(task);
+
+            return Ok();
         }
 
         [Authorize]

@@ -36,6 +36,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Validators
 builder.Services.AddScoped<UserValidator>();
+builder.Services.AddScoped<ProjectValidator>();
+builder.Services.AddScoped<TaskValidator>();
+builder.Services.AddScoped<LinkValidator>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

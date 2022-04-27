@@ -3,6 +3,8 @@ using CollabPlatformApp.Models;
 using CollabPlatformApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using CollabPlatformApp.Validators;
+using CollabPlatformApp.RequestErrors;
 
 namespace CollabPlatformApp.Controllers
 {
@@ -11,10 +13,13 @@ namespace CollabPlatformApp.Controllers
     public class ProjectController : BaseController
     {
         private readonly IProjectService _projectService;
+        private readonly ProjectValidator _projectValidator;
         
-        public ProjectController(IProjectService projectService) 
+        public ProjectController(IProjectService projectService, 
+            ProjectValidator projectValidator) 
         {
             _projectService = projectService;
+            _projectValidator = projectValidator;
         }
 
         [Authorize]
@@ -45,10 +50,21 @@ namespace CollabPlatformApp.Controllers
 
         [Authorize]
         [HttpPost("create-project")]
-        public string CreateProject([FromBody] ProjectDto project)
+        public ActionResult<string> CreateProject([FromBody] ProjectDto project)
         {
-            var userId = GetUserId();
+            var projectValidationResult = _projectValidator.Validate(project);
+            if (!projectValidationResult.IsValid)
+            {
+                BaseRequestError error = new BaseRequestError()
+                {
+                    ErrorType = projectValidationResult.Errors.First().PropertyName,
+                    ErrorMessage = projectValidationResult.Errors.First().ErrorMessage
+                };
 
+                return BadRequest(error);
+            }
+
+            var userId = GetUserId();
             var result = _projectService.CreateProject(project, userId);
 
             return result;

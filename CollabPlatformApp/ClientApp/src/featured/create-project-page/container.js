@@ -9,11 +9,14 @@ export class CreatePageContainer extends Component{
         super(props);
 
         this.state ={
-            projectName: ""
+            projectName: "",
+            errorProjectNameMessage: ""
         }
 
         this.handleProjectNameChange = this.handleProjectNameChange.bind(this);
         this.handleProjectSubmit = this.handleProjectSubmit.bind(this);
+        
+        this.errorCatcher = this.errorCatcher.bind(this);
     }
 
     handleProjectNameChange(event) {
@@ -21,6 +24,10 @@ export class CreatePageContainer extends Component{
     }
 
     handleProjectSubmit(event) {
+        this.setState({
+            errorProjectNameMessage: ""
+        });
+
         const project = {
             name: this.state.projectName
         }
@@ -33,17 +40,28 @@ export class CreatePageContainer extends Component{
         }).then(res=>{
             const projectId = res.data;
             window.location.href = constants.reactAppPort + '/projects/' + projectId;
-        });
+        }).catch(this.errorCatcher);
         event.preventDefault();
     }
     
+    errorCatcher = (error) => {
+        const errorType = error.response.data.errorType;
+        const errorMessage = error.response.data.errorMessage;
+
+        if(errorType === "Name"){
+            this.setState({errorProjectNameMessage: errorMessage});
+        }
+    }
 
     render(){
         return(
             <CreatePageComponent
                 projectName={this.state.projecName}
+
                 handleProjectNameChange={this.handleProjectNameChange}
                 handleProjectSubmit={this.handleProjectSubmit}
+
+                errorProjectNameMessage={this.state.errorProjectNameMessage}
                 />
         )
     }

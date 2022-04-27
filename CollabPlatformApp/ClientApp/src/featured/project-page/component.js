@@ -22,7 +22,10 @@ const ProjectPageComponent = (props) => {
         OnDeleteLinkClick,
         taskText, 
         linkName, 
-        linkUrl } = props;
+        linkUrl, 
+        errorTaskTextMessage, 
+        errorLinkNameMessage, 
+        errorLinkUrlMessage } = props;
 
     const [key, setKey] = useState('tasks');
 
@@ -99,6 +102,7 @@ const ProjectPageComponent = (props) => {
                 </Modal.Header>
                 <Form onSubmit={handleTaskSubmit}>
                     <Modal.Body>
+                        <p className="errorFormText">{errorTaskTextMessage}</p>
                         <Form.Control
                             placeholder='Task'
                             value={taskText}
@@ -120,6 +124,7 @@ const ProjectPageComponent = (props) => {
                 </Modal.Header>
                 <Form onSubmit={handleLinkSubmit}>
                     <Modal.Body>
+                        <p className="errorFormText">{errorLinkNameMessage}</p>
                         <Form.Control
                             placeholder='Link name'
                             className="inFormElements"
@@ -128,6 +133,7 @@ const ProjectPageComponent = (props) => {
                             id="inputLinlkName"
                             onChange={handleLinkNameChange}
                         />
+                        <p className="errorFormText">{errorLinkUrlMessage}</p>
                         <Form.Control
                             placeholder='URL'
                             className="inFormElements"

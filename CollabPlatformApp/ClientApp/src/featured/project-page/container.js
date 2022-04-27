@@ -12,7 +12,10 @@ export class ProjectPageContainer extends Component{
             project: {},
             linkName: "",
             linkUrl: "",
-            taskText: ""
+            taskText: "",
+            errorTaskTextMessage: "",
+            errorLinkNameMessage: "",
+            errorLinkUrlMessage: ""
         }
 
         this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
@@ -24,10 +27,32 @@ export class ProjectPageContainer extends Component{
 
         this.handleTaskTextChange = this.handleTaskTextChange.bind(this);
         this.handleTaskSubmit = this.handleTaskSubmit.bind(this);
+
+        this.errorCatcher = this.errorCatcher.bind(this);
+        this.clearErrorMessages = this.clearErrorMessages.bind(this);
     }
 
-    handleTaskTextChange(event) {
-        this.setState({taskText: event.target.value});
+    componentDidMount(){
+        this.getProject();
+    }
+
+    errorCatcher = (error) => {
+        const errorType = error.response.data.errorType;
+        const errorMessage = error.response.data.errorMessage;
+
+        if(errorType === "Text"){
+            this.setState({errorTaskTextMessage: errorMessage});
+        }else if(errorType === "Name"){
+            this.setState({errorLinkNameMessage: errorMessage});
+        }else if(errorType === "Url"){
+            this.setState({errorLinkUrlMessage: errorMessage});
+        }
+    }
+
+    clearErrorMessages = () => {
+        this.setState({errorTaskTextMessage: ""});
+        this.setState({errorLinkNameMessage: ""});
+        this.setState({errorLinkUrlMessage: ""});
     }
 
     handleTaskSubmit(event) {
@@ -35,6 +60,8 @@ export class ProjectPageContainer extends Component{
             projectId: this.state.id,
             text: this.state.taskText
         };
+
+        this.clearErrorMessages();
         
         axios({
             method: 'POST',
@@ -43,17 +70,11 @@ export class ProjectPageContainer extends Component{
             withCredentials: true
         }).then(res=>{
             this.getProject();
-        });
-        this.setState({taskText: ""});
+            
+            this.setState({taskText: ""});
+        }).catch(this.errorCatcher);
+        
         event.preventDefault();
-    }
-
-    handleLinkNameChange(event) {
-        this.setState({linkName: event.target.value});
-    }
-
-    handleLinkUrlChange(event) {
-        this.setState({linkUrl: event.target.value});
     }
 
     handleLinkSubmit(event) {
@@ -63,6 +84,8 @@ export class ProjectPageContainer extends Component{
             Url: this.state.linkUrl
         }
 
+        this.clearErrorMessages();
+
         axios({
             method: 'POST',
             url: constants.apiPort + '/links/create-link',
@@ -70,14 +93,22 @@ export class ProjectPageContainer extends Component{
             withCredentials: true
         }).then(res=>{
             this.getProject();
-        });
+            this.setState({linkName: "", linkUrl: ""});
+        }).catch(this.errorCatcher);
 
-        this.setState({linkName: "", linkUrl: ""})
         event.preventDefault();
     }
 
-    componentDidMount(){
-        this.getProject();
+    handleTaskTextChange(event) {
+        this.setState({taskText: event.target.value});
+    }
+
+    handleLinkNameChange(event) {
+        this.setState({linkName: event.target.value});
+    }
+
+    handleLinkUrlChange(event) {
+        this.setState({linkUrl: event.target.value});
     }
 
     OnDeleteTaskClick = (taskId) => {
@@ -133,6 +164,10 @@ export class ProjectPageContainer extends Component{
                 taskText={this.state.taskText}
                 linkName={this.state.linkName}
                 linkUrl={this.state.linkUrl}
+
+                errorTaskTextMessage={this.state.errorTaskTextMessage}
+                errorLinkNameMessage={this.state.errorLinkNameMessage}
+                errorLinkUrlMessage={this.state.errorLinkUrlMessage}
                 />
         )
     }
