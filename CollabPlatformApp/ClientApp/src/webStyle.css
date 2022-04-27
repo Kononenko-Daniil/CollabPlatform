@@ -5,6 +5,7 @@
 .projectElement{
     margin-right: 10px;
     width: auto;
+    margin-bottom: 10px;
 }
 .tasksLinksNumText{
     font-weight: 400;

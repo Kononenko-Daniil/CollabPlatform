@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HomePageComponent from './component';
 import axios from 'axios';
+import constants from '../../Constants';
 
 export class HomePageContainer extends Component {
   static displayName = HomePageContainer.name;
@@ -25,7 +26,7 @@ export class HomePageContainer extends Component {
       };
       axios({
         method: 'GET',
-        url: "https://localhost:7040/projects/get-projects",
+        url: constants.apiPort + '/projects/get-projects',
         withCredentials: true,
         config
       }).then(res => {
@@ -37,7 +38,7 @@ export class HomePageContainer extends Component {
   OnDeleteProjectClick = (projectId) => {
     axios({
         method: 'DELETE',
-        url: 'https://localhost:7040/projects/delete-project',
+        url: constants.apiPort + '/projects/delete-project',
         params: { projectId: projectId },
         withCredentials: true
     }).then(res => {

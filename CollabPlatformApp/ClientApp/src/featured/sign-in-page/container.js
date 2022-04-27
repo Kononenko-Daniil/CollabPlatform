@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SignInPageComponent from './component';
 import axios from 'axios';
+import constants from '../../Constants';
 
 export class SignInPageContainer extends Component{
     constructor(props){
@@ -38,12 +39,12 @@ export class SignInPageContainer extends Component{
         
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/users/sign-in',
+            url: constants.apiPort + '/users/sign-in',
             data: user,
             withCredentials: true
         }).then(res => {
             console.log(document.cookie);    
-            window.location.href = 'https://localhost:44413/';
+            window.location.href = constants.apiPort + '/';
         }).catch(this.errorCatcher);
 
         event.preventDefault();

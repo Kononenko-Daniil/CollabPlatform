@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ProjectPageComponent from './component';
 import axios from 'axios';
+import constants from '../../Constants';
 
 export class ProjectPageContainer extends Component{
     constructor(props){
@@ -34,9 +35,10 @@ export class ProjectPageContainer extends Component{
             projectId: this.state.id,
             text: this.state.taskText
         };
+        
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/tasks/create-task',
+            url: constants.apiPort + '/tasks/create-task',
             data: task,
             withCredentials: true
         }).then(res=>{
@@ -63,7 +65,7 @@ export class ProjectPageContainer extends Component{
 
         axios({
             method: 'POST',
-            url: 'https://localhost:7040/links/create-link',
+            url: constants.apiPort + '/links/create-link',
             data: link,
             withCredentials: true
         }).then(res=>{
@@ -81,7 +83,7 @@ export class ProjectPageContainer extends Component{
     OnDeleteTaskClick = (taskId) => {
         axios({
             method: 'DELETE',
-            url: 'https://localhost:7040/tasks/delete-task',
+            url: constants.apiPort + '/tasks/delete-task',
             withCredentials: true,
             params: { projectId: this.state.id, taskId: taskId }
         }).then(res=>{
@@ -92,7 +94,7 @@ export class ProjectPageContainer extends Component{
     OnDeleteLinkClick = (linkId) => {
         axios({
             method: 'DELETE',
-            url: 'https://localhost:7040/links/delete-link',
+            url: constants.apiPort + '/links/delete-link',
             withCredentials: true,
             params: { projectId: this.state.id, linkId: linkId }
         }).then(res => {
@@ -103,7 +105,7 @@ export class ProjectPageContainer extends Component{
     getProject(){
         axios({
             method: 'GET',
-            url: 'https://localhost:7040/projects/get-project-by-id',
+            url: constants.apiPort + '/projects/get-project-by-id',
             params: { projectId: this.state.id },
             withCredentials: true
         }).then(

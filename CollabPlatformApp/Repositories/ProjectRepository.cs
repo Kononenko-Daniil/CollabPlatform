@@ -11,25 +11,6 @@ namespace CollabPlatformApp.Repositories
             base(collabPlatformDatabaseSettings)
         { }
 
-        public IEnumerable<User> GetUsers()
-        {
-            var result = _usersCollection.Find(_ => true).ToList();
-
-            return result;
-        }
-
-        public User GetUser(string userId)
-        {
-            var result = GetUsers().FirstOrDefault(x => x.Id == userId);
-
-            return result;
-        }
-
-        public void UpdateUserProjects(string userId, User user)
-        {
-            _usersCollection.ReplaceOne(x => x.Id == userId, user);
-        }
-
         public IEnumerable<Project> GetProjects()
         {
             var result = _projectsCollection.Find(_ => true).ToList();
