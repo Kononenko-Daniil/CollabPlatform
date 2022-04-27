@@ -42,13 +42,13 @@ namespace CollabPlatformApp.Controllers
         }
 
         [HttpPost("create-user")]
-        public ActionResult<UserError> CreteUser(UserSignUpDto user)
+        public ActionResult<BaseRequestError> CreteUser(UserSignUpDto user)
         {
             var userValidationResult = _userValidator.Validate(user);
 
             if (!userValidationResult.IsValid)
             {
-                UserError error = new UserError()
+                BaseRequestError error = new BaseRequestError()
                 {
                     ErrorType = userValidationResult.Errors.First().PropertyName,
                     ErrorMessage = userValidationResult.Errors.First().ErrorMessage
@@ -58,7 +58,7 @@ namespace CollabPlatformApp.Controllers
             }
             if (_userService.EmailIsExisting(user.Email))
             {
-                UserError error = new UserError()
+                BaseRequestError error = new BaseRequestError()
                 {
                     ErrorType = "Email",
                     ErrorMessage = Constants.DoubleEmailMessage
@@ -72,11 +72,11 @@ namespace CollabPlatformApp.Controllers
         }
 
         [HttpPost("sign-in")]
-        public ActionResult<UserError> SignIn(UserSignInDto user)
+        public ActionResult<BaseRequestError> SignIn(UserSignInDto user)
         {
             if (!_userService.AccountIsExisting(user.Email, user.Password)) 
             {
-                UserError error = new UserError()
+                BaseRequestError error = new BaseRequestError()
                 {
                     ErrorType = "SignIn",
                     ErrorMessage = Constants.SignInErrorMessage

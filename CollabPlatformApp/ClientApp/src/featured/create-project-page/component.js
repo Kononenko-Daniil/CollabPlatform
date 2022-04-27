@@ -6,11 +6,14 @@ import Button  from 'react-bootstrap/Button';
 const CreateProjectComponent = (props) => {
     const {projectName, 
         handleProjectNameChange, 
-        handleProjectSubmit} = props
+        handleProjectSubmit, 
+        errorProjectNameMessage} = props;
+
     return(
         <Container>
             <h1 className={"pageName"}>Create project</h1>
             <form  onSubmit={handleProjectSubmit}>
+                <p className="errorFormText">{errorProjectNameMessage}</p>
                 <Form.Control
                         style={{width: "30% "}} 
                         placeholder='Project name'
