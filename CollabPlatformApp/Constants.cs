@@ -30,5 +30,10 @@
         public const string EmptyTaskText = "Enter text";
 
         //Link validation messages
+        public const string EmptyLinkName = "Enter link name";
+        public const string EmptyLinkUrl = "Enter link url";
+        public const string LinkNameInvalidLengthMessage = "Link name must contain from 1 to 20 symbols";
+
+        public const int MaxLinkNameLength = 20;
     }
 }
