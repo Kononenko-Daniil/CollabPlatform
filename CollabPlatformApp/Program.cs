@@ -22,6 +22,7 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProjectUserService, ProjectUserService>();
 
 //Databases
 builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connection));
