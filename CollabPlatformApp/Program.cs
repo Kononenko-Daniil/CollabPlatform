@@ -31,8 +31,6 @@ builder.Services.Configure<CollabPlatformDatabaseSettings>(
 
 //Repositories
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-builder.Services.AddScoped<ITaskRepository, TaskRepository>();
-builder.Services.AddScoped<ILinkRepository, LinkRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Validators

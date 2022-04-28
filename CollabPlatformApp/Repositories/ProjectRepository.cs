@@ -31,6 +31,11 @@ namespace CollabPlatformApp.Repositories
             _projectsCollection.InsertOne(project);
         }
 
+        public void UpdateProject(Project project)
+        {
+            _projectsCollection.ReplaceOne(x => x.Id == project.Id, project);
+        }
+
         public void DeleteProject(string projectId)
         {
             _projectsCollection.DeleteOne(x => x.Id == projectId);
