@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import ProjectTasksComponent from './components/projectTasksComponent';
 import ProjectLinksComponent from './components/projectLinksComponent';
+import ProjectContributorsComponent from './components/projectContributorsComponent';
 
 import { Container } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -13,19 +14,29 @@ import Modal from 'react-bootstrap/Modal';
 
 const ProjectPageComponent = (props) => {
     const { project, 
+
         handleLinkNameChange, 
         handleLinkUrlChange, 
         handleLinkSubmit, 
+
         handleTaskTextChange,
         handleTaskSubmit, 
+
+        handleContributorEmailChange,
+        handleContributorSubmit,
+
         OnDeleteTaskClick, 
         OnDeleteLinkClick,
         taskText, 
         linkName, 
         linkUrl, 
+        contributorEmail,
+
         errorTaskTextMessage, 
         errorLinkNameMessage, 
         errorLinkUrlMessage, 
+        errorConributorEmailMessage,
+
         OnClearTaskForm, 
         OnClearLinkForm } = props;
 
@@ -38,6 +49,10 @@ const ProjectPageComponent = (props) => {
     const [showAddLinkModal, setShowAddLinkModal] = useState(false);
     const handleShowAddLinkModal = () => setShowAddLinkModal(true);
     const handleCloseAddLinkModal = () => setShowAddLinkModal(false);
+
+    const [showAddContibutorModal, setShowAddContributorModal] = useState(false);
+    const handleShowAddContibutorModal = () => setShowAddContributorModal(true);
+    const handleCloseAddContibutorModal = () => setShowAddContributorModal(false);
 
     const [showLinkInfoModal, setShowLinkInfoModal] = useState(false);
     const [linkNameModal, setLinkNameModal] = useState("");
@@ -82,6 +97,11 @@ const ProjectPageComponent = (props) => {
                         linkUrl={linkUrl}
                         handleShowLinkInfoModal={handleShowLinkInfoModal}
                         handleShowAddLinkModal={handleShowAddLinkModal}
+                        />
+                </Tab>
+                <Tab eventKey="contributors" title="Contributors">
+                    <ProjectContributorsComponent 
+                        handleShowAddContibutorModal={handleShowAddContibutorModal}
                         />
                 </Tab>
             </Tabs>
@@ -133,7 +153,7 @@ const ProjectPageComponent = (props) => {
                             className="inFormElements"
                             type="input"
                             value={linkName}
-                            id="inputLinlkName"
+                            id="inputLinkName"
                             onChange={handleLinkNameChange}
                         />
                         <p className="errorFormText">{errorLinkUrlMessage}</p>
@@ -149,6 +169,28 @@ const ProjectPageComponent = (props) => {
                     <Modal.Footer>
                         <Button variant={"outline-danger"} onClick={() => OnClearLinkForm()}>Clear form</Button>
                         <Button variant={"outline-success"} type={"submit"}>Add link</Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal>
+
+            <Modal show={showAddContibutorModal} onHide={handleCloseAddContibutorModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add contributor</Modal.Title>
+                </Modal.Header>
+                <Form onSubmit={handleContributorSubmit}>
+                    <Modal.Body>
+                        <p className="errorFormText">{errorConributorEmailMessage}</p>
+                        <Form.Control
+                            placeholder='User email'
+                            className="inFormElements"
+                            type="input"
+                            value={contributorEmail}
+                            id="inputContributorEmail"
+                            onChange={handleContributorEmailChange}
+                        />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant={"outline-success"} type={"submit"}>Add contributor</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>

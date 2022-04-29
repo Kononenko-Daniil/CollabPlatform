@@ -13,9 +13,11 @@ export class ProjectPageContainer extends Component{
             linkName: "",
             linkUrl: "",
             taskText: "",
+            contributorEmail: "",
             errorTaskTextMessage: "",
             errorLinkNameMessage: "",
-            errorLinkUrlMessage: ""
+            errorLinkUrlMessage: "",
+            errorConributorEmailMessage: ""
         }
 
         this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
@@ -27,6 +29,9 @@ export class ProjectPageContainer extends Component{
 
         this.handleTaskTextChange = this.handleTaskTextChange.bind(this);
         this.handleTaskSubmit = this.handleTaskSubmit.bind(this);
+
+        this.handleContributorEmailChange = this.handleContributorEmailChange.bind(this);
+        this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
 
         this.errorCatcher = this.errorCatcher.bind(this);
         this.clearErrorMessages = this.clearErrorMessages.bind(this);
@@ -49,6 +54,8 @@ export class ProjectPageContainer extends Component{
             this.setState({errorLinkNameMessage: errorMessage});
         }else if(errorType === "Url"){
             this.setState({errorLinkUrlMessage: errorMessage});
+        }else if(errorType === "ProjectUserEmail"){
+            this.setState({errorConributorEmailMessage: errorMessage});
         }
     }
 
@@ -56,6 +63,32 @@ export class ProjectPageContainer extends Component{
         this.setState({errorTaskTextMessage: ""});
         this.setState({errorLinkNameMessage: ""});
         this.setState({errorLinkUrlMessage: ""});
+    }
+
+    handleContributorEmailChange(event){
+        this.setState({contributorEmail: event.target.value});
+    }
+
+    handleContributorSubmit(event){
+        const contributor = {
+            projectId: this.state.id,
+            email: this.state.contributorEmail
+        };
+
+        this.clearErrorMessages();
+
+        axios({
+            method: 'POST',
+            url: constants.apiPort + '/project-users/add-user',
+            data: contributor,
+            withCredentials: true
+        }).then(res=>{
+            this.getProject();
+
+            this.setState({contributorEmail: ""});
+        }).catch(this.errorCatcher);
+
+        event.preventDefault();
     }
 
     handleTaskSubmit(event) {
@@ -174,15 +207,20 @@ export class ProjectPageContainer extends Component{
                 handleTaskTextChange={this.handleTaskTextChange}
                 handleTaskSubmit={this.handleTaskSubmit}
 
+                handleContributorEmailChange={this.handleContributorEmailChange}
+                handleContributorSubmit={this.handleContributorSubmit}
+
                 OnDeleteTaskClick={this.OnDeleteTaskClick}
                 OnDeleteLinkClick={this.OnDeleteLinkClick}
                 taskText={this.state.taskText}
                 linkName={this.state.linkName}
                 linkUrl={this.state.linkUrl}
+                contributorEmail={this.state.contributorEmail}
 
                 errorTaskTextMessage={this.state.errorTaskTextMessage}
                 errorLinkNameMessage={this.state.errorLinkNameMessage}
                 errorLinkUrlMessage={this.state.errorLinkUrlMessage}
+                errorConributorEmailMessage={this.state.errorConributorEmailMessage}
 
                 OnClearTaskForm={this.OnClearTaskForm}
                 OnClearLinkForm={this.OnClearLinkForm}
