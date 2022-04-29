@@ -54,7 +54,7 @@ export class ProjectPageContainer extends Component{
             this.setState({errorLinkNameMessage: errorMessage});
         }else if(errorType === "Url"){
             this.setState({errorLinkUrlMessage: errorMessage});
-        }else if(errorType === "ProjectUserEmail"){
+        }else if(errorType === "ContributorEmail"){
             this.setState({errorConributorEmailMessage: errorMessage});
         }
     }
@@ -63,6 +63,7 @@ export class ProjectPageContainer extends Component{
         this.setState({errorTaskTextMessage: ""});
         this.setState({errorLinkNameMessage: ""});
         this.setState({errorLinkUrlMessage: ""});
+        this.setState({errorConributorEmailMessage: ""});
     }
 
     handleContributorEmailChange(event){
@@ -79,7 +80,7 @@ export class ProjectPageContainer extends Component{
 
         axios({
             method: 'POST',
-            url: constants.apiPort + '/project-users/add-user',
+            url: constants.apiPort + '/project-contributors/add-contributor',
             data: contributor,
             withCredentials: true
         }).then(res=>{

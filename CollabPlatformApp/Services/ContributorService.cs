@@ -3,24 +3,24 @@ using CollabPlatformApp.Repositories;
 
 namespace CollabPlatformApp.Services
 {
-    public class ProjectUserService : IProjectUserService
+    public class ContributorService : IContributorService
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IUserRepository _userRepository;
 
-        public ProjectUserService(IProjectRepository projectRepository, 
+        public ContributorService(IProjectRepository projectRepository, 
             IUserRepository userRepository)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
         }
 
-        public void AddUser(ProjectUserDto user)
+        public void AddContributor(ContributorDto contributor)
         {
-            var _user = _userRepository.GetUserByEmail(user.Email);
-            _user.Projects.Add(user.ProjectId);
+            var _contributor = _userRepository.GetUserByEmail(contributor.Email);
+            _contributor.Projects.Add(contributor.ProjectId);
 
-            _userRepository.UpdateUserProjects(_user);
+            _userRepository.UpdateUserProjects(_contributor);
         }
     }
 }
