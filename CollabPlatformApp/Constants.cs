@@ -35,5 +35,8 @@
         public const string LinkNameInvalidLengthMessage = "Link name must contain from 1 to 20 symbols";
 
         public const int MaxLinkNameLength = 20;
+
+        //Contributor validation messages
+        public const string ContributorIsExisted = "Contributor is already existed";
     }
 }

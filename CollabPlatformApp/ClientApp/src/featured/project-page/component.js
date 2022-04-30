@@ -35,7 +35,7 @@ const ProjectPageComponent = (props) => {
         errorTaskTextMessage, 
         errorLinkNameMessage, 
         errorLinkUrlMessage, 
-        errorConributorEmailMessage,
+        errorConributorMessage,
 
         OnClearTaskForm, 
         OnClearLinkForm } = props;
@@ -179,7 +179,7 @@ const ProjectPageComponent = (props) => {
                 </Modal.Header>
                 <Form onSubmit={handleContributorSubmit}>
                     <Modal.Body>
-                        <p className="errorFormText">{errorConributorEmailMessage}</p>
+                        <p className="errorFormText">{errorConributorMessage}</p>
                         <Form.Control
                             placeholder='User email'
                             className="inFormElements"

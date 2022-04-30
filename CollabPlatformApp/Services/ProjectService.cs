@@ -54,9 +54,10 @@ namespace CollabPlatformApp.Services
                 Name = project.Name,
                 Author = "admin",
                 Tasks = new List<Models.Task>(),
-                Links = new List<Link>()
+                Links = new List<Link>(),
+                Contributors = new List<string>()
             };
-
+            result.Contributors.Add(user.Email);
             _projectRepository.InsertProject(result);
 
             return projectId;

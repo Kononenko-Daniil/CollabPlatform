@@ -40,6 +40,16 @@ namespace CollabPlatformApp.Controllers
 
                 return BadRequest(error);
             }
+            if(_contributorService.ContributorIsExisted(contributor))
+            {
+                BaseRequestError error = new BaseRequestError()
+                {
+                    ErrorType = "ContributorIsExisted",
+                    ErrorMessage = Constants.ContributorIsExisted
+                };
+
+                return BadRequest(error);
+            }
             _contributorService.AddContributor(contributor);
 
             return Ok();

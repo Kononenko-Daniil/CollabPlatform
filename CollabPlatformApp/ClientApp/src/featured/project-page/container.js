@@ -17,7 +17,7 @@ export class ProjectPageContainer extends Component{
             errorTaskTextMessage: "",
             errorLinkNameMessage: "",
             errorLinkUrlMessage: "",
-            errorConributorEmailMessage: ""
+            errorConributorMessage: ""
         }
 
         this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
@@ -55,7 +55,9 @@ export class ProjectPageContainer extends Component{
         }else if(errorType === "Url"){
             this.setState({errorLinkUrlMessage: errorMessage});
         }else if(errorType === "ContributorEmail"){
-            this.setState({errorConributorEmailMessage: errorMessage});
+            this.setState({errorConributorMessage: errorMessage});
+        }else if(errorType === "ContributorIsExisted"){
+            this.setState({errorConributorMessage: errorMessage});
         }
     }
 
@@ -63,7 +65,7 @@ export class ProjectPageContainer extends Component{
         this.setState({errorTaskTextMessage: ""});
         this.setState({errorLinkNameMessage: ""});
         this.setState({errorLinkUrlMessage: ""});
-        this.setState({errorConributorEmailMessage: ""});
+        this.setState({errorConributorMessage: ""});
     }
 
     handleContributorEmailChange(event){
@@ -221,7 +223,7 @@ export class ProjectPageContainer extends Component{
                 errorTaskTextMessage={this.state.errorTaskTextMessage}
                 errorLinkNameMessage={this.state.errorLinkNameMessage}
                 errorLinkUrlMessage={this.state.errorLinkUrlMessage}
-                errorConributorEmailMessage={this.state.errorConributorEmailMessage}
+                errorConributorMessage={this.state.errorConributorMessage}
 
                 OnClearTaskForm={this.OnClearTaskForm}
                 OnClearLinkForm={this.OnClearLinkForm}
