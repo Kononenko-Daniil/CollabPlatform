@@ -57,3 +57,9 @@
     border-width: 1px;
     color: rgb(73, 73, 73);
 }
+.accountBaseImg{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
