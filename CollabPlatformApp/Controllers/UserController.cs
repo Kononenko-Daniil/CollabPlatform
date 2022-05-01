@@ -79,7 +79,7 @@ namespace CollabPlatformApp.Controllers
                 BaseRequestError error = new BaseRequestError()
                 {
                     ErrorType = "SignIn",
-                    ErrorMessage = Constants.SignInErrorMessage
+                    ErrorMessage = Constants.AccountNotExistErrorMessage
                 };
 
                 return BadRequest(error);

@@ -1,23 +1,22 @@
-﻿using CollabPlatformApp.Database;
-using CollabPlatformApp.Dtos;
+﻿using CollabPlatformApp.Dtos;
 using CollabPlatformApp.Models;
 using CollabPlatformApp.Repositories;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace CollabPlatformApp.Services
 {
     public class LinkService : ILinkService
     {
-        private readonly ILinkRepository _linkRepository;
-        public LinkService(ILinkRepository linkRepository)
+        private readonly IProjectRepository _projectRepository;
+
+        public LinkService(IProjectRepository projectRepository)
         {
-            _linkRepository = linkRepository;
+            _projectRepository = projectRepository;
         }
 
         public IEnumerable<Link> GetProjectLinks(string projectId)
         {
-            Project project = _linkRepository.GetProjectById(projectId);
+            Project project = _projectRepository.GetProjectById(projectId);
             List<Link> links = project.Links;
 
             return links;
@@ -34,17 +33,17 @@ namespace CollabPlatformApp.Services
                 Name = link.Name,
                 Url = link.Url
             };
-            Project project = _linkRepository.GetProjectById(projectId);
+            Project project = _projectRepository.GetProjectById(projectId);
             project.Links.Add(result);
-            _linkRepository.CreateLink(projectId, project);
+            _projectRepository.UpdateProject(project);
         }
 
         public void DeleteLink(string projectId, string linkId)
         {
-            Project project = _linkRepository.GetProjectById(projectId);
+            Project project = _projectRepository.GetProjectById(projectId);
             Link linkToRemove = project.Links.FirstOrDefault(x => x.Id == linkId);
             project.Links.Remove(linkToRemove);
-            _linkRepository.DeleteLink(projectId, project);
+            _projectRepository.UpdateProject(project);
         }
 
         public string GenerateKey()

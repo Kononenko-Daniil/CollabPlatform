@@ -1,24 +1,22 @@
-﻿using CollabPlatformApp.Database;
-using CollabPlatformApp.Dtos;
+﻿using CollabPlatformApp.Dtos;
 using CollabPlatformApp.Models;
 using CollabPlatformApp.Repositories;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace CollabPlatformApp.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskRepository _taskRepository;
+        private readonly IProjectRepository _projectRepository;
 
-        public TaskService(ITaskRepository taskRepository)
+        public TaskService(IProjectRepository projectRepository)
         {
-            _taskRepository = taskRepository;
+            _projectRepository = projectRepository;
         }
 
         public IEnumerable<Models.Task> GetProjectTasks(string projectId)
         {
-            Project project = _taskRepository.GetProjectById(projectId);
+            Project project = _projectRepository.GetProjectById(projectId);
             List<Models.Task> tasks = project.Tasks;
 
             return tasks;
@@ -35,18 +33,18 @@ namespace CollabPlatformApp.Services
                 Text = task.Text,
             };
 
-            Project project = _taskRepository.GetProjectById(projectId);
+            Project project = _projectRepository.GetProjectById(projectId);
             project.Tasks.Add(result);
-            _taskRepository.CreateTask(projectId, project);
+            _projectRepository.UpdateProject(project);
         }
 
         public void DeleteTask(string projectId, string taskId)
         {
-            Project project = _taskRepository.GetProjectById(projectId);
+            Project project = _projectRepository.GetProjectById(projectId);
             Models.Task taskToRemove = project.Tasks.FirstOrDefault(x => x.Id == taskId);
             project.Tasks.Remove(taskToRemove);
 
-            _taskRepository.DeleteTask(projectId, project);
+            _projectRepository.UpdateProject(project);
         }
 
         public string GenerateKey()

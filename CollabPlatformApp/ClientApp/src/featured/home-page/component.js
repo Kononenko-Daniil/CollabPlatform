@@ -37,7 +37,8 @@ const HomePageComponent = (props) =>{
                                 <Card.Body>
                                     <Card.Title>{project.name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted tasksLinksNumText">
-                                        Tasks: {project.tasks.length} &ensp; Links: {project.links.length}
+                                        Tasks: {project.tasks.length} &ensp; Links: {project.links.length} 
+                                        <br/> Contributors: {project.contributors.length}
                                     </Card.Subtitle>
                                     <Link to={`/projects/${project.id}`}>
                                         <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
@@ -59,7 +60,9 @@ const HomePageComponent = (props) =>{
                 <Modal.Header closeButton>
                     <Modal.Title>Deleting project</Modal.Title>
                 </Modal.Header>
-                    <Modal.Body>Are you sure you want to delete {projectName}?</Modal.Body>
+                <Modal.Body>
+                    Are you sure you want to delete {projectName}?
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-secondary" onClick={handleCloseDeleteModal}>
                         Cancel

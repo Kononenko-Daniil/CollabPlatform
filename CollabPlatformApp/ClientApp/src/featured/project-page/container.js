@@ -13,13 +13,16 @@ export class ProjectPageContainer extends Component{
             linkName: "",
             linkUrl: "",
             taskText: "",
+            contributorEmail: "",
             errorTaskTextMessage: "",
             errorLinkNameMessage: "",
-            errorLinkUrlMessage: ""
+            errorLinkUrlMessage: "",
+            errorConributorMessage: ""
         }
 
         this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
         this.OnDeleteLinkClick = this.OnDeleteLinkClick.bind(this);
+        this.OnDeleteContributorClick = this.OnDeleteContributorClick.bind(this);
 
         this.handleLinkNameChange = this.handleLinkNameChange.bind(this);
         this.handleLinkUrlChange = this.handleLinkUrlChange.bind(this);
@@ -28,8 +31,15 @@ export class ProjectPageContainer extends Component{
         this.handleTaskTextChange = this.handleTaskTextChange.bind(this);
         this.handleTaskSubmit = this.handleTaskSubmit.bind(this);
 
+        this.handleContributorEmailChange = this.handleContributorEmailChange.bind(this);
+        this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
+
         this.errorCatcher = this.errorCatcher.bind(this);
         this.clearErrorMessages = this.clearErrorMessages.bind(this);
+
+        this.OnClearTaskForm = this.OnClearTaskForm.bind(this);
+        this.OnClearLinkForm = this.OnClearLinkForm.bind(this);
+        this.OnClearContributorForm = this.OnClearContributorForm.bind(this);
     }
 
     componentDidMount(){
@@ -46,6 +56,10 @@ export class ProjectPageContainer extends Component{
             this.setState({errorLinkNameMessage: errorMessage});
         }else if(errorType === "Url"){
             this.setState({errorLinkUrlMessage: errorMessage});
+        }else if(errorType === "ContributorEmail"){
+            this.setState({errorConributorMessage: errorMessage});
+        }else if(errorType === "ContributorIsExisted"){
+            this.setState({errorConributorMessage: errorMessage});
         }
     }
 
@@ -53,6 +67,33 @@ export class ProjectPageContainer extends Component{
         this.setState({errorTaskTextMessage: ""});
         this.setState({errorLinkNameMessage: ""});
         this.setState({errorLinkUrlMessage: ""});
+        this.setState({errorConributorMessage: ""});
+    }
+
+    handleContributorEmailChange(event){
+        this.setState({contributorEmail: event.target.value});
+    }
+
+    handleContributorSubmit(event){
+        const contributor = {
+            projectId: this.state.id,
+            email: this.state.contributorEmail
+        };
+
+        this.clearErrorMessages();
+
+        axios({
+            method: 'POST',
+            url: constants.apiPort + '/project-contributors/add-contributor',
+            data: contributor,
+            withCredentials: true
+        }).then(res=>{
+            this.getProject();
+
+            this.setState({contributorEmail: ""});
+        }).catch(this.errorCatcher);
+
+        event.preventDefault();
     }
 
     handleTaskSubmit(event) {
@@ -133,6 +174,39 @@ export class ProjectPageContainer extends Component{
         });
     }
 
+    OnDeleteContributorClick = (contributorEmail) => {
+        const contributor = {
+            projectId: this.state.id,
+            email: contributorEmail
+        };
+
+        axios({
+            method: 'DELETE',
+            url: constants.apiPort + '/project-contributors/delete-contributor',
+            withCredentials: true,
+            data: contributor
+        }).then(res => {
+            this.getProject();
+        });
+    }
+
+    OnClearTaskForm = () => {
+        this.setState({errorTaskTextMessage: ""});
+        this.setState({taskText: ""});
+    }
+
+    OnClearLinkForm = () => {
+        this.setState({errorLinkNameMessage: ""});
+        this.setState({errorLinkUrlMessage: ""});
+        this.setState({linkName: ""});
+        this.setState({linkUrl: ""});
+    }
+
+    OnClearContributorForm = () => {
+        this.setState({errorConributorMessage: ""});
+        this.setState({contributorEmail: ""});
+    }
+
     getProject(){
         axios({
             method: 'GET',
@@ -159,15 +233,26 @@ export class ProjectPageContainer extends Component{
                 handleTaskTextChange={this.handleTaskTextChange}
                 handleTaskSubmit={this.handleTaskSubmit}
 
+                handleContributorEmailChange={this.handleContributorEmailChange}
+                handleContributorSubmit={this.handleContributorSubmit}
+
                 OnDeleteTaskClick={this.OnDeleteTaskClick}
                 OnDeleteLinkClick={this.OnDeleteLinkClick}
+                OnDeleteContributorClick={this.OnDeleteContributorClick}
+
                 taskText={this.state.taskText}
                 linkName={this.state.linkName}
                 linkUrl={this.state.linkUrl}
+                contributorEmail={this.state.contributorEmail}
 
                 errorTaskTextMessage={this.state.errorTaskTextMessage}
                 errorLinkNameMessage={this.state.errorLinkNameMessage}
                 errorLinkUrlMessage={this.state.errorLinkUrlMessage}
+                errorConributorMessage={this.state.errorConributorMessage}
+
+                OnClearTaskForm={this.OnClearTaskForm}
+                OnClearLinkForm={this.OnClearLinkForm}
+                OnClearContributorForm={this.OnClearContributorForm}
                 />
         )
     }
