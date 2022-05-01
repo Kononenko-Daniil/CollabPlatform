@@ -28,9 +28,9 @@ const ProjectLinksComponent = (props) => {
                                                     </Dropdown.Toggle>
                                                 
                                                     <Dropdown.Menu>
-                                                    <Dropdown.Item href={link.url}>Open</Dropdown.Item>
-                                                    <Dropdown.Item onClick={() => OnDeleteLinkClick(link.id)}>Delete</Dropdown.Item>
-                                                    <Dropdown.Item onClick={() => handleShowLinkInfoModal(link.name, link.url)}>Detail info</Dropdown.Item>
+                                                        <Dropdown.Item href={link.url}>Open</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => OnDeleteLinkClick(link.id)}>Delete</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => handleShowLinkInfoModal(link.name, link.url)}>Detail info</Dropdown.Item>
                                                     </Dropdown.Menu>
                                                 </Dropdown>
                                             </div>

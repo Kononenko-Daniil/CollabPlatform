@@ -22,9 +22,11 @@ namespace CollabPlatformApp.Controllers
         }
 
         [HttpGet("get-project-contributors")]
-        public IEnumerable<User> GetProjectContributors()
+        public IEnumerable<Contributor> GetProjectContributors(string projectId)
         {
-            return new List<User>();
+            var contributors = _contributorService.GetContributors(projectId);
+
+            return contributors;
         }
 
         [HttpPost("add-contributor")]
@@ -56,7 +58,9 @@ namespace CollabPlatformApp.Controllers
         }
 
         [HttpDelete("delete-contributor")]
-        public void DeleteContributor(string userId, string porjectId)
-        { }
+        public void DeleteContributor(ContributorDto contributor)
+        {
+            _contributorService.DeleteContributor(contributor);
+        }
     }
 }

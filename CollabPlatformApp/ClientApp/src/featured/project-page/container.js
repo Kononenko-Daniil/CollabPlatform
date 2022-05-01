@@ -22,6 +22,7 @@ export class ProjectPageContainer extends Component{
 
         this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
         this.OnDeleteLinkClick = this.OnDeleteLinkClick.bind(this);
+        this.OnDeleteContributorClick = this.OnDeleteContributorClick.bind(this);
 
         this.handleLinkNameChange = this.handleLinkNameChange.bind(this);
         this.handleLinkUrlChange = this.handleLinkUrlChange.bind(this);
@@ -38,6 +39,7 @@ export class ProjectPageContainer extends Component{
 
         this.OnClearTaskForm = this.OnClearTaskForm.bind(this);
         this.OnClearLinkForm = this.OnClearLinkForm.bind(this);
+        this.OnClearContributorForm = this.OnClearContributorForm.bind(this);
     }
 
     componentDidMount(){
@@ -172,6 +174,22 @@ export class ProjectPageContainer extends Component{
         });
     }
 
+    OnDeleteContributorClick = (contributorEmail) => {
+        const contributor = {
+            projectId: this.state.id,
+            email: contributorEmail
+        };
+
+        axios({
+            method: 'DELETE',
+            url: constants.apiPort + '/project-contributors/delete-contributor',
+            withCredentials: true,
+            data: contributor
+        }).then(res => {
+            this.getProject();
+        });
+    }
+
     OnClearTaskForm = () => {
         this.setState({errorTaskTextMessage: ""});
         this.setState({taskText: ""});
@@ -182,6 +200,11 @@ export class ProjectPageContainer extends Component{
         this.setState({errorLinkUrlMessage: ""});
         this.setState({linkName: ""});
         this.setState({linkUrl: ""});
+    }
+
+    OnClearContributorForm = () => {
+        this.setState({errorConributorMessage: ""});
+        this.setState({contributorEmail: ""});
     }
 
     getProject(){
@@ -215,6 +238,8 @@ export class ProjectPageContainer extends Component{
 
                 OnDeleteTaskClick={this.OnDeleteTaskClick}
                 OnDeleteLinkClick={this.OnDeleteLinkClick}
+                OnDeleteContributorClick={this.OnDeleteContributorClick}
+
                 taskText={this.state.taskText}
                 linkName={this.state.linkName}
                 linkUrl={this.state.linkUrl}
@@ -227,6 +252,7 @@ export class ProjectPageContainer extends Component{
 
                 OnClearTaskForm={this.OnClearTaskForm}
                 OnClearLinkForm={this.OnClearLinkForm}
+                OnClearContributorForm={this.OnClearContributorForm}
                 />
         )
     }

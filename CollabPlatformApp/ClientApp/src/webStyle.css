@@ -27,8 +27,9 @@
 .linkElement{
     margin-right: 10px;
     margin-top: 10px;
-    border-color: rgb(36, 36, 36);
+    color:rgb(73, 73, 73);
     border-width: 1px;
+    border-color: rgb(94, 94, 94);
 }
 .addForm{
     background-color: #f0f0f0;
@@ -48,4 +49,11 @@
 .errorFormText{
     color: red;
     font-size: 15px;
+}
+.contributorElement{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-color: rgb(94, 94, 94);
+    border-width: 1px;
+    color: rgb(73, 73, 73);
 }

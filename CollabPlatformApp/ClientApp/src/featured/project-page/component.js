@@ -27,6 +27,8 @@ const ProjectPageComponent = (props) => {
 
         OnDeleteTaskClick, 
         OnDeleteLinkClick,
+        OnDeleteContributorClick,
+
         taskText, 
         linkName, 
         linkUrl, 
@@ -38,7 +40,8 @@ const ProjectPageComponent = (props) => {
         errorConributorMessage,
 
         OnClearTaskForm, 
-        OnClearLinkForm } = props;
+        OnClearLinkForm, 
+        OnClearContributorForm } = props;
 
     const [key, setKey] = useState('tasks');
 
@@ -89,18 +92,15 @@ const ProjectPageComponent = (props) => {
                 <Tab eventKey="links" title="Links">
                     <ProjectLinksComponent 
                         project={project}
-                        handleLinkNameChange={handleLinkNameChange}
-                        handleLinkUrlChange={handleLinkUrlChange} 
-                        handleLinkSubmit={handleLinkSubmit}
                         OnDeleteLinkClick={OnDeleteLinkClick}
-                        linkName={linkName}
-                        linkUrl={linkUrl}
                         handleShowLinkInfoModal={handleShowLinkInfoModal}
                         handleShowAddLinkModal={handleShowAddLinkModal}
                         />
                 </Tab>
                 <Tab eventKey="contributors" title="Contributors">
                     <ProjectContributorsComponent 
+                        project={project}
+                        OnDeleteContributorClick={OnDeleteContributorClick}
                         handleShowAddContibutorModal={handleShowAddContibutorModal}
                         />
                 </Tab>
@@ -190,6 +190,7 @@ const ProjectPageComponent = (props) => {
                         />
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button variant={"outline-danger"} onClick={() => OnClearContributorForm()}>Clear form</Button>
                         <Button variant={"outline-success"} type={"submit"}>Add contributor</Button>
                     </Modal.Footer>
                 </Form>

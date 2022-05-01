@@ -11,6 +11,6 @@ namespace CollabPlatformApp.Models
         public string? Author { get; set; }
         public List<Task>? Tasks { get; set; }
         public List<Link>? Links { get; set; }
-        public List<string>? Contributors { get; set; }
+        public List<Contributor>? Contributors { get; set; }
     }
 }
