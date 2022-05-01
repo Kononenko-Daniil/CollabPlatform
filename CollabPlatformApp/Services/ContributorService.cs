@@ -51,6 +51,14 @@ namespace CollabPlatformApp.Services
             _projectRepository.UpdateProject(project);
         }
 
+        public bool IsDeletingYourself(string userId, ContributorDto contributor)
+        {
+            var _contributor = _userRepository.GetUserByEmail(contributor.Email);
+            if (_contributor.Id == userId)
+                return true;
+            return false;
+        }
+
         public bool ContributorIsExisted(ContributorDto contributor)
         {
             var project = _projectRepository.GetProjectById(contributor.ProjectId);

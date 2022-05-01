@@ -9,7 +9,7 @@ namespace CollabPlatformApp.Controllers
 {
     [ApiController]
     [Route("/project-contributors")]
-    public class ContributorController : ControllerBase
+    public class ContributorController : BaseController
     {
         private readonly IContributorService _contributorService;
         private readonly IUserRepository _userRepository;
@@ -60,7 +60,9 @@ namespace CollabPlatformApp.Controllers
         [HttpDelete("delete-contributor")]
         public void DeleteContributor(ContributorDto contributor)
         {
-            _contributorService.DeleteContributor(contributor);
+            var userId = GetUserId();
+            if (!_contributorService.IsDeletingYourself(userId, contributor))
+                _contributorService.DeleteContributor(contributor);
         }
     }
 }

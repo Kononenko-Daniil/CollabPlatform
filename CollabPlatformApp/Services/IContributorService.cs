@@ -9,5 +9,6 @@ namespace CollabPlatformApp.Services
         public void AddContributor(ContributorDto contributor);
         public void DeleteContributor(ContributorDto contributor);
         public bool ContributorIsExisted(ContributorDto contributor);
+        public bool IsDeletingYourself(string userId, ContributorDto contributor);
     }
 }
