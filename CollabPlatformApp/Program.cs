@@ -3,9 +3,9 @@ using CollabPlatformApp.Database;
 using CollabPlatformApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using FluentValidation.AspNetCore;
 using CollabPlatformApp.Validators;
 using CollabPlatformApp.Repositories;
+using CollabPlatformApp.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +16,7 @@ string loginPath = "/users/sign-in";
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSignalR();
 
 //Services
 builder.Services.AddScoped<IProjectService, ProjectService>();
@@ -47,7 +48,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddCors(p => p.AddPolicy(AllowOrigins, builder =>
 {
-    builder.WithOrigins("https://localhost:44413").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+    builder.WithOrigins("https://localhost:44413")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials();
 }));
 
 var app = builder.Build();
@@ -56,7 +60,6 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseCors(AllowOrigins);
 app.UseStaticFiles();
@@ -65,7 +68,10 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseEndpoints(endpoints => { 
+    endpoints.MapControllers();
+    endpoints.MapHub<ChatHub>("/hubs/chat");
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
