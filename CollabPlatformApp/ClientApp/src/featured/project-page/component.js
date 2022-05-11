@@ -41,7 +41,8 @@ const ProjectPageComponent = (props) => {
 
         OnClearTaskForm, 
         OnClearLinkForm, 
-        OnClearContributorForm } = props;
+        OnClearContributorForm, 
+        OnViewContributorClick } = props;
 
     const [key, setKey] = useState('tasks');
 
@@ -101,6 +102,7 @@ const ProjectPageComponent = (props) => {
                     <ProjectContributorsComponent 
                         project={project}
                         OnDeleteContributorClick={OnDeleteContributorClick}
+                        OnViewContributorClick={OnViewContributorClick}
                         handleShowAddContibutorModal={handleShowAddContibutorModal}
                         />
                 </Tab>

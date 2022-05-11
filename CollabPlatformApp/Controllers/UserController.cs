@@ -41,6 +41,14 @@ namespace CollabPlatformApp.Controllers
             return result;
         }
 
+        [HttpGet("get-user-id-by-email")]
+        public string GetUserIdByEmail(string email)
+        {
+            var result = _userService.GetUserIdByEmail(email);
+
+            return result;
+        }
+
         [HttpPost("create-user")]
         public ActionResult<BaseRequestError> CreteUser(UserSignUpDto user)
         {

@@ -10,6 +10,7 @@ import account_base from "../img/account_base.png";
 const ProjectContributorsComponent = (props) => {
     const {project, 
         OnDeleteContributorClick,
+        OnViewContributorClick,
         handleShowAddContibutorModal} = props;
 
     return (
@@ -40,7 +41,9 @@ const ProjectContributorsComponent = (props) => {
                                                         </Dropdown.Toggle>
                                                     </OverlayTrigger>
                                                     <Dropdown.Menu>
-                                                        <Dropdown.Item>User info</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => OnViewContributorClick(contributor.email)}>
+                                                            User info
+                                                        </Dropdown.Item>
                                                         <Dropdown.Item onClick={() => OnDeleteContributorClick(contributor.email)}>
                                                             Delete
                                                         </Dropdown.Item>

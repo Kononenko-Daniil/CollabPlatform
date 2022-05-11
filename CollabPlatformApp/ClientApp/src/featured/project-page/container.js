@@ -40,6 +40,7 @@ export class ProjectPageContainer extends Component{
         this.OnClearTaskForm = this.OnClearTaskForm.bind(this);
         this.OnClearLinkForm = this.OnClearLinkForm.bind(this);
         this.OnClearContributorForm = this.OnClearContributorForm.bind(this);
+        this.OnViewContributorClick = this.OnViewContributorClick.bind(this);
     }
 
     componentDidMount(){
@@ -207,6 +208,17 @@ export class ProjectPageContainer extends Component{
         this.setState({contributorEmail: ""});
     }
 
+    OnViewContributorClick = (contributorEmail) => {
+        axios({
+            method: 'GET',
+            url: constants.apiPort + '/users/get-user-id-by-email',
+            params: { email: contributorEmail },
+            withCredentials: true
+        }).then(res => {
+            console.log(res.data);
+        })
+    }
+
     getProject(){
         axios({
             method: 'GET',
@@ -253,6 +265,7 @@ export class ProjectPageContainer extends Component{
                 OnClearTaskForm={this.OnClearTaskForm}
                 OnClearLinkForm={this.OnClearLinkForm}
                 OnClearContributorForm={this.OnClearContributorForm}
+                OnViewContributorClick={this.OnViewContributorClick}
                 />
         )
     }

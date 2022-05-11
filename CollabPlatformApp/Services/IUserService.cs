@@ -7,6 +7,7 @@ namespace CollabPlatformApp.Services
     {
         public IEnumerable<User> GetUsers();
         public User GetUserById(string userId);
+        public string GetUserIdByEmail(string email);
 
         public void CreateUser(UserSignUpDto user);
         public string SignIn(UserSignInDto user);
