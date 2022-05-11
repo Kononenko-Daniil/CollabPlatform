@@ -215,7 +215,7 @@ export class ProjectPageContainer extends Component{
             params: { email: contributorEmail },
             withCredentials: true
         }).then(res => {
-            console.log(res.data);
+            window.location.href = constants.reactAppPort + '/accounts/' + res.data;
         })
     }
 
