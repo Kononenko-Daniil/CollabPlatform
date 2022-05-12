@@ -5,10 +5,12 @@ import Spinner from 'react-bootstrap/Spinner';
 import Dropdown from 'react-bootstrap/Dropdown';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import account_base from "../img/account_base.png";
 
 const ProjectContributorsComponent = (props) => {
     const {project, 
         OnDeleteContributorClick,
+        OnViewContributorClick,
         handleShowAddContibutorModal} = props;
 
     return (
@@ -34,11 +36,14 @@ const ProjectContributorsComponent = (props) => {
                                                         }
                                                     >
                                                         <Dropdown.Toggle variant={"inline-secondary"} className={"contributorElement"} id="dropdown-basic">
+                                                        <img src={account_base} className={'accountBaseImg'} alt="account"></img>
                                                         {contributor.name}
                                                         </Dropdown.Toggle>
                                                     </OverlayTrigger>
                                                     <Dropdown.Menu>
-                                                        <Dropdown.Item>User info</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => OnViewContributorClick(contributor.email)}>
+                                                            User info
+                                                        </Dropdown.Item>
                                                         <Dropdown.Item onClick={() => OnDeleteContributorClick(contributor.email)}>
                                                             Delete
                                                         </Dropdown.Item>

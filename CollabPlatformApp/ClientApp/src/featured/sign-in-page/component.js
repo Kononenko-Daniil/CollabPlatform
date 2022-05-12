@@ -14,7 +14,7 @@ const SignInPageComponent = (props) => {
 
     return(
         <Container>
-            <h1 className="pageName">Sign in page</h1>
+            <h1 className="pageName">Sign in</h1>
 
             <Form onSubmit={handleUserSubmit}>
                 <p className="errorFormText">{errorMessage}</p>

@@ -1,7 +1,9 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { NavDropdown } from 'react-bootstrap';
 import { Container } from 'reactstrap';
+import avatar_2 from './img/avatar_2.jpg';
 
 const NavbarComponent = (props) => {
     const {OnLogOutClick} = props;
@@ -16,7 +18,19 @@ const NavbarComponent = (props) => {
                         <Nav.Link href="/create-project">Create project</Nav.Link>
                         <Nav.Link href="/sign-up">Sign up</Nav.Link>
                         <Nav.Link href="/sign-in">Sign in</Nav.Link>
-                        <Nav.Link onClick={() => OnLogOutClick()}>Log out</Nav.Link>
+                    </Nav>
+                    <Nav>
+                        <img src={avatar_2} className={'navbarAvatar'}/>
+                        <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            align="end"
+                            menuVariant="light"
+                            >
+                                <NavDropdown.Item href="#action/3.1">My account</NavDropdown.Item>
+                                <NavDropdown.Item href="/">My projects</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item onClick={() => OnLogOutClick()}>Sign out</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Container>
             </Navbar>

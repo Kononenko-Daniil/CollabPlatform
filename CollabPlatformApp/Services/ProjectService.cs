@@ -68,15 +68,18 @@ namespace CollabPlatformApp.Services
             return projectId;
         }
 
-        public void DeleteProject(string projectId, string userId)
+        public void DeleteProject(string projectId)
         {
+            var project = _projectRepository.GetProjectById(projectId);
+            foreach(var contributor in project.Contributors)
+            {
+                var user = _userRepository.GetUserByEmail(contributor.Email);
+                var _project = user.Projects.FirstOrDefault(x => x == projectId);
+                user.Projects.Remove(_project);
+                _userRepository.UpdateUserProjects(user);
+            }
+
             _projectRepository.DeleteProject(projectId);
-
-            var user = _userRepository.GetUserById(userId);
-            var project = user.Projects.FirstOrDefault(x => x == projectId);
-            user.Projects.Remove(project);
-
-            _userRepository.UpdateUserProjects(user);
         }
 
         public string GenerateKey()

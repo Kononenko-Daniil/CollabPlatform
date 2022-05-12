@@ -32,6 +32,14 @@ namespace CollabPlatformApp.Services
             return result;
         }
 
+        public string GetUserIdByEmail(string email)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+            var result = user.Id;
+
+            return result;
+        }
+
         public void CreateUser(UserSignUpDto user)
         {
             string userId = GenerateKey();

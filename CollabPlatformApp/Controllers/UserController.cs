@@ -13,7 +13,7 @@ namespace CollabPlatformApp.Controllers
 {
     [ApiController]
     [Route("/users")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
         private readonly UserValidator _userValidator;
@@ -39,6 +39,23 @@ namespace CollabPlatformApp.Controllers
             var result = _userService.GetUserById(userId);
 
             return result;
+        }
+
+        [HttpGet("get-user-id-by-email")]
+        public string GetUserIdByEmail(string email)
+        {
+            var result = _userService.GetUserIdByEmail(email);
+
+            return result;
+        }
+
+        [HttpGet("is-current-user")]
+        public bool IsCurrentUser(string userId)
+        {
+            var currentUserId = GetUserId();
+            if(currentUserId == userId)
+                return true;
+            return false;
         }
 
         [HttpPost("create-user")]

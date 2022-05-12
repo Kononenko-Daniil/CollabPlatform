@@ -15,7 +15,7 @@
     font-weight: 400;
 }
 .tasksLinksNameText{
-    font-weight: 400;
+    font-weight: lighter;
 }
 .taskElement{
     width: auto;
@@ -56,4 +56,46 @@
     border-color: rgb(94, 94, 94);
     border-width: 1px;
     color: rgb(73, 73, 73);
+}
+.accountBaseImg{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
+.navbarAvatar{
+    width: 30px;
+    height: 30px;
+    margin-top:4px;
+    margin-right: -2px;
+}
+.accountImgView{
+    width: 300px;
+    height: 300px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+}
+.userName{
+    font-size: 22px;
+    text-align: left;
+    font-weight: lighter;
+    margin-top: 10px;
+    color: rgb(48, 48, 48);
+    margin-bottom: 3px
+}
+.accountView{
+    margin-top: 20px;
+}
+.avatarPlace{
+    
+}
+.smallTextAccount{
+    font-size: 15px;
+    text-align: left;
+    font-weight: lighter;
+    color: rgb(48, 48, 48);
+}
+.withBottomDivider{
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(161, 161, 161);
 }

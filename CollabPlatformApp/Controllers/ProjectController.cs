@@ -74,9 +74,7 @@ namespace CollabPlatformApp.Controllers
         [HttpDelete("delete-project")]
         public void DeleteProject(string projectId)
         {
-            var userId = GetUserId();
-
-            _projectService.DeleteProject(projectId, userId);
+            _projectService.DeleteProject(projectId);
         }
     }
 }
