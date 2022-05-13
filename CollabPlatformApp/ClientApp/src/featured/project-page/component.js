@@ -22,7 +22,7 @@ const ProjectPageComponent = (props) => {
         handleTaskTextChange,
         handleTaskSubmit, 
 
-        handleContributorEmailChange,
+        handleContributorNameChange,
         handleContributorSubmit,
 
         OnDeleteTaskClick, 
@@ -32,7 +32,7 @@ const ProjectPageComponent = (props) => {
         taskText, 
         linkName, 
         linkUrl, 
-        contributorEmail,
+        contributorName,
 
         errorTaskTextMessage, 
         errorLinkNameMessage, 
@@ -183,12 +183,12 @@ const ProjectPageComponent = (props) => {
                     <Modal.Body>
                         <p className="errorFormText">{errorConributorMessage}</p>
                         <Form.Control
-                            placeholder='User email'
+                            placeholder='User name'
                             className="inFormElements"
                             type="input"
-                            value={contributorEmail}
-                            id="inputContributorEmail"
-                            onChange={handleContributorEmailChange}
+                            value={contributorName}
+                            id="inputContributorName"
+                            onChange={handleContributorNameChange}
                         />
                     </Modal.Body>
                     <Modal.Footer>

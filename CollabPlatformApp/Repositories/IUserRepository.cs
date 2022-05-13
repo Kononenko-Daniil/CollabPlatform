@@ -6,6 +6,7 @@ namespace CollabPlatformApp.Repositories
     {
         public IEnumerable<User> GetUsers();
         public User GetUserById(string userId);
+        public User GetUserByName(string userName);
         public User GetUserByEmail(string email);
         public void CreateUser(User user);
         public void UpdateUserProjects(User user);

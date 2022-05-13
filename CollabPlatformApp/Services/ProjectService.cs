@@ -59,8 +59,7 @@ namespace CollabPlatformApp.Services
             };
             Contributor contributor = new Contributor()
             {
-                Name = user.Name,
-                Email = user.Email
+                Name = user.Name
             };
             result.Contributors.Add(contributor);
             _projectRepository.InsertProject(result);
@@ -73,7 +72,7 @@ namespace CollabPlatformApp.Services
             var project = _projectRepository.GetProjectById(projectId);
             foreach(var contributor in project.Contributors)
             {
-                var user = _userRepository.GetUserByEmail(contributor.Email);
+                var user = _userRepository.GetUserByName(contributor.Name);
                 var _project = user.Projects.FirstOrDefault(x => x == projectId);
                 user.Projects.Remove(_project);
                 _userRepository.UpdateUserProjects(user);

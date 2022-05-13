@@ -32,11 +32,11 @@ namespace CollabPlatformApp.Controllers
         [HttpPost("add-contributor")]
         public ActionResult<BaseRequestError> AddContributor(ContributorDto contributor)
         {
-            if(_userRepository.GetUserByEmail(contributor.Email) == null)
+            if(_userRepository.GetUserByName(contributor.Name) == null)
             {
                 BaseRequestError error = new BaseRequestError()
                 {
-                    ErrorType = "ContributorEmail",
+                    ErrorType = "ContributorName",
                     ErrorMessage = Constants.AccountNotExistErrorMessage
                 };
 

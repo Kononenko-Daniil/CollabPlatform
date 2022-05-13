@@ -5,6 +5,7 @@
         //User validation messages
         public const string EmptyUsernameMessage = "Enter username";
         public const string UsernameInvalidLengthMessage = "Username must contain from 4 to 20 symbols";
+        public const string DoubleUsernameMessage = "This name is already used";
 
         public const string EmptyEmailMessage = "Enter your email address";
         public const string DoubleEmailMessage = "This email is already used";

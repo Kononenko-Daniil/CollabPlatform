@@ -73,6 +73,16 @@ namespace CollabPlatformApp.Controllers
 
                 return BadRequest(error);
             }
+            if (_userService.UsernameIsExisting(user.Username))
+            {
+                BaseRequestError error = new BaseRequestError()
+                {
+                    ErrorType = "Username",
+                    ErrorMessage = Constants.DoubleUsernameMessage
+                };
+
+                return BadRequest(error);
+            }
             if (_userService.EmailIsExisting(user.Email))
             {
                 BaseRequestError error = new BaseRequestError()
@@ -83,6 +93,7 @@ namespace CollabPlatformApp.Controllers
 
                 return BadRequest(error);
             }
+            
             _userService.CreateUser(user);
             
             return Ok();

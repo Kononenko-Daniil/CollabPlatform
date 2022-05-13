@@ -63,6 +63,15 @@ namespace CollabPlatformApp.Services
             return userId;
         }
 
+        public bool UsernameIsExisting(string userName)
+        {
+            User result = _userRepository.GetUserByName(userName);
+            if (result != null)
+                return true;
+
+            return false;
+        }
+
         public bool EmailIsExisting(string email)
         {
             User result = _userRepository.GetUserByEmail(email);

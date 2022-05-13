@@ -3,6 +3,6 @@
     public class ContributorDto
     {
         public string ProjectId { get; set; }
-        public string Email { get; set; }
+        public string Name { get; set; }
     }
 }

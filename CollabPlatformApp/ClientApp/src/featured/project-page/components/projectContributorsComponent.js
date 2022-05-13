@@ -3,8 +3,6 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import Dropdown from 'react-bootstrap/Dropdown';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import account_base from "../img/account_base.png";
 
 const ProjectContributorsComponent = (props) => {
@@ -27,24 +25,15 @@ const ProjectContributorsComponent = (props) => {
                                         project.contributors.map((contributor, index) => 
                                             <div className='div-row' key={index}>
                                                 <Dropdown>
-                                                    <OverlayTrigger
-                                                        placement={'top'}
-                                                        overlay={
-                                                            <Tooltip id="email">
-                                                                <strong>Email: </strong>{contributor.email}
-                                                            </Tooltip>
-                                                        }
-                                                    >
-                                                        <Dropdown.Toggle variant={"inline-secondary"} className={"contributorElement"} id="dropdown-basic">
+                                                    <Dropdown.Toggle variant={"inline-secondary"} className={"contributorElement"} id="dropdown-basic">
                                                         <img src={account_base} className={'accountBaseImg'} alt="account"></img>
                                                         {contributor.name}
-                                                        </Dropdown.Toggle>
-                                                    </OverlayTrigger>
+                                                    </Dropdown.Toggle>
                                                     <Dropdown.Menu>
-                                                        <Dropdown.Item onClick={() => OnViewContributorClick(contributor.email)}>
+                                                        <Dropdown.Item onClick={() => OnViewContributorClick(contributor.name)}>
                                                             User info
                                                         </Dropdown.Item>
-                                                        <Dropdown.Item onClick={() => OnDeleteContributorClick(contributor.email)}>
+                                                        <Dropdown.Item onClick={() => OnDeleteContributorClick(contributor.name)}>
                                                             Delete
                                                         </Dropdown.Item>
                                                     </Dropdown.Menu>

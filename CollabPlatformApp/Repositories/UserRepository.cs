@@ -26,6 +26,14 @@ namespace CollabPlatformApp.Repositories
             return result;
         }
 
+        public User GetUserByName(string userName)
+        {
+            var users = GetUsers();
+            var result = users.FirstOrDefault(x => x.Name == userName);
+
+            return result;
+        }
+
         public User GetUserByEmail(string email)
         {
             var users = GetUsers();
