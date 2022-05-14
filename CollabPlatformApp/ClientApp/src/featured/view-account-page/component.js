@@ -3,7 +3,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 
-import avatar_2 from './img/avatar_2.jpg';
+import avatar_2 from '../../img/avatar_2.jpg';
 
 const ViewAccountPageComponent = (props) => {
     const {

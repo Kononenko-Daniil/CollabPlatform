@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ProjectPageComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
+import SpinnerComponent from '../static-components/spinner/component';
 
 export class ProjectPageContainer extends Component{
     constructor(props){
@@ -234,39 +235,45 @@ export class ProjectPageContainer extends Component{
     }
 
     render(){
-        return (
-            <ProjectPageComponent
-                project={this.state.project}
-                
-                handleLinkNameChange={this.handleLinkNameChange}
-                handleLinkUrlChange={this.handleLinkUrlChange}
-                handleLinkSubmit={this.handleLinkSubmit}
-
-                handleTaskTextChange={this.handleTaskTextChange}
-                handleTaskSubmit={this.handleTaskSubmit}
-
-                handleContributorNameChange={this.handleContributorNameChange}
-                handleContributorSubmit={this.handleContributorSubmit}
-
-                OnDeleteTaskClick={this.OnDeleteTaskClick}
-                OnDeleteLinkClick={this.OnDeleteLinkClick}
-                OnDeleteContributorClick={this.OnDeleteContributorClick}
-
-                taskText={this.state.taskText}
-                linkName={this.state.linkName}
-                linkUrl={this.state.linkUrl}
-                contributorName={this.state.contributorName}
-
-                errorTaskTextMessage={this.state.errorTaskTextMessage}
-                errorLinkNameMessage={this.state.errorLinkNameMessage}
-                errorLinkUrlMessage={this.state.errorLinkUrlMessage}
-                errorConributorMessage={this.state.errorConributorMessage}
-
-                OnClearTaskForm={this.OnClearTaskForm}
-                OnClearLinkForm={this.OnClearLinkForm}
-                OnClearContributorForm={this.OnClearContributorForm}
-                OnViewContributorClick={this.OnViewContributorClick}
-                />
-        )
+        if(this.state.project !== {}){
+            return (
+                <ProjectPageComponent
+                    project={this.state.project}
+                    
+                    handleLinkNameChange={this.handleLinkNameChange}
+                    handleLinkUrlChange={this.handleLinkUrlChange}
+                    handleLinkSubmit={this.handleLinkSubmit}
+    
+                    handleTaskTextChange={this.handleTaskTextChange}
+                    handleTaskSubmit={this.handleTaskSubmit}
+    
+                    handleContributorNameChange={this.handleContributorNameChange}
+                    handleContributorSubmit={this.handleContributorSubmit}
+    
+                    OnDeleteTaskClick={this.OnDeleteTaskClick}
+                    OnDeleteLinkClick={this.OnDeleteLinkClick}
+                    OnDeleteContributorClick={this.OnDeleteContributorClick}
+    
+                    taskText={this.state.taskText}
+                    linkName={this.state.linkName}
+                    linkUrl={this.state.linkUrl}
+                    contributorName={this.state.contributorName}
+    
+                    errorTaskTextMessage={this.state.errorTaskTextMessage}
+                    errorLinkNameMessage={this.state.errorLinkNameMessage}
+                    errorLinkUrlMessage={this.state.errorLinkUrlMessage}
+                    errorConributorMessage={this.state.errorConributorMessage}
+    
+                    OnClearTaskForm={this.OnClearTaskForm}
+                    OnClearLinkForm={this.OnClearLinkForm}
+                    OnClearContributorForm={this.OnClearContributorForm}
+                    OnViewContributorClick={this.OnViewContributorClick}
+                    />
+            );
+        } else {
+            return(
+                <SpinnerComponent />
+            );
+        }
     }
 }

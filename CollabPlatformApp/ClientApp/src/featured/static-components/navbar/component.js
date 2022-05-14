@@ -4,8 +4,8 @@ import Nav from 'react-bootstrap/Nav';
 import { NavDropdown } from 'react-bootstrap';
 import { Container } from 'reactstrap';
 
-import avatar_2 from './img/avatar_2.jpg';
-import plus_icon from './img/plus_icon.png';
+import avatar_2 from '../../../img/avatar_2.jpg';
+import plus_icon from '../../../img/plus_icon.png';
 
 const NavbarComponentSigned = (props) => {
     const {OnLogOutClick} = props;
