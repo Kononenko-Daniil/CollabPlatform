@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import ModalComponent from './modals/deleteProjectModal';
 import {Container} from 'reactstrap';
 import { Link } from "react-router-dom";
 
@@ -56,22 +57,12 @@ const HomePageComponent = (props) =>{
                 </div>
             }
 
-            <Modal show={showDeleteProjectModal} onHide={handleCloseDeleteModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Deleting project</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Are you sure you want to delete {projectName}?
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="outline-secondary" onClick={handleCloseDeleteModal}>
-                        Cancel
-                    </Button>
-                    <Button variant="outline-danger" onClick={handleAcceptDelete}>
-                        Delete project
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <ModalComponent 
+                showDeleteProjectModal={showDeleteProjectModal}
+                projectName={projectName}
+                handleAcceptDelete={handleAcceptDelete}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                />
         </Container>
     )
 }

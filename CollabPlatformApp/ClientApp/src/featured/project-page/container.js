@@ -10,7 +10,7 @@ export class ProjectPageContainer extends Component{
         
         this.state={
             id: this.props.match.params.id,
-            project: {},
+            project: undefined,
             linkName: "",
             linkUrl: "",
             taskText: "",
@@ -206,7 +206,7 @@ export class ProjectPageContainer extends Component{
 
     OnClearContributorForm = () => {
         this.setState({errorConributorMessage: ""});
-        this.setState({contributorEmail: ""});
+        this.setState({contributorName: ""});
     }
 
     OnViewContributorClick = (contributorName) => {
@@ -235,7 +235,7 @@ export class ProjectPageContainer extends Component{
     }
 
     render(){
-        if(this.state.project !== {}){
+        if(this.state.project !== undefined){
             return (
                 <ProjectPageComponent
                     project={this.state.project}
