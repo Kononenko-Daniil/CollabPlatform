@@ -33,7 +33,7 @@ namespace CollabPlatformApp.Services
             };
             _project.Contributors.Add(_contributor);
 
-            _userRepository.UpdateUserProjects(user);
+            _userRepository.UpdateUser(user);
             _projectRepository.UpdateProject(_project);
         }
 
@@ -46,7 +46,7 @@ namespace CollabPlatformApp.Services
             var _contributor = project.Contributors.FirstOrDefault(x => x.Name == contributor.Name);
             project.Contributors.Remove(_contributor);
 
-            _userRepository.UpdateUserProjects(user);
+            _userRepository.UpdateUser(user);
             _projectRepository.UpdateProject(project);
         }
 

@@ -2,14 +2,15 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import constants from '../../Constants';
 import ViewAccountPageComponent from './component';
+import SpinnerComponent from '../static-components/spinner/component';
 
 export class ViewAccountPageContainer extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            id: this.props.match.params.id,
-            user: {}
+            userName: this.props.match.params.name,
+            user: undefined
         }
     }
 
@@ -20,8 +21,8 @@ export class ViewAccountPageContainer extends Component{
     getUser(){
         axios({
             method: 'GET',
-            url: constants.apiPort + '/users/get-user-by-id',
-            params: { userId: this.state.id},
+            url: constants.apiPort + '/accounts/get-account',
+            params: { userName: this.state.userName },
             withCredentials: true
         }).then(res => {
             this.setState({user: res.data});
@@ -29,10 +30,17 @@ export class ViewAccountPageContainer extends Component{
     }
 
     render(){
-        return (
-            <ViewAccountPageComponent 
-                user={this.state.user}
-            />
-        )
+        if(this.state.user !== undefined){
+            return (
+                <ViewAccountPageComponent 
+                    user={this.state.user}
+                />
+            );
+        } else {
+            return(
+                <SpinnerComponent />
+            );
+        }
+        
     }
 }

@@ -210,14 +210,7 @@ export class ProjectPageContainer extends Component{
     }
 
     OnViewContributorClick = (contributorName) => {
-        // axios({
-        //     method: 'GET',
-        //     url: constants.apiPort + '/users/get-user-id-by-email',
-        //     params: { email: contributorEmail },
-        //     withCredentials: true
-        // }).then(res => {
-        //     window.location.href = constants.reactAppPort + '/accounts/' + res.data;
-        // })
+        window.location.href = constants.reactAppPort + `/accounts/${contributorName}`;
     }
 
     getProject(){

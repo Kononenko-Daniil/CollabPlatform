@@ -2,12 +2,21 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import constants from '../../../Constants';
 import { NavbarComponentSigned, NavbarComponentUnsigned } from './component';
+import Service from '../../../Service';
 
 export class NavbarContainer extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            service: new Service(),
+            currentUserName: ""
+        }
 
         this.OnLogOutClick = this.OnLogOutClick.bind(this);
+    }
+
+    componentDidMount(){
+        this.setState({currentUserName: this.state.service.getCookie("user_name")});
     }
 
     OnLogOutClick = () => {
@@ -20,24 +29,8 @@ export class NavbarContainer extends Component{
         })
     }
 
-    getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
     checkIsUserLogged(){
-        const logCookie = this.getCookie("log_in");
+        const logCookie = this.state.service.getCookie("log_in");
         const isLogged = logCookie == "yes" ? true : false;
 
         return isLogged;
@@ -48,6 +41,7 @@ export class NavbarContainer extends Component{
             return(
                 <NavbarComponentSigned 
                     OnLogOutClick = {this.OnLogOutClick}
+                    currentUserName={this.state.currentUserName}
                     />
             );
         } else {

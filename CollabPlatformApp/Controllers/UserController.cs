@@ -122,7 +122,7 @@ namespace CollabPlatformApp.Controllers
         public async void LogOut()
         {
             HttpContext.Response.Cookies.Append("log_in", "no");
-            HttpContext.Response.Cookies.Delete("user_name");
+            HttpContext.Response.Cookies.Append("user_name", "");
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 

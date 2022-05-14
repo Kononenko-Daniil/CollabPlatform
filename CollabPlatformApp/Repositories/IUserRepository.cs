@@ -9,6 +9,6 @@ namespace CollabPlatformApp.Repositories
         public User GetUserByName(string userName);
         public User GetUserByEmail(string email);
         public void CreateUser(User user);
-        public void UpdateUserProjects(User user);
+        public void UpdateUser(User user);
     }
 }

@@ -8,7 +8,10 @@ import avatar_2 from '../../../img/avatar_2.jpg';
 import plus_icon from '../../../img/plus_icon.png';
 
 const NavbarComponentSigned = (props) => {
-    const {OnLogOutClick} = props;
+    const {
+        OnLogOutClick, 
+        currentUserName
+    } = props;
 
     return(
         <div>
@@ -36,7 +39,10 @@ const NavbarComponentSigned = (props) => {
                             align="end"
                             menuVariant="light"
                             >
-                                <NavDropdown.Item href="#action/3.1">My account</NavDropdown.Item>
+                                <NavDropdown.Item 
+                                    href={"/accounts/" + currentUserName}>
+                                        My account
+                                </NavDropdown.Item>
                                 <NavDropdown.Item href="/">My projects</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={() => OnLogOutClick()}>Sign out</NavDropdown.Item>

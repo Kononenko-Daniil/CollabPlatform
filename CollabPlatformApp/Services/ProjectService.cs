@@ -46,7 +46,7 @@ namespace CollabPlatformApp.Services
             var user = _userRepository.GetUserById(userId);
             string projectId = GenerateKey();
             user.Projects.Add(projectId);
-            _userRepository.UpdateUserProjects(user);
+            _userRepository.UpdateUser(user);
 
             Project result = new Project()
             {
@@ -75,7 +75,7 @@ namespace CollabPlatformApp.Services
                 var user = _userRepository.GetUserByName(contributor.Name);
                 var _project = user.Projects.FirstOrDefault(x => x == projectId);
                 user.Projects.Remove(_project);
-                _userRepository.UpdateUserProjects(user);
+                _userRepository.UpdateUser(user);
             }
 
             _projectRepository.DeleteProject(projectId);
