@@ -21,7 +21,7 @@ export default class App extends Component {
         <Route exact path='/create-project' component={CreatePageContainer} />
         <Route exact path='/sign-up' component={SignUpPageContainer} />
         <Route exact path='/sign-in' component={SignInPageContainer} />
-        <Route exact path='/accounts/:id' component={ViewAccountPageContainer} />
+        <Route exact path='/accounts/:name' component={ViewAccountPageContainer} />
       </Layout>
     );
   }

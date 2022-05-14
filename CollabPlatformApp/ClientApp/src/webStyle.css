@@ -86,8 +86,11 @@
 .accountView{
     margin-top: 20px;
 }
-.avatarPlace{
-    
+.plusIcon{
+    width: 22px;
+    height: 22px;
+    margin-top:8px;
+    margin-right: -6px;
 }
 .smallTextAccount{
     font-size: 15px;

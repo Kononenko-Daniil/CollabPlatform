@@ -7,5 +7,6 @@
         public string? Email { get; set; }
         public string? Password { get; set; }
         public List<string>? Projects { get; set; }
+        public Dictionary<string, string>? Cookies { get; set; }
     }
 }

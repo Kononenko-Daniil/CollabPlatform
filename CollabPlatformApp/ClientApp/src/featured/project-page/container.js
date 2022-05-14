@@ -208,15 +208,15 @@ export class ProjectPageContainer extends Component{
         this.setState({contributorEmail: ""});
     }
 
-    OnViewContributorClick = (contributorEmail) => {
-        axios({
-            method: 'GET',
-            url: constants.apiPort + '/users/get-user-id-by-email',
-            params: { email: contributorEmail },
-            withCredentials: true
-        }).then(res => {
-            window.location.href = constants.reactAppPort + '/accounts/' + res.data;
-        })
+    OnViewContributorClick = (contributorName) => {
+        // axios({
+        //     method: 'GET',
+        //     url: constants.apiPort + '/users/get-user-id-by-email',
+        //     params: { email: contributorEmail },
+        //     withCredentials: true
+        // }).then(res => {
+        //     window.location.href = constants.reactAppPort + '/accounts/' + res.data;
+        // })
     }
 
     getProject(){
