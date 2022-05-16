@@ -3,6 +3,7 @@ using CollabPlatformApp.Models;
 using CollabPlatformApp.Repositories;
 using CollabPlatformApp.RequestErrors;
 using CollabPlatformApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollabPlatformApp.Controllers
@@ -21,6 +22,7 @@ namespace CollabPlatformApp.Controllers
             _userRepository = userRepository;
         }
 
+        [Authorize]
         [HttpGet("get-project-contributors")]
         public IEnumerable<Contributor> GetProjectContributors(string projectId)
         {
@@ -29,14 +31,15 @@ namespace CollabPlatformApp.Controllers
             return contributors;
         }
 
+        [Authorize]
         [HttpPost("add-contributor")]
         public ActionResult<BaseRequestError> AddContributor(ContributorDto contributor)
         {
-            if(_userRepository.GetUserByEmail(contributor.Email) == null)
+            if(_userRepository.GetUserByName(contributor.Name) == null)
             {
                 BaseRequestError error = new BaseRequestError()
                 {
-                    ErrorType = "ContributorEmail",
+                    ErrorType = "ContributorName",
                     ErrorMessage = Constants.AccountNotExistErrorMessage
                 };
 
@@ -57,6 +60,7 @@ namespace CollabPlatformApp.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("delete-contributor")]
         public void DeleteContributor(ContributorDto contributor)
         {

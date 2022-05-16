@@ -43,8 +43,12 @@
     margin-bottom:5px;
 }
 .loadingSpinner{
-    width: 40px;
-    height:40px;
+    width: 60px;
+    height:60px;
+    margin-left: auto;
+    margin-right:auto;
+    display:block;
+    margin-top: 40px;
 }
 .errorFormText{
     color: red;
@@ -86,8 +90,11 @@
 .accountView{
     margin-top: 20px;
 }
-.avatarPlace{
-    
+.plusIcon{
+    width: 22px;
+    height: 22px;
+    margin-top:8px;
+    margin-right: -6px;
 }
 .smallTextAccount{
     font-size: 15px;

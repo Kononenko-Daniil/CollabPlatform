@@ -26,6 +26,14 @@ namespace CollabPlatformApp.Repositories
             return result;
         }
 
+        public User GetUserByName(string userName)
+        {
+            var users = GetUsers();
+            var result = users.FirstOrDefault(x => x.Name == userName);
+
+            return result;
+        }
+
         public User GetUserByEmail(string email)
         {
             var users = GetUsers();
@@ -39,7 +47,7 @@ namespace CollabPlatformApp.Repositories
             _usersCollection.InsertOne(user);
         }
 
-        public void UpdateUserProjects(User user)
+        public void UpdateUser(User user)
         {
             _usersCollection.ReplaceOne(x => x.Id == user.Id, user);
         }

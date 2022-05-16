@@ -4,13 +4,14 @@ import ProjectTasksComponent from './components/projectTasksComponent';
 import ProjectLinksComponent from './components/projectLinksComponent';
 import ProjectContributorsComponent from './components/projectContributorsComponent';
 
+import LinkInfoModal from './modals/linkInfoModal';
+import LinkAddModal from './modals/linkAddModal';
+import ContributorAddModal from './modals/contributorAddModal';
+import TaskAddModal from './modals/taskAddModal';
+
 import { Container } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import Modal from 'react-bootstrap/Modal';
-
 
 const ProjectPageComponent = (props) => {
     const { project, 
@@ -22,7 +23,7 @@ const ProjectPageComponent = (props) => {
         handleTaskTextChange,
         handleTaskSubmit, 
 
-        handleContributorEmailChange,
+        handleContributorNameChange,
         handleContributorSubmit,
 
         OnDeleteTaskClick, 
@@ -32,7 +33,7 @@ const ProjectPageComponent = (props) => {
         taskText, 
         linkName, 
         linkUrl, 
-        contributorEmail,
+        contributorName,
 
         errorTaskTextMessage, 
         errorLinkNameMessage, 
@@ -108,95 +109,45 @@ const ProjectPageComponent = (props) => {
                 </Tab>
             </Tabs>
             
-            <Modal show={showLinkInfoModal} onHide={handleCloseLinkInfoModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Link info</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Name: {linkNameModal} &ensp; URL: {linkUrlModal}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="outline-secondary" onClick={handleCloseLinkInfoModal}>
-                        Ok
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <TaskAddModal 
+                showAddTaskModal={showAddTaskModal}
+                handleCloseAddTaskModal={handleCloseAddTaskModal}
+                handleTaskSubmit={handleTaskSubmit}
+                errorTaskTextMessage={errorTaskTextMessage}
+                taskText={taskText}
+                handleTaskTextChange={handleTaskTextChange}
+                OnClearTaskForm={OnClearTaskForm}
+                />
 
-            <Modal show={showAddTaskModal} onHide={handleCloseAddTaskModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add task</Modal.Title>
-                </Modal.Header>
-                <Form onSubmit={handleTaskSubmit}>
-                    <Modal.Body>
-                        <p className="errorFormText">{errorTaskTextMessage}</p>
-                        <Form.Control
-                            placeholder='Task'
-                            value={taskText}
-                            className="inFormElements"
-                            as="textarea"
-                            id="inputTaskText"
-                            onChange={handleTaskTextChange}
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant={"outline-danger"} onClick={() => OnClearTaskForm()}>Clear form</Button>
-                        <Button variant={"outline-success"} type={"submit"}>Add task</Button>
-                    </Modal.Footer>
-                </Form>
-            </Modal>
+            <LinkInfoModal 
+                showLinkInfoModal={showLinkInfoModal}
+                handleCloseLinkInfoModal={handleCloseLinkInfoModal}
+                linkNameModal={linkNameModal}
+                linkUrlModal={linkUrlModal}
+                />
 
-            <Modal show={showAddLinkModal} onHide={handleCloseAddLinkModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add link</Modal.Title>
-                </Modal.Header>
-                <Form onSubmit={handleLinkSubmit}>
-                    <Modal.Body>
-                        <p className="errorFormText">{errorLinkNameMessage}</p>
-                        <Form.Control
-                            placeholder='Link name'
-                            className="inFormElements"
-                            type="input"
-                            value={linkName}
-                            id="inputLinkName"
-                            onChange={handleLinkNameChange}
-                        />
-                        <p className="errorFormText">{errorLinkUrlMessage}</p>
-                        <Form.Control
-                            placeholder='URL'
-                            className="inFormElements"
-                            as="textarea"
-                            value={linkUrl}
-                            id="inputLinkURL"
-                            onChange={handleLinkUrlChange}
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant={"outline-danger"} onClick={() => OnClearLinkForm()}>Clear form</Button>
-                        <Button variant={"outline-success"} type={"submit"}>Add link</Button>
-                    </Modal.Footer>
-                </Form>
-            </Modal>
+            <LinkAddModal 
+                showAddLinkModal={showAddLinkModal}
+                handleCloseAddLinkModal={handleCloseAddLinkModal}
+                handleLinkSubmit={handleLinkSubmit}
+                errorLinkNameMessage={errorLinkNameMessage}
+                linkName={linkName}
+                handleLinkNameChange={handleLinkNameChange}
+                errorLinkUrlMessage={errorLinkUrlMessage}
+                linkUrl={linkUrl}
+                handleLinkUrlChange={handleLinkUrlChange}
+                OnClearLinkForm={OnClearLinkForm}
+                />
 
-            <Modal show={showAddContibutorModal} onHide={handleCloseAddContibutorModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add contributor</Modal.Title>
-                </Modal.Header>
-                <Form onSubmit={handleContributorSubmit}>
-                    <Modal.Body>
-                        <p className="errorFormText">{errorConributorMessage}</p>
-                        <Form.Control
-                            placeholder='User email'
-                            className="inFormElements"
-                            type="input"
-                            value={contributorEmail}
-                            id="inputContributorEmail"
-                            onChange={handleContributorEmailChange}
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant={"outline-danger"} onClick={() => OnClearContributorForm()}>Clear form</Button>
-                        <Button variant={"outline-success"} type={"submit"}>Add contributor</Button>
-                    </Modal.Footer>
-                </Form>
-            </Modal>
+            <ContributorAddModal 
+                showAddContibutorModal={showAddContibutorModal}
+                handleCloseAddContibutorModal={handleCloseAddContibutorModal}
+                handleContributorSubmit={handleContributorSubmit}
+                errorConributorMessage={errorConributorMessage}
+                contributorName={contributorName}
+                handleContributorNameChange={handleContributorNameChange}
+                OnClearContributorForm={OnClearContributorForm}
+                />
             
         </Container>
     )

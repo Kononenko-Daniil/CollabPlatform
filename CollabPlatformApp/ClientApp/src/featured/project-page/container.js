@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ProjectPageComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
+import SpinnerComponent from '../static-components/spinner/component';
 
 export class ProjectPageContainer extends Component{
     constructor(props){
@@ -9,11 +10,11 @@ export class ProjectPageContainer extends Component{
         
         this.state={
             id: this.props.match.params.id,
-            project: {},
+            project: undefined,
             linkName: "",
             linkUrl: "",
             taskText: "",
-            contributorEmail: "",
+            contributorName: "",
             errorTaskTextMessage: "",
             errorLinkNameMessage: "",
             errorLinkUrlMessage: "",
@@ -31,7 +32,7 @@ export class ProjectPageContainer extends Component{
         this.handleTaskTextChange = this.handleTaskTextChange.bind(this);
         this.handleTaskSubmit = this.handleTaskSubmit.bind(this);
 
-        this.handleContributorEmailChange = this.handleContributorEmailChange.bind(this);
+        this.handleContributorNameChange = this.handleContributorNameChange.bind(this);
         this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
 
         this.errorCatcher = this.errorCatcher.bind(this);
@@ -57,7 +58,7 @@ export class ProjectPageContainer extends Component{
             this.setState({errorLinkNameMessage: errorMessage});
         }else if(errorType === "Url"){
             this.setState({errorLinkUrlMessage: errorMessage});
-        }else if(errorType === "ContributorEmail"){
+        }else if(errorType === "ContributorName"){
             this.setState({errorConributorMessage: errorMessage});
         }else if(errorType === "ContributorIsExisted"){
             this.setState({errorConributorMessage: errorMessage});
@@ -71,14 +72,14 @@ export class ProjectPageContainer extends Component{
         this.setState({errorConributorMessage: ""});
     }
 
-    handleContributorEmailChange(event){
-        this.setState({contributorEmail: event.target.value});
+    handleContributorNameChange(event){
+        this.setState({contributorName: event.target.value});
     }
 
     handleContributorSubmit(event){
         const contributor = {
             projectId: this.state.id,
-            email: this.state.contributorEmail
+            name: this.state.contributorName
         };
 
         this.clearErrorMessages();
@@ -91,7 +92,7 @@ export class ProjectPageContainer extends Component{
         }).then(res=>{
             this.getProject();
 
-            this.setState({contributorEmail: ""});
+            this.setState({contributorName: ""});
         }).catch(this.errorCatcher);
 
         event.preventDefault();
@@ -175,10 +176,10 @@ export class ProjectPageContainer extends Component{
         });
     }
 
-    OnDeleteContributorClick = (contributorEmail) => {
+    OnDeleteContributorClick = (contributorName) => {
         const contributor = {
             projectId: this.state.id,
-            email: contributorEmail
+            name: contributorName
         };
 
         axios({
@@ -205,18 +206,11 @@ export class ProjectPageContainer extends Component{
 
     OnClearContributorForm = () => {
         this.setState({errorConributorMessage: ""});
-        this.setState({contributorEmail: ""});
+        this.setState({contributorName: ""});
     }
 
-    OnViewContributorClick = (contributorEmail) => {
-        axios({
-            method: 'GET',
-            url: constants.apiPort + '/users/get-user-id-by-email',
-            params: { email: contributorEmail },
-            withCredentials: true
-        }).then(res => {
-            window.location.href = constants.reactAppPort + '/accounts/' + res.data;
-        })
+    OnViewContributorClick = (contributorName) => {
+        window.location.href = constants.reactAppPort + `/accounts/${contributorName}`;
     }
 
     getProject(){
@@ -234,39 +228,45 @@ export class ProjectPageContainer extends Component{
     }
 
     render(){
-        return (
-            <ProjectPageComponent
-                project={this.state.project}
-                
-                handleLinkNameChange={this.handleLinkNameChange}
-                handleLinkUrlChange={this.handleLinkUrlChange}
-                handleLinkSubmit={this.handleLinkSubmit}
-
-                handleTaskTextChange={this.handleTaskTextChange}
-                handleTaskSubmit={this.handleTaskSubmit}
-
-                handleContributorEmailChange={this.handleContributorEmailChange}
-                handleContributorSubmit={this.handleContributorSubmit}
-
-                OnDeleteTaskClick={this.OnDeleteTaskClick}
-                OnDeleteLinkClick={this.OnDeleteLinkClick}
-                OnDeleteContributorClick={this.OnDeleteContributorClick}
-
-                taskText={this.state.taskText}
-                linkName={this.state.linkName}
-                linkUrl={this.state.linkUrl}
-                contributorEmail={this.state.contributorEmail}
-
-                errorTaskTextMessage={this.state.errorTaskTextMessage}
-                errorLinkNameMessage={this.state.errorLinkNameMessage}
-                errorLinkUrlMessage={this.state.errorLinkUrlMessage}
-                errorConributorMessage={this.state.errorConributorMessage}
-
-                OnClearTaskForm={this.OnClearTaskForm}
-                OnClearLinkForm={this.OnClearLinkForm}
-                OnClearContributorForm={this.OnClearContributorForm}
-                OnViewContributorClick={this.OnViewContributorClick}
-                />
-        )
+        if(this.state.project !== undefined){
+            return (
+                <ProjectPageComponent
+                    project={this.state.project}
+                    
+                    handleLinkNameChange={this.handleLinkNameChange}
+                    handleLinkUrlChange={this.handleLinkUrlChange}
+                    handleLinkSubmit={this.handleLinkSubmit}
+    
+                    handleTaskTextChange={this.handleTaskTextChange}
+                    handleTaskSubmit={this.handleTaskSubmit}
+    
+                    handleContributorNameChange={this.handleContributorNameChange}
+                    handleContributorSubmit={this.handleContributorSubmit}
+    
+                    OnDeleteTaskClick={this.OnDeleteTaskClick}
+                    OnDeleteLinkClick={this.OnDeleteLinkClick}
+                    OnDeleteContributorClick={this.OnDeleteContributorClick}
+    
+                    taskText={this.state.taskText}
+                    linkName={this.state.linkName}
+                    linkUrl={this.state.linkUrl}
+                    contributorName={this.state.contributorName}
+    
+                    errorTaskTextMessage={this.state.errorTaskTextMessage}
+                    errorLinkNameMessage={this.state.errorLinkNameMessage}
+                    errorLinkUrlMessage={this.state.errorLinkUrlMessage}
+                    errorConributorMessage={this.state.errorConributorMessage}
+    
+                    OnClearTaskForm={this.OnClearTaskForm}
+                    OnClearLinkForm={this.OnClearLinkForm}
+                    OnClearContributorForm={this.OnClearContributorForm}
+                    OnViewContributorClick={this.OnViewContributorClick}
+                    />
+            );
+        } else {
+            return(
+                <SpinnerComponent />
+            );
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace CollabPlatformApp.Services
         public void CreateUser(UserSignUpDto user);
         public string SignIn(UserSignInDto user);
 
+        public bool UsernameIsExisting(string userName);
         public bool EmailIsExisting(string email);
         public bool AccountIsExisting(string email, string password);
     }

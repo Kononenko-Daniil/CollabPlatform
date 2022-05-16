@@ -11,5 +11,10 @@ namespace CollabPlatformApp.Controllers
 
             return userId;
         }
+
+        protected void SetCookie(string key, string value)
+        {
+            HttpContext.Response.Cookies.Append(key, value);
+        }
     }
 }
