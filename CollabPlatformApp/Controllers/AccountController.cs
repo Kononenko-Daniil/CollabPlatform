@@ -1,5 +1,6 @@
 ﻿using CollabPlatformApp.Models;
 using CollabPlatformApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollabPlatformApp.Controllers
@@ -14,6 +15,7 @@ namespace CollabPlatformApp.Controllers
             _accountService = accountService;
         }
 
+        [Authorize]
         [HttpGet("get-account")]
         public Account GetAccount(string userName)
         {
