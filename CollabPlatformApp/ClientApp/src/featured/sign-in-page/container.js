@@ -44,7 +44,7 @@ export class SignInPageContainer extends Component{
             withCredentials: true
         }).then(res => {
             console.log(document.cookie);    
-            window.location.href = constants.reactAppPort + '/';
+            window.location.href = constants.reactAppPort + '/my-projects';
         }).catch(this.errorCatcher);
 
         event.preventDefault();
