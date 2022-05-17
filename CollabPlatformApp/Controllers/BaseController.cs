@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CollabPlatformApp.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CollabPlatformApp.Controllers
 {
@@ -10,11 +11,6 @@ namespace CollabPlatformApp.Controllers
             var userId = User.Identity.Name;
 
             return userId;
-        }
-
-        protected void SetCookie(string key, string value)
-        {
-            HttpContext.Response.Cookies.Append(key, value);
         }
     }
 }

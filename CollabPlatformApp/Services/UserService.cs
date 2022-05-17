@@ -12,10 +12,13 @@ namespace CollabPlatformApp.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, 
+            IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IEnumerable<User> GetUsers()
@@ -49,7 +52,8 @@ namespace CollabPlatformApp.Services
                 Name = user.Username,
                 Email = user.Email,
                 Password = user.Password,
-                Projects = new List<string>()
+                Projects = new List<string>(),
+                Cookies = new Dictionary<string, string>()
             };
 
             _userRepository.CreateUser(result);
@@ -61,6 +65,16 @@ namespace CollabPlatformApp.Services
             var userId = _user.Id;
 
             return userId;
+        }
+
+        public void SetCookie(Cookie cookie, string userId)
+        {
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(cookie.Key, cookie.Value);
+
+            var user = _userRepository.GetUserById(userId);
+            var cookies = user.Cookies;
+            cookies[cookie.Key] = cookie.Value;
+            _userRepository.UpdateUser(user);
         }
 
         public bool UsernameIsExisting(string userName)

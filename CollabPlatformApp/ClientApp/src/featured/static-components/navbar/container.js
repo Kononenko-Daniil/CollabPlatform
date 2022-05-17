@@ -8,7 +8,6 @@ export class NavbarContainer extends Component{
     constructor(props){
         super(props);
         this.state = {
-            service: new Service(),
             currentUserName: ""
         }
 
@@ -16,7 +15,7 @@ export class NavbarContainer extends Component{
     }
 
     componentDidMount(){
-        this.setState({currentUserName: this.state.service.getCookie("user_name")});
+        this.setState({currentUserName: Service.getCookie("user_name")});
     }
 
     OnLogOutClick = () => {
@@ -30,7 +29,7 @@ export class NavbarContainer extends Component{
     }
 
     checkIsUserLogged(){
-        const logCookie = this.state.service.getCookie("log_in");
+        const logCookie = Service.getCookie("log_in");
         const isLogged = logCookie == "yes" ? true : false;
 
         return isLogged;
