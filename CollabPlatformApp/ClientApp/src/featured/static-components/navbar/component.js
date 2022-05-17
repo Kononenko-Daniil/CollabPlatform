@@ -43,7 +43,7 @@ const NavbarComponentSigned = (props) => {
                                     href={"/accounts/" + currentUserName}>
                                         My account
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="/">My projects</NavDropdown.Item>
+                                <NavDropdown.Item href="/my-projects">My projects</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={() => OnLogOutClick()}>Sign out</NavDropdown.Item>
                         </NavDropdown>

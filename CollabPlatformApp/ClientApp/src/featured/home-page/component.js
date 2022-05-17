@@ -1,68 +1,30 @@
-import React, { useState } from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import ModalComponent from './modals/deleteProjectModal';
-import {Container} from 'reactstrap';
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Container } from 'reactstrap';
 
-const HomePageComponent = (props) =>{
-    const {projects, 
-        OnDeleteProjectClick} = props;
-
-    const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
-    const [projectName, setProjectName] = useState("");
-    const [projectId, setProjectId] = useState("");
-    const handleAcceptDelete = () => {
-        OnDeleteProjectClick(projectId);
-        setShowDeleteProjectModal(false);
-    }
-    const handleCloseDeleteModal = () => {
-        setShowDeleteProjectModal(false);
-    }
-    const handleShowDeleteModal = (projName, projId) => {
-        setShowDeleteProjectModal(true);
-        setProjectName(projName);
-        setProjectId(projId)
-    }
+const HomePageComponent = (props) => {
+    const {} = props;
 
     return(
         <Container>
-            <h1 className={"pageName"}>My projects</h1>
-            {
-                projects.length !== 0 ? 
-                <div className={"row"}>
-                    { 
-                        projects.map((project, index) => 
-                            <Card className={'projectElement'} key={index}>
-                                <Card.Body>
-                                    <Card.Title>{project.name}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted tasksLinksNumText">
-                                        Tasks: {project.tasks.length} &ensp; Links: {project.links.length} 
-                                        <br/> Contributors: {project.contributors.length}
-                                    </Card.Subtitle>
-                                    <Link to={`/projects/${project.id}`}>
-                                        <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
-                                    </Link>
-                                    
-                                    <Button onClick={() => handleShowDeleteModal(project.name, project.id)} variant='outline-danger'>Delete</Button>
-                                </Card.Body>
-                            </Card>
-                        )
-                    }
-                </div> 
-                :
-                <div>
-                    <h5 className='doNotHave'>You don`t have any projects...</h5>
-                </div>
-            }
-
-            <ModalComponent 
-                showDeleteProjectModal={showDeleteProjectModal}
-                projectName={projectName}
-                handleAcceptDelete={handleAcceptDelete}
-                handleCloseDeleteModal={handleCloseDeleteModal}
-                />
+            <h1 className={"pageName"}>CollabPlatform</h1>
+            <h4><u>What is it?</u></h4>
+            <p>CollabPlatform is a web-platform for collaborating 
+                with other people in order to create interesting projects</p>
+            
+            <h4><u>What can you do now?</u></h4>
+            <p><strong>Create projects:) </strong>
+                Every project may contain tasks, which your team should do. <br/> 
+                Also you may add special links to some resources you need, 
+                for example Github, Google Drive, Google Docs and etc. <br/>
+                <strong>You can work with team! </strong>
+                Now you can add contributors to your project.</p>
+            
+            <h4><u>Technology</u></h4>
+            <ul>
+                <li>.NET 6 (Back-end)</li>
+                <li>React (Front-end)</li>
+                <li>MongoDb (Database)</li>
+            </ul>
         </Container>
     )
 }

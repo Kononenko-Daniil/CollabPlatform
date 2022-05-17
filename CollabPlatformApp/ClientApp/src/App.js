@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './featured/Layout';
 import { HomePageContainer } from './featured/home-page/container';
+import { MyProjectsPageContainer } from './featured/my-projects-page/container';
 import { ProjectPageContainer } from './featured/project-page/container';
 import { CreatePageContainer } from './featured/create-project-page/container';
 import { SignUpPageContainer } from './featured/sign-up-page/container';
@@ -17,6 +18,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path='/' component={HomePageContainer} />
+        <Route exact path='/my-projects' component={MyProjectsPageContainer} />
         <Route exact path='/projects/:id' component={ProjectPageContainer} />
         <Route exact path='/create-project' component={CreatePageContainer} />
         <Route exact path='/sign-up' component={SignUpPageContainer} />
