@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MyProjectsPageComponent from './component';
+import {MyProjectsPageComponentFirstVariant, MyProjectsPageComponentSecondVariant} from './component';
 import axios from 'axios';
 import constants from '../../Constants';
 
@@ -49,7 +49,7 @@ export class MyProjectsPageContainer extends Component {
   render () {
     return (
       <div>
-        <MyProjectsPageComponent 
+        <MyProjectsPageComponentSecondVariant 
           projects = {this.state.projects}
           OnDeleteProjectClick = {this.OnDeleteProjectClick}
           />
