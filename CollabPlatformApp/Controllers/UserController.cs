@@ -114,7 +114,18 @@ namespace CollabPlatformApp.Controllers
                 return BadRequest(error);
             }
             var userId = _userService.SignIn(user);
-            SetCookie("user_name", _userService.GetUserById(userId).Name);
+            Cookie cookie = new Cookie()
+            {
+                Key = "user_name",
+                Value = _userService.GetUserById(userId).Name
+            };
+            _userService.SetCookie(cookie, userId);
+            cookie = new Cookie()
+            {
+                Key = "log_in",
+                Value = "yes"
+            };
+            _userService.SetCookie(cookie, userId);
             Authenticate(userId);
 
             return Ok();
@@ -124,8 +135,19 @@ namespace CollabPlatformApp.Controllers
         [HttpPost("log-out")]
         public async void LogOut()
         {
-            SetCookie("log_in", "no");
-            SetCookie("user_name", "");
+            Cookie cookie = new Cookie()
+            {
+                Key = "log_in",
+                Value = "no"
+            };
+            _userService.SetCookie(cookie, GetUserId());
+            cookie = new Cookie()
+            {
+                Key = "user_name",
+                Value = ""
+            };
+            _userService.SetCookie(cookie, GetUserId());
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
@@ -140,7 +162,6 @@ namespace CollabPlatformApp.Controllers
                 ClaimsIdentity.DefaultNameClaimType, 
                 ClaimsIdentity.DefaultRoleClaimType);
 
-            SetCookie("log_in", "yes");
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
                 new ClaimsPrincipal(id));
         }

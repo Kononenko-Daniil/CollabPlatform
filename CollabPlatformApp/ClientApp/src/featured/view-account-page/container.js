@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import constants from '../../Constants';
 import ViewAccountPageComponent from './component';
 import SpinnerComponent from '../static-components/spinner/component';
+import Service from '../../Service';
 
 export class ViewAccountPageContainer extends Component{
     constructor(props){
@@ -16,6 +17,7 @@ export class ViewAccountPageContainer extends Component{
 
     componentDidMount(){
         this.getUser();
+        Service.CheckCookies();
     }
 
     getUser(){

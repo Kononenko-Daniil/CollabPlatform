@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {MyProjectsPageComponentFirstVariant, MyProjectsPageComponentSecondVariant} from './component';
 import axios from 'axios';
 import constants from '../../Constants';
+import Service from '../../Service';
 
 export class MyProjectsPageContainer extends Component {
   static displayName = MyProjectsPageContainer.name;
@@ -16,6 +17,7 @@ export class MyProjectsPageContainer extends Component {
 
   componentDidMount(){
       this.getProjects();
+      Service.CheckCookies();
   }
 
   getProjects(){

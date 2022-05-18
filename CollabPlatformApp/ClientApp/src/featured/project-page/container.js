@@ -3,6 +3,7 @@ import ProjectPageComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
 import SpinnerComponent from '../static-components/spinner/component';
+import Service from '../../Service';
 
 export class ProjectPageContainer extends Component{
     constructor(props){
@@ -46,6 +47,7 @@ export class ProjectPageContainer extends Component{
 
     componentDidMount(){
         this.getProject();
+        Service.CheckCookies();
     }
 
     errorCatcher = (error) => {

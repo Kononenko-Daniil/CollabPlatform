@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CreatePageComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
+import Service from '../../Service';
 
 export class CreatePageContainer extends Component{
     static displayName = CreatePageContainer.name;
@@ -17,6 +18,10 @@ export class CreatePageContainer extends Component{
         this.handleProjectSubmit = this.handleProjectSubmit.bind(this);
         
         this.errorCatcher = this.errorCatcher.bind(this);
+    }
+
+    componentDidMount(){
+        Service.CheckCookies();
     }
 
     handleProjectNameChange(event) {
