@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SignInPageComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
+import Service from '../../Service';
 
 export class SignInPageContainer extends Component{
     constructor(props){
@@ -43,8 +44,10 @@ export class SignInPageContainer extends Component{
             data: user,
             withCredentials: true
         }).then(res => {
-            console.log(document.cookie);    
-            window.location.href = constants.reactAppPort + '/my-projects';
+            console.log(document.cookie); 
+            Service.CheckCookies(); 
+            const currentUserName = Service.getCookie('user_name');
+            window.location.href = constants.reactAppPort + '/accounts/' + currentUserName + "/overview";
         }).catch(this.errorCatcher);
 
         event.preventDefault();

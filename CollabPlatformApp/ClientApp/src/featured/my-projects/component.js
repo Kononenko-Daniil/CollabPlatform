@@ -6,7 +6,7 @@ import {NavbarContainer} from '../static-components/navbar/container';
 import {Container} from 'reactstrap';
 import { Link } from "react-router-dom";
 
-const MyProjectsPageComponentFirstVariant = (props) =>{
+const MyProjectsComponentFirstVariant = (props) =>{
     const {projects, 
         OnDeleteProjectClick} = props;
 
@@ -28,9 +28,7 @@ const MyProjectsPageComponentFirstVariant = (props) =>{
 
     return(
         <div>
-            <NavbarContainer />
             <Container>
-                <h1 className={"pageName"}>My projects</h1>
                 {
                     projects.length !== 0 ? 
                     <div>
@@ -80,7 +78,7 @@ const MyProjectsPageComponentFirstVariant = (props) =>{
     )
 }
 
-const MyProjectsPageComponentSecondVariant = (props) =>{
+const MyProjectsComponentSecondVariant = (props) =>{
     const {projects, 
         OnDeleteProjectClick} = props;
 
@@ -102,9 +100,7 @@ const MyProjectsPageComponentSecondVariant = (props) =>{
 
     return(
         <div>
-            <NavbarContainer />
             <Container>
-                <h1 className={"pageName"}>My projects</h1>
                 {
                     projects.length !== 0 ? 
                     <div className={"row"}>
@@ -117,13 +113,21 @@ const MyProjectsPageComponentSecondVariant = (props) =>{
                                         </Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted tasksLinksNumText">
                                             Tasks: {project.tasks.length} &ensp; Links: {project.links.length} 
-                                            <br/> Contributors: {project.contributors.length}
+                                            &ensp; Contributors: {project.contributors.length}
                                         </Card.Subtitle>
                                         <Link to={`/projects/${project.id}`}>
-                                            <Button style={{marginRight: "5px"}} variant='success'>Open project</Button>
+                                            <Button 
+                                                style={{marginRight: "5px"}} 
+                                                variant='outline-success'>
+                                                    Open project
+                                            </Button>
                                         </Link>
                                         
-                                        <Button onClick={() => handleShowDeleteModal(project.name, project.id)} variant='outline-danger'>Delete</Button>
+                                        <Button 
+                                            onClick={() => handleShowDeleteModal(project.name, project.id)} 
+                                            variant='outline-danger'>
+                                                Delete
+                                        </Button>
                                     </Card.Body>
                                 </Card>
                             )
@@ -146,4 +150,4 @@ const MyProjectsPageComponentSecondVariant = (props) =>{
     )
 }
 
-export {MyProjectsPageComponentFirstVariant, MyProjectsPageComponentSecondVariant};
+export {MyProjectsComponentFirstVariant, MyProjectsComponentSecondVariant};

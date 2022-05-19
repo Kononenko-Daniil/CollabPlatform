@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {MyProjectsPageComponentFirstVariant, MyProjectsPageComponentSecondVariant} from './component';
+import {MyProjectsComponentFirstVariant, MyProjectsComponentSecondVariant} from './component';
 import axios from 'axios';
 import constants from '../../Constants';
 import Service from '../../Service';
 
-export class MyProjectsPageContainer extends Component {
-  static displayName = MyProjectsPageContainer.name;
+export class MyProjectsContainer extends Component {
+  static displayName = MyProjectsContainer.name;
   constructor(props){
       super(props);
 
@@ -51,7 +51,7 @@ export class MyProjectsPageContainer extends Component {
   render () {
     return (
       <div>
-        <MyProjectsPageComponentSecondVariant 
+        <MyProjectsComponentSecondVariant 
           projects = {this.state.projects}
           OnDeleteProjectClick = {this.OnDeleteProjectClick}
           />
