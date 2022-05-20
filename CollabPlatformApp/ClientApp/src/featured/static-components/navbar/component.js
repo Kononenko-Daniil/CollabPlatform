@@ -40,12 +40,18 @@ const NavbarComponentSigned = (props) => {
                             menuVariant="light"
                             >
                                 <NavDropdown.Item 
-                                    href={"/accounts/" + currentUserName}>
+                                    href={"/accounts/" + currentUserName + "/overview"}>
                                         My account
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="/my-projects">My projects</NavDropdown.Item>
+                                <NavDropdown.Item 
+                                    href={"/accounts/" + currentUserName + "/projects"}>
+                                        My projects
+                                </NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={() => OnLogOutClick()}>Sign out</NavDropdown.Item>
+                                <NavDropdown.Item 
+                                    onClick={() => OnLogOutClick()}>
+                                        Sign out
+                                </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Container>

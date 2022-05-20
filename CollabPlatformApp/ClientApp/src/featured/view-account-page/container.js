@@ -11,7 +11,8 @@ export class ViewAccountPageContainer extends Component{
 
         this.state = {
             userName: this.props.match.params.name,
-            user: undefined
+            user: undefined,
+            tab: this.props.match.params.tab
         }
     }
 
@@ -36,6 +37,7 @@ export class ViewAccountPageContainer extends Component{
             return (
                 <ViewAccountPageComponent 
                     user={this.state.user}
+                    tab={this.state.tab}
                 />
             );
         } else {
