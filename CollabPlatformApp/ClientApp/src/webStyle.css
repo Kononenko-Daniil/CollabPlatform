@@ -71,6 +71,12 @@
     display:block;
     margin-top: 40px;
 }
+.errorPageName{
+    display:block;
+    font-weight: 400;
+    color: rgb(159, 159, 159);
+    margin-top: 40px;
+}
 .errorFormText{
     color: red;
     font-size: 15px;

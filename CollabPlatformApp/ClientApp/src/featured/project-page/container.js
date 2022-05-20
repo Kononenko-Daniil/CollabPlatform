@@ -4,6 +4,8 @@ import axios from 'axios';
 import constants from '../../Constants';
 import SpinnerComponent from '../static-components/spinner/component';
 import Service from '../../Service';
+import { NavbarContainer } from '../static-components/navbar/container';
+import AccessDeniedComponent from '../static-components/access-denied/component';
 
 export class ProjectPageContainer extends Component{
     constructor(props){
@@ -11,6 +13,7 @@ export class ProjectPageContainer extends Component{
         
         this.state={
             id: this.props.match.params.id,
+            hasAccess: true,
             project: undefined,
             linkName: "",
             linkUrl: "",
@@ -226,48 +229,59 @@ export class ProjectPageContainer extends Component{
                 const project = res.data;
                 this.setState({project: project});
             }
-        )
+        ).catch(error => {
+            this.setState({hasAccess: false});
+        });
     }
 
     render(){
-        if(this.state.project !== undefined){
-            return (
-                <ProjectPageComponent
-                    project={this.state.project}
-                    
-                    handleLinkNameChange={this.handleLinkNameChange}
-                    handleLinkUrlChange={this.handleLinkUrlChange}
-                    handleLinkSubmit={this.handleLinkSubmit}
-    
-                    handleTaskTextChange={this.handleTaskTextChange}
-                    handleTaskSubmit={this.handleTaskSubmit}
-    
-                    handleContributorNameChange={this.handleContributorNameChange}
-                    handleContributorSubmit={this.handleContributorSubmit}
-    
-                    OnDeleteTaskClick={this.OnDeleteTaskClick}
-                    OnDeleteLinkClick={this.OnDeleteLinkClick}
-                    OnDeleteContributorClick={this.OnDeleteContributorClick}
-    
-                    taskText={this.state.taskText}
-                    linkName={this.state.linkName}
-                    linkUrl={this.state.linkUrl}
-                    contributorName={this.state.contributorName}
-    
-                    errorTaskTextMessage={this.state.errorTaskTextMessage}
-                    errorLinkNameMessage={this.state.errorLinkNameMessage}
-                    errorLinkUrlMessage={this.state.errorLinkUrlMessage}
-                    errorConributorMessage={this.state.errorConributorMessage}
-    
-                    OnClearTaskForm={this.OnClearTaskForm}
-                    OnClearLinkForm={this.OnClearLinkForm}
-                    OnClearContributorForm={this.OnClearContributorForm}
-                    OnViewContributorClick={this.OnViewContributorClick}
-                    />
-            );
+        if(this.state.hasAccess === true){
+            if(this.state.project !== undefined){
+                return (
+                    <ProjectPageComponent
+                        project={this.state.project}
+                        
+                        handleLinkNameChange={this.handleLinkNameChange}
+                        handleLinkUrlChange={this.handleLinkUrlChange}
+                        handleLinkSubmit={this.handleLinkSubmit}
+        
+                        handleTaskTextChange={this.handleTaskTextChange}
+                        handleTaskSubmit={this.handleTaskSubmit}
+        
+                        handleContributorNameChange={this.handleContributorNameChange}
+                        handleContributorSubmit={this.handleContributorSubmit}
+        
+                        OnDeleteTaskClick={this.OnDeleteTaskClick}
+                        OnDeleteLinkClick={this.OnDeleteLinkClick}
+                        OnDeleteContributorClick={this.OnDeleteContributorClick}
+        
+                        taskText={this.state.taskText}
+                        linkName={this.state.linkName}
+                        linkUrl={this.state.linkUrl}
+                        contributorName={this.state.contributorName}
+        
+                        errorTaskTextMessage={this.state.errorTaskTextMessage}
+                        errorLinkNameMessage={this.state.errorLinkNameMessage}
+                        errorLinkUrlMessage={this.state.errorLinkUrlMessage}
+                        errorConributorMessage={this.state.errorConributorMessage}
+        
+                        OnClearTaskForm={this.OnClearTaskForm}
+                        OnClearLinkForm={this.OnClearLinkForm}
+                        OnClearContributorForm={this.OnClearContributorForm}
+                        OnViewContributorClick={this.OnViewContributorClick}
+                        />
+                );
+            } else {
+                return(
+                    <SpinnerComponent />
+                );
+            }
         } else {
             return(
-                <SpinnerComponent />
+                <div>
+                    <NavbarContainer />
+                    <AccessDeniedComponent />
+                </div>
             );
         }
     }

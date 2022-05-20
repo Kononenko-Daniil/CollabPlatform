@@ -32,7 +32,8 @@ const ViewAccountPageComponent = (props) => {
                             id="project-tab"
                             className="mb-3" 
                             activeKey={key} 
-                            onSelect={(k)=>setKey(k)}>
+                            onSelect={(k)=>setKey(k)}
+                            style={{marginTop: "20px"}}>
                                 <Tab eventKey="overview" title="Overview">
                                     Here will be useful information about user.
                                 </Tab>
