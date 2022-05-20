@@ -44,9 +44,9 @@ const MyProjectsComponentFirstVariant = (props) =>{
                                                 </h5>
                                         </Link>
                                         <p>
-                                            Tasks: {project.tasks.length} &ensp; 
-                                            Links: {project.links.length} &ensp; 
-                                            Contributors: {project.contributors.length}
+                                            Tasks: {project.taskNum} &ensp; 
+                                            Links: {project.linkNum} &ensp; 
+                                            Contributors: {project.contributorNum}
                                         </p>
                                     </div>
                                     <div className='col'>
@@ -111,9 +111,13 @@ const MyProjectsComponentSecondVariant = (props) =>{
                                         <Card.Title>
                                             {project.name}
                                         </Card.Title>
+                                        <Card.Subtitle 
+                                            className="mb-2 text-muted authorName">
+                                            Author: {project.author}
+                                        </Card.Subtitle>
                                         <Card.Subtitle className="mb-2 text-muted tasksLinksNumText">
-                                            Tasks: {project.tasks.length} &ensp; Links: {project.links.length} 
-                                            &ensp; Contributors: {project.contributors.length}
+                                            Tasks: {project.taskNum} &ensp; Links: {project.linkNum} 
+                                            &ensp; Contributors: {project.contributorNum}
                                         </Card.Subtitle>
                                         <Link to={`/projects/${project.id}`}>
                                             <Button 

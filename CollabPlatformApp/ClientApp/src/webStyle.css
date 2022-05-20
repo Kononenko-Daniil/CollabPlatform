@@ -2,6 +2,10 @@
     margin-top: 30px;
     margin-bottom: 30px;
 }
+.authorName{
+    font-weight: 500;
+    width:fit-content;
+}
 .projectElement{
     border-color: rgb(217, 217, 217);
     padding-bottom: 10px;

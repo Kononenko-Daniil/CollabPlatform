@@ -33,6 +33,28 @@ namespace CollabPlatformApp.Services
             return result;
         }
 
+        public IEnumerable<PublicProject> GetPublicProjects(string userId)
+        {
+            var projects = GetProjects(userId);
+            var result = new List<PublicProject>();
+            foreach (var project in projects)
+            {
+                PublicProject publicProject = new PublicProject()
+                {
+                    Id = project.Id,
+                    Name = project.Name,
+                    Author = project.Author,
+                    TaskNum = project.Tasks.Count(),
+                    LinkNum = project.Links.Count(),
+                    ContributorNum = project.Contributors.Count()
+                };
+
+                result.Add(publicProject);
+            }
+
+            return result;
+        }
+
         public Project GetProjectById(string projectId, string userId)
         {
             var projects = GetProjects(userId);
@@ -52,7 +74,7 @@ namespace CollabPlatformApp.Services
             {
                 Id = projectId,
                 Name = project.Name,
-                Author = "admin",
+                Author = user.Name,
                 Tasks = new List<Models.Task>(),
                 Links = new List<Link>(),
                 Contributors = new List<Contributor>()

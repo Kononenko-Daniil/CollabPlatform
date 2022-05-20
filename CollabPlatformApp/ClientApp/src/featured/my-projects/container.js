@@ -8,13 +8,13 @@ export class MyProjectsContainer extends Component {
   static displayName = MyProjectsContainer.name;
   constructor(props){
       super(props);
+      this.state = {
+        projects: []
+      }
 
       this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
   }
-  state ={
-      projects: []
-  }
-
+  
   componentDidMount(){
       this.getProjects();
       Service.CheckCookies();
@@ -28,7 +28,7 @@ export class MyProjectsContainer extends Component {
       };
       axios({
         method: 'GET',
-        url: constants.apiPort + '/projects/get-projects',
+        url: constants.apiPort + '/projects/get-projects-public',
         withCredentials: true,
         config
       }).then(res => {
