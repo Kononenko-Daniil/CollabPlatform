@@ -15,6 +15,7 @@ import { Container } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
+import { ProjectTasksContainer } from './components/project-tasks-component/container';
 
 const ProjectPageComponent = (props) => {
     const { project, 
@@ -23,37 +24,26 @@ const ProjectPageComponent = (props) => {
         handleLinkUrlChange, 
         handleLinkSubmit, 
 
-        handleTaskTextChange,
-        handleTaskSubmit, 
-
         handleContributorNameChange,
         handleContributorSubmit,
 
-        OnDeleteTaskClick, 
         OnDeleteLinkClick,
         OnDeleteContributorClick,
         OnDeleteProjectClick,
 
-        taskText, 
         linkName, 
         linkUrl, 
         contributorName,
 
-        errorTaskTextMessage, 
         errorLinkNameMessage, 
         errorLinkUrlMessage, 
         errorConributorMessage,
 
-        OnClearTaskForm, 
         OnClearLinkForm, 
         OnClearContributorForm, 
         OnViewContributorClick } = props;
 
     const [key, setKey] = useState('tasks');
-
-    const [showAddTaskModal, setShowAddTaskModal] = useState(false);
-    const handleShowAddTaskModal = () => setShowAddTaskModal(true);
-    const handleCloseAddTaskModal = () => setShowAddTaskModal(false);
 
     const [showAddLinkModal, setShowAddLinkModal] = useState(false);
     const handleShowAddLinkModal = () => setShowAddLinkModal(true);
@@ -108,14 +98,8 @@ const ProjectPageComponent = (props) => {
                     activeKey={key} 
                     onSelect={(k)=>setKey(k)}>
                     <Tab eventKey="tasks" title="Tasks">
-                        <ProjectTasksComponent 
-                            project={project}
-                            handleTaskTextChange={handleTaskTextChange}
-                            handleTaskSubmit={handleTaskSubmit}
-                            OnDeleteTaskClick={OnDeleteTaskClick}
-                            taskText={taskText}
-                            handleShowAddTaskModal={handleShowAddTaskModal}
-                            handleCloseAddTaskModal={handleCloseAddTaskModal}
+                        <ProjectTasksContainer 
+                            projectId={project.id}
                             />
                     </Tab>
                     <Tab eventKey="links" title="Links">
@@ -135,16 +119,6 @@ const ProjectPageComponent = (props) => {
                             />
                     </Tab>
                 </Tabs>
-                
-                <TaskAddModal 
-                    showAddTaskModal={showAddTaskModal}
-                    handleCloseAddTaskModal={handleCloseAddTaskModal}
-                    handleTaskSubmit={handleTaskSubmit}
-                    errorTaskTextMessage={errorTaskTextMessage}
-                    taskText={taskText}
-                    handleTaskTextChange={handleTaskTextChange}
-                    OnClearTaskForm={OnClearTaskForm}
-                    />
 
                 <LinkInfoModal 
                     showLinkInfoModal={showLinkInfoModal}

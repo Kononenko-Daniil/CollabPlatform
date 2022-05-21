@@ -17,24 +17,18 @@ export class ProjectPageContainer extends Component{
             project: undefined,
             linkName: "",
             linkUrl: "",
-            taskText: "",
             contributorName: "",
-            errorTaskTextMessage: "",
             errorLinkNameMessage: "",
             errorLinkUrlMessage: "",
             errorConributorMessage: ""
         }
 
-        this.OnDeleteTaskClick = this.OnDeleteTaskClick.bind(this);
         this.OnDeleteLinkClick = this.OnDeleteLinkClick.bind(this);
         this.OnDeleteContributorClick = this.OnDeleteContributorClick.bind(this);
 
         this.handleLinkNameChange = this.handleLinkNameChange.bind(this);
         this.handleLinkUrlChange = this.handleLinkUrlChange.bind(this);
         this.handleLinkSubmit = this.handleLinkSubmit.bind(this);
-
-        this.handleTaskTextChange = this.handleTaskTextChange.bind(this);
-        this.handleTaskSubmit = this.handleTaskSubmit.bind(this);
 
         this.handleContributorNameChange = this.handleContributorNameChange.bind(this);
         this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
@@ -44,7 +38,6 @@ export class ProjectPageContainer extends Component{
         this.errorCatcher = this.errorCatcher.bind(this);
         this.clearErrorMessages = this.clearErrorMessages.bind(this);
 
-        this.OnClearTaskForm = this.OnClearTaskForm.bind(this);
         this.OnClearLinkForm = this.OnClearLinkForm.bind(this);
         this.OnClearContributorForm = this.OnClearContributorForm.bind(this);
         this.OnViewContributorClick = this.OnViewContributorClick.bind(this);
@@ -73,7 +66,6 @@ export class ProjectPageContainer extends Component{
     }
 
     clearErrorMessages = () => {
-        this.setState({errorTaskTextMessage: ""});
         this.setState({errorLinkNameMessage: ""});
         this.setState({errorLinkUrlMessage: ""});
         this.setState({errorConributorMessage: ""});
@@ -105,28 +97,6 @@ export class ProjectPageContainer extends Component{
         event.preventDefault();
     }
 
-    handleTaskSubmit(event) {
-        const task = {
-            projectId: this.state.id,
-            text: this.state.taskText
-        };
-
-        this.clearErrorMessages();
-        
-        axios({
-            method: 'POST',
-            url: constants.apiPort + '/tasks/create-task',
-            data: task,
-            withCredentials: true
-        }).then(res=>{
-            this.getProject();
-            
-            this.setState({taskText: ""});
-        }).catch(this.errorCatcher);
-        
-        event.preventDefault();
-    }
-
     handleLinkSubmit(event) {
         const link = {
             ProjectId: this.state.id,
@@ -149,27 +119,12 @@ export class ProjectPageContainer extends Component{
         event.preventDefault();
     }
 
-    handleTaskTextChange(event) {
-        this.setState({taskText: event.target.value});
-    }
-
     handleLinkNameChange(event) {
         this.setState({linkName: event.target.value});
     }
 
     handleLinkUrlChange(event) {
         this.setState({linkUrl: event.target.value});
-    }
-
-    OnDeleteTaskClick = (taskId) => {
-        axios({
-            method: 'DELETE',
-            url: constants.apiPort + '/tasks/delete-task',
-            withCredentials: true,
-            params: { projectId: this.state.id, taskId: taskId }
-        }).then(res=>{
-            this.getProject();
-        });
     }
 
     OnDeleteLinkClick = (linkId) => {
@@ -197,11 +152,6 @@ export class ProjectPageContainer extends Component{
         }).then(res => {
             this.getProject();
         });
-    }
-
-    OnClearTaskForm = () => {
-        this.setState({errorTaskTextMessage: ""});
-        this.setState({taskText: ""});
     }
 
     OnClearLinkForm = () => {
@@ -259,28 +209,21 @@ export class ProjectPageContainer extends Component{
                         handleLinkUrlChange={this.handleLinkUrlChange}
                         handleLinkSubmit={this.handleLinkSubmit}
         
-                        handleTaskTextChange={this.handleTaskTextChange}
-                        handleTaskSubmit={this.handleTaskSubmit}
-        
                         handleContributorNameChange={this.handleContributorNameChange}
                         handleContributorSubmit={this.handleContributorSubmit}
         
-                        OnDeleteTaskClick={this.OnDeleteTaskClick}
                         OnDeleteLinkClick={this.OnDeleteLinkClick}
                         OnDeleteContributorClick={this.OnDeleteContributorClick}
                         OnDeleteProjectClick={this.OnDeleteProjectClick}
         
-                        taskText={this.state.taskText}
                         linkName={this.state.linkName}
                         linkUrl={this.state.linkUrl}
                         contributorName={this.state.contributorName}
         
-                        errorTaskTextMessage={this.state.errorTaskTextMessage}
                         errorLinkNameMessage={this.state.errorLinkNameMessage}
                         errorLinkUrlMessage={this.state.errorLinkUrlMessage}
                         errorConributorMessage={this.state.errorConributorMessage}
         
-                        OnClearTaskForm={this.OnClearTaskForm}
                         OnClearLinkForm={this.OnClearLinkForm}
                         OnClearContributorForm={this.OnClearContributorForm}
                         OnViewContributorClick={this.OnViewContributorClick}
