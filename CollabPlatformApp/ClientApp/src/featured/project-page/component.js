@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 
-import ProjectTasksComponent from './components/projectTasksComponent';
-import ProjectLinksComponent from './components/projectLinksComponent';
 import ProjectContributorsComponent from './components/projectContributorsComponent';
 
-import LinkInfoModal from './modals/linkInfoModal';
-import LinkAddModal from './modals/linkAddModal';
 import ContributorAddModal from './modals/contributorAddModal';
 import {NavbarContainer} from '../static-components/navbar/container';
-import TaskAddModal from './modals/taskAddModal';
 import DeleteProjectModal from './modals/deleteProjectModal';
 
 import { Container } from 'react-bootstrap';
@@ -16,54 +11,29 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 import { ProjectTasksContainer } from './components/project-tasks-component/container';
+import { ProjectLinksContainer } from './components/project-links-component/container';
 
 const ProjectPageComponent = (props) => {
     const { project, 
 
-        handleLinkNameChange, 
-        handleLinkUrlChange, 
-        handleLinkSubmit, 
-
         handleContributorNameChange,
         handleContributorSubmit,
 
-        OnDeleteLinkClick,
         OnDeleteContributorClick,
         OnDeleteProjectClick,
 
-        linkName, 
-        linkUrl, 
         contributorName,
 
-        errorLinkNameMessage, 
-        errorLinkUrlMessage, 
         errorConributorMessage,
 
-        OnClearLinkForm, 
         OnClearContributorForm, 
         OnViewContributorClick } = props;
 
     const [key, setKey] = useState('tasks');
 
-    const [showAddLinkModal, setShowAddLinkModal] = useState(false);
-    const handleShowAddLinkModal = () => setShowAddLinkModal(true);
-    const handleCloseAddLinkModal = () => setShowAddLinkModal(false);
-
     const [showAddContibutorModal, setShowAddContributorModal] = useState(false);
     const handleShowAddContibutorModal = () => setShowAddContributorModal(true);
     const handleCloseAddContibutorModal = () => setShowAddContributorModal(false);
-
-    const [showLinkInfoModal, setShowLinkInfoModal] = useState(false);
-    const [linkNameModal, setLinkNameModal] = useState("");
-    const [linkUrlModal, setLinkUrlModal] = useState("");
-    const handleShowLinkInfoModal = (_linkNameModal, _linkUrlModal) => {
-        setLinkNameModal(_linkNameModal);
-        setLinkUrlModal(_linkUrlModal);
-        setShowLinkInfoModal(true);
-    }
-    const handleCloseLinkInfoModal = () => {
-        setShowLinkInfoModal(false);
-    }
 
     const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
     const [projectName, setProjectName] = useState("");
@@ -103,11 +73,8 @@ const ProjectPageComponent = (props) => {
                             />
                     </Tab>
                     <Tab eventKey="links" title="Links">
-                        <ProjectLinksComponent 
-                            project={project}
-                            OnDeleteLinkClick={OnDeleteLinkClick}
-                            handleShowLinkInfoModal={handleShowLinkInfoModal}
-                            handleShowAddLinkModal={handleShowAddLinkModal}
+                        <ProjectLinksContainer 
+                            projectId={project.id}
                             />
                     </Tab>
                     <Tab eventKey="contributors" title="Contributors">
@@ -119,26 +86,6 @@ const ProjectPageComponent = (props) => {
                             />
                     </Tab>
                 </Tabs>
-
-                <LinkInfoModal 
-                    showLinkInfoModal={showLinkInfoModal}
-                    handleCloseLinkInfoModal={handleCloseLinkInfoModal}
-                    linkNameModal={linkNameModal}
-                    linkUrlModal={linkUrlModal}
-                    />
-
-                <LinkAddModal 
-                    showAddLinkModal={showAddLinkModal}
-                    handleCloseAddLinkModal={handleCloseAddLinkModal}
-                    handleLinkSubmit={handleLinkSubmit}
-                    errorLinkNameMessage={errorLinkNameMessage}
-                    linkName={linkName}
-                    handleLinkNameChange={handleLinkNameChange}
-                    errorLinkUrlMessage={errorLinkUrlMessage}
-                    linkUrl={linkUrl}
-                    handleLinkUrlChange={handleLinkUrlChange}
-                    OnClearLinkForm={OnClearLinkForm}
-                    />
 
                 <ContributorAddModal 
                     showAddContibutorModal={showAddContibutorModal}

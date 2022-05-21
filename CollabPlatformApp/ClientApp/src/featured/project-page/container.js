@@ -15,20 +15,11 @@ export class ProjectPageContainer extends Component{
             id: this.props.match.params.id,
             hasAccess: true,
             project: undefined,
-            linkName: "",
-            linkUrl: "",
             contributorName: "",
-            errorLinkNameMessage: "",
-            errorLinkUrlMessage: "",
             errorConributorMessage: ""
         }
 
-        this.OnDeleteLinkClick = this.OnDeleteLinkClick.bind(this);
         this.OnDeleteContributorClick = this.OnDeleteContributorClick.bind(this);
-
-        this.handleLinkNameChange = this.handleLinkNameChange.bind(this);
-        this.handleLinkUrlChange = this.handleLinkUrlChange.bind(this);
-        this.handleLinkSubmit = this.handleLinkSubmit.bind(this);
 
         this.handleContributorNameChange = this.handleContributorNameChange.bind(this);
         this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
@@ -38,7 +29,6 @@ export class ProjectPageContainer extends Component{
         this.errorCatcher = this.errorCatcher.bind(this);
         this.clearErrorMessages = this.clearErrorMessages.bind(this);
 
-        this.OnClearLinkForm = this.OnClearLinkForm.bind(this);
         this.OnClearContributorForm = this.OnClearContributorForm.bind(this);
         this.OnViewContributorClick = this.OnViewContributorClick.bind(this);
     }
@@ -66,8 +56,6 @@ export class ProjectPageContainer extends Component{
     }
 
     clearErrorMessages = () => {
-        this.setState({errorLinkNameMessage: ""});
-        this.setState({errorLinkUrlMessage: ""});
         this.setState({errorConributorMessage: ""});
     }
 
@@ -97,47 +85,6 @@ export class ProjectPageContainer extends Component{
         event.preventDefault();
     }
 
-    handleLinkSubmit(event) {
-        const link = {
-            ProjectId: this.state.id,
-            Name: this.state.linkName,
-            Url: this.state.linkUrl
-        }
-
-        this.clearErrorMessages();
-
-        axios({
-            method: 'POST',
-            url: constants.apiPort + '/links/create-link',
-            data: link,
-            withCredentials: true
-        }).then(res=>{
-            this.getProject();
-            this.setState({linkName: "", linkUrl: ""});
-        }).catch(this.errorCatcher);
-
-        event.preventDefault();
-    }
-
-    handleLinkNameChange(event) {
-        this.setState({linkName: event.target.value});
-    }
-
-    handleLinkUrlChange(event) {
-        this.setState({linkUrl: event.target.value});
-    }
-
-    OnDeleteLinkClick = (linkId) => {
-        axios({
-            method: 'DELETE',
-            url: constants.apiPort + '/links/delete-link',
-            withCredentials: true,
-            params: { projectId: this.state.id, linkId: linkId }
-        }).then(res => {
-            this.getProject();
-        });
-    }
-
     OnDeleteContributorClick = (contributorName) => {
         const contributor = {
             projectId: this.state.id,
@@ -152,13 +99,6 @@ export class ProjectPageContainer extends Component{
         }).then(res => {
             this.getProject();
         });
-    }
-
-    OnClearLinkForm = () => {
-        this.setState({errorLinkNameMessage: ""});
-        this.setState({errorLinkUrlMessage: ""});
-        this.setState({linkName: ""});
-        this.setState({linkUrl: ""});
     }
 
     OnClearContributorForm = () => {
@@ -204,34 +144,27 @@ export class ProjectPageContainer extends Component{
                 return (
                     <ProjectPageComponent
                         project={this.state.project}
-                        
-                        handleLinkNameChange={this.handleLinkNameChange}
-                        handleLinkUrlChange={this.handleLinkUrlChange}
-                        handleLinkSubmit={this.handleLinkSubmit}
-        
+                                
                         handleContributorNameChange={this.handleContributorNameChange}
                         handleContributorSubmit={this.handleContributorSubmit}
         
-                        OnDeleteLinkClick={this.OnDeleteLinkClick}
                         OnDeleteContributorClick={this.OnDeleteContributorClick}
                         OnDeleteProjectClick={this.OnDeleteProjectClick}
         
-                        linkName={this.state.linkName}
-                        linkUrl={this.state.linkUrl}
                         contributorName={this.state.contributorName}
         
-                        errorLinkNameMessage={this.state.errorLinkNameMessage}
-                        errorLinkUrlMessage={this.state.errorLinkUrlMessage}
                         errorConributorMessage={this.state.errorConributorMessage}
         
-                        OnClearLinkForm={this.OnClearLinkForm}
                         OnClearContributorForm={this.OnClearContributorForm}
                         OnViewContributorClick={this.OnViewContributorClick}
                         />
                 );
             } else {
                 return(
-                    <SpinnerComponent />
+                    <div>
+                        <NavbarContainer />
+                        <SpinnerComponent />
+                    </div>
                 );
             }
         } else {
