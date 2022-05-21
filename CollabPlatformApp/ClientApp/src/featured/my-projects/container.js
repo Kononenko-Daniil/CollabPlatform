@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {MyProjectsComponentFirstVariant, MyProjectsComponentSecondVariant} from './component';
+import MyProjectsComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
 import Service from '../../Service';
@@ -9,9 +9,10 @@ export class MyProjectsContainer extends Component {
   constructor(props){
       super(props);
       this.state = {
-        projects: []
+        projects: [],
+        userName: this.props.userName
       }
-
+      
       this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
   }
   
@@ -30,6 +31,7 @@ export class MyProjectsContainer extends Component {
         method: 'GET',
         url: constants.apiPort + '/projects/get-projects-public',
         withCredentials: true,
+        params: {userName: this.state.userName},
         config
       }).then(res => {
             const projects = res.data;
@@ -51,7 +53,7 @@ export class MyProjectsContainer extends Component {
   render () {
     return (
       <div>
-        <MyProjectsComponentSecondVariant 
+        <MyProjectsComponent 
           projects = {this.state.projects}
           OnDeleteProjectClick = {this.OnDeleteProjectClick}
           />

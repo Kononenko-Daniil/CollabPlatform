@@ -17,25 +17,25 @@ namespace CollabPlatformApp.Services
             _userRepository = userRepository;
         }
 
-        public IEnumerable<Project> GetProjects(string userId)
+        public IEnumerable<Project> GetProjectsByUserId(string userId)
         {
             var user = _userRepository.GetUserById(userId);
-            var projects = _projectRepository.GetProjects();
-            var projectIds = user.Projects;
-            List<Project> result = new List<Project>();
-
-            foreach (var projectId in projectIds)
-            {
-                var project = projects.FirstOrDefault(x => x.Id == projectId);
-                result.Add(project);
-            }
+            var result = GetProjectsFromUser(user);
 
             return result;
         }
 
-        public IEnumerable<PublicProject> GetPublicProjects(string userId)
+        public IEnumerable<Project> GetProjectsByUserName(string userName)
         {
-            var projects = GetProjects(userId);
+            var user = _userRepository.GetUserByName(userName);
+            var result = GetProjectsFromUser(user);
+
+            return result;
+        }
+
+        public IEnumerable<PublicProject> GetPublicProjects(string userName)
+        {
+            var projects = GetProjectsByUserName(userName);
             var result = new List<PublicProject>();
             foreach (var project in projects)
             {
@@ -57,7 +57,7 @@ namespace CollabPlatformApp.Services
 
         public Project GetProjectById(string projectId, string userId)
         {
-            var projects = GetProjects(userId);
+            var projects = GetProjectsByUserId(userId);
             Project result = projects.FirstOrDefault(x => x.Id == projectId);
 
             return result;
@@ -101,6 +101,21 @@ namespace CollabPlatformApp.Services
             }
 
             _projectRepository.DeleteProject(projectId);
+        }
+
+        public IEnumerable<Project> GetProjectsFromUser(User user)
+        {
+            var projects = _projectRepository.GetProjects();
+            var projectIds = user.Projects;
+            List<Project> result = new List<Project>();
+
+            foreach (var projectId in projectIds)
+            {
+                var project = projects.FirstOrDefault(x => x.Id == projectId);
+                result.Add(project);
+            }
+
+            return result;
         }
 
         public string GenerateKey()

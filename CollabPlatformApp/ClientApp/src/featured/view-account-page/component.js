@@ -38,7 +38,9 @@ const ViewAccountPageComponent = (props) => {
                                     Here will be useful information about user.
                                 </Tab>
                                 <Tab eventKey="projects" title="Projects">
-                                    <MyProjectsContainer />
+                                    <MyProjectsContainer 
+                                        userName={user.name}
+                                        />
                                 </Tab>
                         </Tabs>
                     </div>

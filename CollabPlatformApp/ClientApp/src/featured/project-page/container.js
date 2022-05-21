@@ -215,7 +215,7 @@ export class ProjectPageContainer extends Component{
     }
 
     OnViewContributorClick = (contributorName) => {
-        window.location.href = constants.reactAppPort + `/accounts/${contributorName}`;
+        window.location.href = constants.reactAppPort + `/accounts/${contributorName}/overview`;
     }
 
     getProject(){
