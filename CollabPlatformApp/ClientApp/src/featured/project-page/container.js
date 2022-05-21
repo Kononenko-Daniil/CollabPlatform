@@ -39,6 +39,8 @@ export class ProjectPageContainer extends Component{
         this.handleContributorNameChange = this.handleContributorNameChange.bind(this);
         this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
 
+        this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
+
         this.errorCatcher = this.errorCatcher.bind(this);
         this.clearErrorMessages = this.clearErrorMessages.bind(this);
 
@@ -215,7 +217,7 @@ export class ProjectPageContainer extends Component{
     }
 
     OnViewContributorClick = (contributorName) => {
-        window.location.href = constants.reactAppPort + `/accounts/${contributorName}`;
+        window.location.href = constants.reactAppPort + `/accounts/${contributorName}/overview`;
     }
 
     getProject(){
@@ -231,6 +233,18 @@ export class ProjectPageContainer extends Component{
             }
         ).catch(error => {
             this.setState({hasAccess: false});
+        });
+    }
+
+    OnDeleteProjectClick = (projectId) => {
+        axios({
+            method: 'DELETE',
+            url: constants.apiPort + '/projects/delete-project',
+            params: { projectId: projectId },
+            withCredentials: true
+        }).then(res => {
+            Service.CheckCookies();
+            window.location.href = '/accounts/' + Service.getCookie('user_name') + '/projects';
         });
     }
 
@@ -254,6 +268,7 @@ export class ProjectPageContainer extends Component{
                         OnDeleteTaskClick={this.OnDeleteTaskClick}
                         OnDeleteLinkClick={this.OnDeleteLinkClick}
                         OnDeleteContributorClick={this.OnDeleteContributorClick}
+                        OnDeleteProjectClick={this.OnDeleteProjectClick}
         
                         taskText={this.state.taskText}
                         linkName={this.state.linkName}

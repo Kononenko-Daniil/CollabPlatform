@@ -9,10 +9,12 @@ import LinkAddModal from './modals/linkAddModal';
 import ContributorAddModal from './modals/contributorAddModal';
 import {NavbarContainer} from '../static-components/navbar/container';
 import TaskAddModal from './modals/taskAddModal';
+import DeleteProjectModal from './modals/deleteProjectModal';
 
 import { Container } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+import Button from 'react-bootstrap/Button';
 
 const ProjectPageComponent = (props) => {
     const { project, 
@@ -30,6 +32,7 @@ const ProjectPageComponent = (props) => {
         OnDeleteTaskClick, 
         OnDeleteLinkClick,
         OnDeleteContributorClick,
+        OnDeleteProjectClick,
 
         taskText, 
         linkName, 
@@ -72,11 +75,32 @@ const ProjectPageComponent = (props) => {
         setShowLinkInfoModal(false);
     }
 
+    const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
+    const [projectName, setProjectName] = useState("");
+    const [projectId, setProjectId] = useState("");
+    const handleAcceptDelete = () => {
+        OnDeleteProjectClick(projectId);
+        setShowDeleteProjectModal(false);
+    }
+    const handleCloseDeleteModal = () => {
+        setShowDeleteProjectModal(false);
+    }
+    const handleShowDeleteModal = (projName, projId) => {
+        setShowDeleteProjectModal(true);
+        setProjectName(projName);
+        setProjectId(projId)
+    }
+
     return(
         <div>
             <NavbarContainer />
             <Container>
-                <h1 className='pageName'>{project.name}</h1>
+                <h1 className='pageName' style={{marginBottom: "0px"}}>{project.name}</h1>
+                <p>Author: <strong>{project.author}</strong></p>
+                <Button 
+                    onClick={()=>handleShowDeleteModal(project.name, project.id)}
+                    variant='outline-danger'
+                    style={{marginBottom: "10px"}}>Delete project</Button>
                 <Tabs 
                     defaultActiveKey="profile" 
                     id="project-tab"
@@ -150,6 +174,13 @@ const ProjectPageComponent = (props) => {
                     contributorName={contributorName}
                     handleContributorNameChange={handleContributorNameChange}
                     OnClearContributorForm={OnClearContributorForm}
+                    />
+
+                <DeleteProjectModal 
+                    showDeleteProjectModal={showDeleteProjectModal}
+                    projectName={projectName}
+                    handleAcceptDelete={handleAcceptDelete}
+                    handleCloseDeleteModal={handleCloseDeleteModal}
                     />
                 
             </Container>

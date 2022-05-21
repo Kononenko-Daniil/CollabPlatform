@@ -23,12 +23,21 @@ namespace CollabPlatformApp.Controllers
         }
 
         [Authorize]
-        [HttpGet("get-projects")]
-        public IEnumerable<Project> GetProjects()
+        [HttpGet("get-projects-current-user")]
+        public IEnumerable<Project> GetCurrentUserProjects()
         {
             var userId = GetUserId();
 
-            var result = _projectService.GetProjects(userId);
+            var result = _projectService.GetProjectsByUserId(userId);
+
+            return result;
+        }
+
+        [Authorize]
+        [HttpGet("get-projects-public")]
+        public IEnumerable<PublicProject> GetProjectsPublic(string userName)
+        {
+            var result = _projectService.GetPublicProjects(userName);
 
             return result;
         }

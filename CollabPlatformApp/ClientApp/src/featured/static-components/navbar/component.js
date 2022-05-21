@@ -6,6 +6,7 @@ import { Container } from 'reactstrap';
 
 import avatar_2 from '../../../img/avatar_2.jpg';
 import plus_icon from '../../../img/plus_icon.png';
+import { Link } from 'react-router-dom';
 
 const NavbarComponentSigned = (props) => {
     const {
@@ -39,6 +40,15 @@ const NavbarComponentSigned = (props) => {
                             align="end"
                             menuVariant="light"
                             >
+                                <NavDropdown.ItemText>
+                                    Signed in as <br/>
+                                    <Link 
+                                        style={{fontWeight: "500", color: "black", textDecoration:"none"}}
+                                        to={"/accounts/" + currentUserName + "/overview"}>
+                                        {currentUserName}
+                                    </Link>
+                                </NavDropdown.ItemText>
+                                <NavDropdown.Divider />
                                 <NavDropdown.Item 
                                     href={"/accounts/" + currentUserName + "/overview"}>
                                         My account
