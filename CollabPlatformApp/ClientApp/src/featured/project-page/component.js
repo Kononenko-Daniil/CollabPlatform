@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import ProjectContributorsComponent from './components/projectContributorsComponent';
-
 import ContributorAddModal from './modals/contributorAddModal';
 import {NavbarContainer} from '../static-components/navbar/container';
 import DeleteProjectModal from './modals/deleteProjectModal';
@@ -12,28 +10,21 @@ import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 import { ProjectTasksContainer } from './components/project-tasks-component/container';
 import { ProjectLinksContainer } from './components/project-links-component/container';
+import { ProjectContributorsContainer } from './components/project-contributors-component/container';
 
 const ProjectPageComponent = (props) => {
     const { project, 
 
-        handleContributorNameChange,
-        handleContributorSubmit,
+        
 
         OnDeleteContributorClick,
         OnDeleteProjectClick,
 
-        contributorName,
+        
 
-        errorConributorMessage,
-
-        OnClearContributorForm, 
-        OnViewContributorClick } = props;
+         } = props;
 
     const [key, setKey] = useState('tasks');
-
-    const [showAddContibutorModal, setShowAddContributorModal] = useState(false);
-    const handleShowAddContibutorModal = () => setShowAddContributorModal(true);
-    const handleCloseAddContibutorModal = () => setShowAddContributorModal(false);
 
     const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
     const [projectName, setProjectName] = useState("");
@@ -78,24 +69,11 @@ const ProjectPageComponent = (props) => {
                             />
                     </Tab>
                     <Tab eventKey="contributors" title="Contributors">
-                        <ProjectContributorsComponent 
-                            project={project}
-                            OnDeleteContributorClick={OnDeleteContributorClick}
-                            OnViewContributorClick={OnViewContributorClick}
-                            handleShowAddContibutorModal={handleShowAddContibutorModal}
+                        <ProjectContributorsContainer
+                            projectId={project.id}
                             />
                     </Tab>
                 </Tabs>
-
-                <ContributorAddModal 
-                    showAddContibutorModal={showAddContibutorModal}
-                    handleCloseAddContibutorModal={handleCloseAddContibutorModal}
-                    handleContributorSubmit={handleContributorSubmit}
-                    errorConributorMessage={errorConributorMessage}
-                    contributorName={contributorName}
-                    handleContributorNameChange={handleContributorNameChange}
-                    OnClearContributorForm={OnClearContributorForm}
-                    />
 
                 <DeleteProjectModal 
                     showDeleteProjectModal={showDeleteProjectModal}

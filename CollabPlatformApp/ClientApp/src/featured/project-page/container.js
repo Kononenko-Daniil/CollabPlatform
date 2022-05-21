@@ -15,22 +15,13 @@ export class ProjectPageContainer extends Component{
             id: this.props.match.params.id,
             hasAccess: true,
             project: undefined,
-            contributorName: "",
-            errorConributorMessage: ""
+            
         }
 
-        this.OnDeleteContributorClick = this.OnDeleteContributorClick.bind(this);
 
-        this.handleContributorNameChange = this.handleContributorNameChange.bind(this);
-        this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
 
         this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
-
         this.errorCatcher = this.errorCatcher.bind(this);
-        this.clearErrorMessages = this.clearErrorMessages.bind(this);
-
-        this.OnClearContributorForm = this.OnClearContributorForm.bind(this);
-        this.OnViewContributorClick = this.OnViewContributorClick.bind(this);
     }
 
     componentDidMount(){
@@ -53,61 +44,6 @@ export class ProjectPageContainer extends Component{
         }else if(errorType === "ContributorIsExisted"){
             this.setState({errorConributorMessage: errorMessage});
         }
-    }
-
-    clearErrorMessages = () => {
-        this.setState({errorConributorMessage: ""});
-    }
-
-    handleContributorNameChange(event){
-        this.setState({contributorName: event.target.value});
-    }
-
-    handleContributorSubmit(event){
-        const contributor = {
-            projectId: this.state.id,
-            name: this.state.contributorName
-        };
-
-        this.clearErrorMessages();
-
-        axios({
-            method: 'POST',
-            url: constants.apiPort + '/project-contributors/add-contributor',
-            data: contributor,
-            withCredentials: true
-        }).then(res=>{
-            this.getProject();
-
-            this.setState({contributorName: ""});
-        }).catch(this.errorCatcher);
-
-        event.preventDefault();
-    }
-
-    OnDeleteContributorClick = (contributorName) => {
-        const contributor = {
-            projectId: this.state.id,
-            name: contributorName
-        };
-
-        axios({
-            method: 'DELETE',
-            url: constants.apiPort + '/project-contributors/delete-contributor',
-            withCredentials: true,
-            data: contributor
-        }).then(res => {
-            this.getProject();
-        });
-    }
-
-    OnClearContributorForm = () => {
-        this.setState({errorConributorMessage: ""});
-        this.setState({contributorName: ""});
-    }
-
-    OnViewContributorClick = (contributorName) => {
-        window.location.href = constants.reactAppPort + `/accounts/${contributorName}/overview`;
     }
 
     getProject(){
@@ -144,19 +80,7 @@ export class ProjectPageContainer extends Component{
                 return (
                     <ProjectPageComponent
                         project={this.state.project}
-                                
-                        handleContributorNameChange={this.handleContributorNameChange}
-                        handleContributorSubmit={this.handleContributorSubmit}
-        
-                        OnDeleteContributorClick={this.OnDeleteContributorClick}
                         OnDeleteProjectClick={this.OnDeleteProjectClick}
-        
-                        contributorName={this.state.contributorName}
-        
-                        errorConributorMessage={this.state.errorConributorMessage}
-        
-                        OnClearContributorForm={this.OnClearContributorForm}
-                        OnViewContributorClick={this.OnViewContributorClick}
                         />
                 );
             } else {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CollabPlatformApp.Controllers
 {
     [ApiController]
-    [Route("/project-contributors")]
+    [Route("/contributors")]
     public class ContributorController : BaseController
     {
         private readonly IContributorService _contributorService;
