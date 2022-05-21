@@ -12,8 +12,6 @@ export class MyProjectsContainer extends Component {
         projects: [],
         userName: this.props.userName
       }
-      
-      this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
   }
   
   componentDidMount(){
@@ -39,23 +37,11 @@ export class MyProjectsContainer extends Component {
       })
   }
 
-  OnDeleteProjectClick = (projectId) => {
-    axios({
-        method: 'DELETE',
-        url: constants.apiPort + '/projects/delete-project',
-        params: { projectId: projectId },
-        withCredentials: true
-    }).then(res => {
-      this.getProjects();
-    });
-  }
-
   render () {
     return (
       <div>
         <MyProjectsComponent 
           projects = {this.state.projects}
-          OnDeleteProjectClick = {this.OnDeleteProjectClick}
           />
       </div>
     );
