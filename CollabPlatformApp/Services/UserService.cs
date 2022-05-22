@@ -52,6 +52,11 @@ namespace CollabPlatformApp.Services
                 Name = user.Username,
                 Email = user.Email,
                 Password = user.Password,
+                Bio = "",
+                PublicEmail = "",
+                Company = "",
+                Location = "",
+                Website = "",
                 Projects = new List<string>(),
                 Cookies = new Dictionary<string, string>()
             };

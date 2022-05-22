@@ -137,3 +137,12 @@
     border-width: 1px 0px 0px 0px;
     margin-top: 20px
 }
+.userDescriptionText{
+    font-weight: 400;
+    width: 100%;
+    display: block;
+    font-size: medium;
+}
+.avatarPlace{
+    width: min-content
+}

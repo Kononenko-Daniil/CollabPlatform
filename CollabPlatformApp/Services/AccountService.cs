@@ -18,7 +18,12 @@ namespace CollabPlatformApp.Services
             Account result = new Account()
             {
                 Name = user.Name,
-                ProjectNum = user.Projects.Count()
+                ProjectNum = user.Projects.Count(),
+                Bio = user.Bio,
+                PublicEmail = user.PublicEmail,
+                Company = user.Company,
+                Location = user.Location,
+                Website = user.Website
             };
 
             return result;

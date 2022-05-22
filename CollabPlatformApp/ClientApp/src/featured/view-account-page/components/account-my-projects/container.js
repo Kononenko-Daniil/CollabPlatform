@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import MyProjectsComponent from './component';
 import axios from 'axios';
-import constants from '../../Constants';
-import Service from '../../Service';
+import constants from '../../../../Constants';
+import Service from '../../../../Service';
 
 export class MyProjectsContainer extends Component {
   static displayName = MyProjectsContainer.name;
