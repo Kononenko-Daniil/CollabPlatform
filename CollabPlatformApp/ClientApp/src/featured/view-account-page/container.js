@@ -4,6 +4,7 @@ import constants from '../../Constants';
 import ViewAccountPageComponent from './component';
 import SpinnerComponent from '../static-components/spinner/component';
 import Service from '../../Service';
+import { NavbarContainer } from '../static-components/navbar/container';
 
 export class ViewAccountPageContainer extends Component{
     constructor(props){
@@ -42,7 +43,10 @@ export class ViewAccountPageContainer extends Component{
             );
         } else {
             return(
-                <SpinnerComponent />
+                <div>
+                    <NavbarContainer />
+                    <SpinnerComponent />
+                </div>
             );
         }
         

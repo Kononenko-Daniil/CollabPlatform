@@ -58,6 +58,20 @@ namespace CollabPlatformApp.Controllers
         }
 
         [Authorize]
+        [HttpGet("get-public-project-by-id")]
+        public ActionResult<PublicProject> GetPublicProjectById(string projectId)
+        {
+            var userId = GetUserId();
+            var result = _projectService.GetPublicProjectById(projectId, userId);
+            if(result == null)
+            {
+                return BadRequest();
+            }
+
+            return result;
+        }
+
+        [Authorize]
         [HttpPost("create-project")]
         public ActionResult<string> CreateProject([FromBody] ProjectDto project)
         {

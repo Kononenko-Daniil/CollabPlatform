@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -8,10 +9,10 @@ const TaskAddModal = (props) => {
         showAddTaskModal,
         handleCloseAddTaskModal,
         handleTaskSubmit,
+        handleTaskTextChange,
+        OnClearTaskForm,
         errorTaskTextMessage,
         taskText,
-        handleTaskTextChange,
-        OnClearTaskForm
     } = props;
 
     return(
