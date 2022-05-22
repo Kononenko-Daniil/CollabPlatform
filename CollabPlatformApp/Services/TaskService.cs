@@ -30,6 +30,7 @@ namespace CollabPlatformApp.Services
             {
                 Id = taskId,
                 ProjectId = projectId,
+                Author = task.Author,
                 Text = task.Text,
             };
 
