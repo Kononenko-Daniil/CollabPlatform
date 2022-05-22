@@ -5,6 +5,7 @@ import SpinnerComponent from '../../../static-components/spinner/component';
 
 import axios from 'axios';
 import constants from '../../../../Constants';
+import Service from '../../../../Service';
 
 export class ProjectTasksContainer extends Component{
     constructor(props){
@@ -33,8 +34,10 @@ export class ProjectTasksContainer extends Component{
     }
 
     handleTaskSubmit(event) {
+        Service.CheckCookies();
         const task = {
             projectId: this.state.projectId,
+            author: Service.getCookie("user_name"),
             text: this.state.taskText
         };
 

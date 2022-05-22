@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavbarContainer } from './static-components/navbar/container';
+import FooterComponent from './static-components/footer/component';
 
 export class Layout extends Component {
   static displayName = Layout.name;
