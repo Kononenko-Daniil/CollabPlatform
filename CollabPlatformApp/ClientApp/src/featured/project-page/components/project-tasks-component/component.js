@@ -4,6 +4,7 @@ import TaskAddModal from "../../modals/taskAddModal";
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Link } from "react-router-dom";
 
 const ProjectTasksComponent = (props) => {
     const { 
@@ -36,11 +37,12 @@ const ProjectTasksComponent = (props) => {
                                 <Card.Body>
                                     <div className={"row"}>
                                         <div className={"col"} style={{width: "300px"}}>
-                                            <h6 
+                                            <Link 
                                                 className={'tasksLinksNameText'}
-                                                style={{fontWeight: "400", textDecoration:"underline"}}>
+                                                to={`/accounts/${task.author}/overview`}
+                                                style={{fontWeight: "400", textDecoration:"underline", color:"black"}}>
                                                 By <strong>{task.author}</strong>
-                                            </h6>
+                                            </Link>
                                             <h6 
                                                 className={'tasksLinksNameText'} 
                                                 style={{whiteSpace:"pre-wrap"}}>
