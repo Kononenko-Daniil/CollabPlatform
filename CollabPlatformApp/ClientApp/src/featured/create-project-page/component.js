@@ -14,20 +14,39 @@ const CreateProjectComponent = (props) => {
         <div>
             <NavbarContainer />
             <Container>
-                <h1 className={"pageName"}>Create project</h1>
-                <form  onSubmit={handleProjectSubmit}>
-                    <p className="errorFormText">{errorProjectNameMessage}</p>
-                    <Form.Control
-                            style={{width: "30% "}} 
-                            placeholder='Project title'
-                            value={projectName}
-                            className="inFormElements"
-                            type="input"
-                            id="inputProjectName"
-                            onChange={handleProjectNameChange}
-                        />
-                    <Button variant="success" type="submit">Create</Button> 
-                </form>
+                <div class="row">
+                    <div class="col" />
+                    <div class="col">
+                        <h1 className={"pageName"}
+                        style={{display:"block",textAlign:"center"}}>
+                            Create project
+                        </h1>
+
+                        <Form onSubmit={handleProjectSubmit}>
+                            <p className="errorFormText">{errorProjectNameMessage}</p>
+                            <Form.Control
+                                    placeholder='Project title'
+                                    value={projectName}
+                                    className="inFormElements"
+                                    type="input"
+                                    id="inputProjectName"
+                                    onChange={handleProjectNameChange}
+                                />
+                            <Button 
+                                variant="outline-success" 
+                                type="submit"
+                                style={{
+                                    display:"block", 
+                                    marginRight:"auto",
+                                    marginLeft:"auto", 
+                                    marginTop: "10px"}}>
+                                    Create
+                            </Button> 
+                        </Form>
+                    </div>
+                    <div class="col" />
+                </div>
+                
             </Container>
         </div>
     )

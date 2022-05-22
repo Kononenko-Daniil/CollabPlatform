@@ -21,41 +21,57 @@ const SignUpPageComponent = (props) => {
         <div>
             <NavbarContainer />
             <Container>
-                <h1 className='pageName'>Sign up</h1>
+                <div class="row">
+                    <div class="col" />
+                    <div class="col">
+                        <h1 className='pageName'
+                        style={{display:"block",textAlign:"center"}}>
+                            Sign up
+                        </h1>
                 
-                <Form onSubmit={handleUserSubmit}>
-                    <p className="errorFormText">{errorUsernameMessage}</p>
-                    <Form.Control
-                        style={{width: "30% "}} 
-                        placeholder='Username'
-                        onChange={handleUsernameChange}
-                        value={userName}
-                        className="inFormElements"
-                        type="input"
-                        id="inputUsername"
-                    />
-                    <p className="errorFormText">{errorEmailMessage}</p>
-                    <Form.Control
-                        style={{width: "30% "}} 
-                        placeholder='Email'
-                        onChange={handleEmailChange}
-                        value={email}
-                        className="inFormElements"
-                        type="input"
-                        id="inputEmail"
-                    />
-                    <p className="errorFormText">{errorPasswordMessage}</p>
-                    <Form.Control
-                        style={{width: "30% "}} 
-                        placeholder='Password'
-                        onChange={handlePasswordChange}
-                        value={password}
-                        className="inFormElements"
-                        type="password"
-                        id="inputPassword"
-                    />
-                    <Button variant="success" type="submit">Sign up</Button> 
-                </Form>
+                        <Form onSubmit={handleUserSubmit}>
+                            <p className="errorFormText">{errorUsernameMessage}</p>
+                            <Form.Control
+                                placeholder='Username'
+                                onChange={handleUsernameChange}
+                                value={userName}
+                                className="inFormElements"
+                                type="input"
+                                id="inputUsername"
+                            />
+                            <p className="errorFormText">{errorEmailMessage}</p>
+                            <Form.Control
+                                placeholder='Email'
+                                onChange={handleEmailChange}
+                                value={email}
+                                className="inFormElements"
+                                type="input"
+                                id="inputEmail"
+                            />
+                            <p className="errorFormText">{errorPasswordMessage}</p>
+                            <Form.Control
+                                placeholder='Password'
+                                onChange={handlePasswordChange}
+                                value={password}
+                                className="inFormElements"
+                                type="password"
+                                id="inputPassword"
+                            />
+                            <Button 
+                                variant="outline-success" 
+                                type="submit"
+                                style={{
+                                    display:"block", 
+                                    marginRight:"auto",
+                                    marginLeft:"auto", 
+                                    marginTop: "10px"}}>
+                                    Sign up
+                            </Button> 
+                        </Form>
+                    </div>
+                    <div class="col" />
+                </div>
+                
             </Container>
         </div>
     )
