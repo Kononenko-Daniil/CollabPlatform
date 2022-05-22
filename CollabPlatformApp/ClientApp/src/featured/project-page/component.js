@@ -1,28 +1,21 @@
 import React, { useState } from 'react';
 
-import ContributorAddModal from './modals/contributorAddModal';
 import {NavbarContainer} from '../static-components/navbar/container';
+import { ProjectTasksContainer } from './components/project-tasks-component/container';
+import { ProjectLinksContainer } from './components/project-links-component/container';
+import { ProjectContributorsContainer } from './components/project-contributors-component/container';
 import DeleteProjectModal from './modals/deleteProjectModal';
 
 import { Container } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
-import { ProjectTasksContainer } from './components/project-tasks-component/container';
-import { ProjectLinksContainer } from './components/project-links-component/container';
-import { ProjectContributorsContainer } from './components/project-contributors-component/container';
 
 const ProjectPageComponent = (props) => {
-    const { project, 
-
-        
-
-        OnDeleteContributorClick,
-        OnDeleteProjectClick,
-
-        
-
-         } = props;
+    const {
+        project,
+        OnDeleteProjectClick
+    } = props;
 
     const [key, setKey] = useState('tasks');
 
@@ -51,10 +44,11 @@ const ProjectPageComponent = (props) => {
                 <Button 
                     onClick={()=>handleShowDeleteModal(project.name, project.id)}
                     variant='outline-danger'
-                    style={{marginBottom: "10px"}}>Delete project</Button>
+                    style={{marginBottom: "20px"}}>Delete project</Button>
+                    
                 <Tabs 
                     defaultActiveKey="profile" 
-                    id="project-tab"
+                    id="project-tab" 
                     className="mb-3" 
                     activeKey={key} 
                     onSelect={(k)=>setKey(k)}>
@@ -81,7 +75,6 @@ const ProjectPageComponent = (props) => {
                     handleAcceptDelete={handleAcceptDelete}
                     handleCloseDeleteModal={handleCloseDeleteModal}
                     />
-                
             </Container>
         </div>
     )

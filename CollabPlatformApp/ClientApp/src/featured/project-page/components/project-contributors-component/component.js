@@ -4,6 +4,7 @@ import ContributorAddModal from '../../modals/contributorAddModal';
 
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+
 import account_base from '../../../../img/account_base.png';
 
 const ProjectContributorsComponent = (props) => {

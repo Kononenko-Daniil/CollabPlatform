@@ -9,6 +9,7 @@ namespace CollabPlatformApp.Services
         public IEnumerable<Project> GetProjectsByUserName(string userName);
         public IEnumerable<PublicProject> GetPublicProjects(string userName);
         public Project GetProjectById(string projectId, string userId);
+        public PublicProject GetPublicProjectById(string projectId, string userId);
 
         public string CreateProject(ProjectDto project, string userId);
 

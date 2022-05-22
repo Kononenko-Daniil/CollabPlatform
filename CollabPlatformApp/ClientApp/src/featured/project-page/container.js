@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
+
+import { NavbarContainer } from '../static-components/navbar/container';
 import ProjectPageComponent from './component';
+import SpinnerComponent from '../static-components/spinner/component';
+import AccessDeniedComponent from '../static-components/access-denied/component';
+
 import axios from 'axios';
 import constants from '../../Constants';
-import SpinnerComponent from '../static-components/spinner/component';
 import Service from '../../Service';
-import { NavbarContainer } from '../static-components/navbar/container';
-import AccessDeniedComponent from '../static-components/access-denied/component';
 
 export class ProjectPageContainer extends Component{
     constructor(props){
@@ -18,48 +20,12 @@ export class ProjectPageContainer extends Component{
             
         }
 
-
-
         this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
-        this.errorCatcher = this.errorCatcher.bind(this);
     }
 
     componentDidMount(){
         this.getProject();
         Service.CheckCookies();
-    }
-
-    errorCatcher = (error) => {
-        const errorType = error.response.data.errorType;
-        const errorMessage = error.response.data.errorMessage;
-
-        if(errorType === "Text"){
-            this.setState({errorTaskTextMessage: errorMessage});
-        }else if(errorType === "Name"){
-            this.setState({errorLinkNameMessage: errorMessage});
-        }else if(errorType === "Url"){
-            this.setState({errorLinkUrlMessage: errorMessage});
-        }else if(errorType === "ContributorName"){
-            this.setState({errorConributorMessage: errorMessage});
-        }else if(errorType === "ContributorIsExisted"){
-            this.setState({errorConributorMessage: errorMessage});
-        }
-    }
-
-    getProject(){
-        axios({
-            method: 'GET',
-            url: constants.apiPort + '/projects/get-project-by-id',
-            params: { projectId: this.state.id },
-            withCredentials: true
-        }).then(
-            res => {
-                const project = res.data;
-                this.setState({project: project});
-            }
-        ).catch(error => {
-            this.setState({hasAccess: false});
-        });
     }
 
     OnDeleteProjectClick = (projectId) => {
@@ -71,6 +37,22 @@ export class ProjectPageContainer extends Component{
         }).then(res => {
             Service.CheckCookies();
             window.location.href = '/accounts/' + Service.getCookie('user_name') + '/projects';
+        });
+    }
+
+    getProject(){
+        axios({
+            method: 'GET',
+            url: constants.apiPort + '/projects/get-public-project-by-id',
+            params: { projectId: this.state.id },
+            withCredentials: true
+        }).then(
+            res => {
+                const project = res.data;
+                this.setState({ project: project });
+            }
+        ).catch(error => {
+            this.setState({ hasAccess: false });
         });
     }
 

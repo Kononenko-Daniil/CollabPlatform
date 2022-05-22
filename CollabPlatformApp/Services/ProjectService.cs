@@ -39,15 +39,7 @@ namespace CollabPlatformApp.Services
             var result = new List<PublicProject>();
             foreach (var project in projects)
             {
-                PublicProject publicProject = new PublicProject()
-                {
-                    Id = project.Id,
-                    Name = project.Name,
-                    Author = project.Author,
-                    TaskNum = project.Tasks.Count(),
-                    LinkNum = project.Links.Count(),
-                    ContributorNum = project.Contributors.Count()
-                };
+                var publicProject = ConvertProjectToPublicProject(project);
 
                 result.Add(publicProject);
             }
@@ -59,6 +51,19 @@ namespace CollabPlatformApp.Services
         {
             var projects = GetProjectsByUserId(userId);
             Project result = projects.FirstOrDefault(x => x.Id == projectId);
+
+            return result;
+        }
+
+        public PublicProject GetPublicProjectById(string projectId, string userId)
+        {
+            var project = GetProjectById(projectId, userId);
+            if(project == null)
+            {
+                return null;
+            }
+
+            var result = ConvertProjectToPublicProject(project);
 
             return result;
         }
@@ -114,6 +119,21 @@ namespace CollabPlatformApp.Services
                 var project = projects.FirstOrDefault(x => x.Id == projectId);
                 result.Add(project);
             }
+
+            return result;
+        }
+
+        public PublicProject ConvertProjectToPublicProject(Project project)
+        {
+            PublicProject result = new PublicProject()
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Author = project.Author,
+                TaskNum = project.Tasks.Count(),
+                LinkNum = project.Links.Count(),
+                ContributorNum = project.Contributors.Count()
+            };
 
             return result;
         }
