@@ -77,6 +77,18 @@ namespace CollabPlatformApp.Services
             _userRepository.UpdateUser(user);
         }
 
+        public void ChangeUserDescription(UserDescriptionDto userDescription, string userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            user.Bio = userDescription.Bio;
+            user.PublicEmail = userDescription.PublicEmail;
+            user.Company = userDescription.Company;
+            user.Location = userDescription.Location;
+            user.Website = userDescription.Website;
+
+            _userRepository.UpdateUser(user);
+        }
+
         public bool UsernameIsExisting(string userName)
         {
             User result = _userRepository.GetUserByName(userName);

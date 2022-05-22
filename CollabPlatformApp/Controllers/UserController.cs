@@ -50,6 +50,16 @@ namespace CollabPlatformApp.Controllers
         }
 
         [Authorize]
+        [HttpPost("change-user-description")]
+        public ActionResult<BaseRequestError> ChangeUserDescription(UserDescriptionDto userDescription)
+        {
+            var userId = GetUserId();
+            _userService.ChangeUserDescription(userDescription, userId);
+
+            return Ok();
+        }
+
+        [Authorize]
         [HttpGet("is-current-user")]
         public bool IsCurrentUser(string userId)
         {
