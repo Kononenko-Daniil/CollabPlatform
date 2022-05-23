@@ -18,6 +18,7 @@ export class ViewAccountPageContainer extends Component{
             userCompany: "",
             userLocation: "",
             userWebsite: "",
+            hasAccess: false,
             tab: this.props.match.params.tab
         }
         console.log(this.state.user);
@@ -35,6 +36,11 @@ export class ViewAccountPageContainer extends Component{
     componentDidMount(){
         this.getUser();
         Service.CheckCookies();
+
+        const currentUserName = Service.getCookie("user_name");
+        if(currentUserName == this.state.userName){
+            this.setState({ hasAccess: true });
+        }
     }
 
     handleAccountBioChange = (event) => this.setState({ userBio: event.target.value });
@@ -113,6 +119,7 @@ export class ViewAccountPageContainer extends Component{
                     userWebsite={this.state.userWebsite}
                     OnClearUserDescriptionForm={this.OnClearUserDescriptionForm}
                     initDescriptionEditModal={this.initDescriptionEditModal}
+                    hasAccess={this.state.hasAccess}
                 />
             );
         } else {
