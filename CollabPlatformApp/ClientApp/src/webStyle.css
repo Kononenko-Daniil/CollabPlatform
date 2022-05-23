@@ -82,9 +82,6 @@
 .contributorElement{
     margin-right: 10px;
     margin-bottom: 10px;
-    border-color: rgb(94, 94, 94);
-    border-width: 1px;
-    color: rgb(73, 73, 73);
 }
 .accountBaseImg{
     width: 30px;
@@ -156,4 +153,8 @@
 .descriptionSign{
     width: 20px;
     height: 20px;
+}
+.btn:focus, .btn:hover, .btn:active{
+    outline: none;
+    box-shadow: none;
 }

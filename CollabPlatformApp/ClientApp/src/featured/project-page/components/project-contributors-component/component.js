@@ -4,6 +4,7 @@ import ContributorAddModal from '../../modals/contributorAddModal';
 
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 import account_base from '../../../../img/account_base.png';
 
@@ -13,7 +14,6 @@ const ProjectContributorsComponent = (props) => {
         handleContributorNameChange,
         handleContributorSubmit,
         OnClearContributorForm, 
-        OnViewContributorClick,
         OnDeleteContributorClick,
         contributorName,
         errorConributorMessage,
@@ -21,14 +21,18 @@ const ProjectContributorsComponent = (props) => {
 
     const [showAddContibutorModal, setShowAddContributorModal] = useState(false);
     const handleShowAddContibutorModal = () => setShowAddContributorModal(true);
-    const handleCloseAddContibutorModal = () => setShowAddContributorModal(false);
+    const handleCloseAddContibutorModal = () => { 
+        OnClearContributorForm();
+        setShowAddContributorModal(false);
+    }
 
     return (
         <div>
             <Button 
                 variant="outline-success" 
                 onClick={handleShowAddContibutorModal} 
-                style={{marginBottom: "10px"}}>
+                className={'buutton'}
+                style={{marginBottom: "10px",outline:"none"}}>
                     Add contributor
             </Button>
             {
@@ -37,19 +41,17 @@ const ProjectContributorsComponent = (props) => {
                         {
                             contributors.map((contributor, index) => 
                                 <div className='div-row' key={index}>
-                                    <Dropdown>
-                                        <Dropdown.Toggle 
-                                            variant={"inline-secondary"} 
-                                            className={"contributorElement"} 
-                                            id="dropdown-basic">
-                                            <img src={account_base} className={'accountBaseImg'} alt="account"></img>
+                                    <Dropdown as={ButtonGroup} className={'contributorElement'}>
+                                        <Button
+                                            variant={"outline-dark"} 
+                                            className={'buutton'}
+                                            href={`/accounts/${contributor.name}/overview`}>
                                             {contributor.name}
-                                        </Dropdown.Toggle>
+                                        </Button>
+                                        <Dropdown.Toggle split variant="outline-dark" id="dropdown-basic" />
                                         <Dropdown.Menu>
-                                            <Dropdown.Item onClick={() => OnViewContributorClick(contributor.name)}>
-                                                User info
-                                            </Dropdown.Item>
-                                            <Dropdown.Item onClick={() => OnDeleteContributorClick(contributor.name)}>
+                                            <Dropdown.Item 
+                                                onClick={() => OnDeleteContributorClick(contributor.name)}>
                                                 Delete
                                             </Dropdown.Item>
                                         </Dropdown.Menu>

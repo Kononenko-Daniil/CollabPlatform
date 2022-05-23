@@ -21,7 +21,6 @@ export class ProjectContributorsContainer extends Component{
         this.handleContributorNameChange = this.handleContributorNameChange.bind(this);
         this.handleContributorSubmit = this.handleContributorSubmit.bind(this);
         this.OnClearContributorForm = this.OnClearContributorForm.bind(this);
-        this.OnViewContributorClick = this.OnViewContributorClick.bind(this);
         this.OnDeleteContributorClick = this.OnDeleteContributorClick.bind(this);
     }
 
@@ -58,10 +57,6 @@ export class ProjectContributorsContainer extends Component{
     OnClearContributorForm = () => {
         this.setState({ errorConributorMessage: "" });
         this.setState({ contributorName: "" });
-    }
-
-    OnViewContributorClick = (contributorName) => {
-        window.location.href = constants.reactAppPort + `/accounts/${contributorName}/overview`;
     }
 
     OnDeleteContributorClick = (contributorName) => {
@@ -116,7 +111,6 @@ export class ProjectContributorsContainer extends Component{
                     handleContributorNameChange={this.handleContributorNameChange}
                     handleContributorSubmit={this.handleContributorSubmit}
                     OnClearContributorForm={this.OnClearContributorForm}
-                    OnViewContributorClick={this.OnViewContributorClick}
                     OnDeleteContributorClick={this.OnDeleteContributorClick}
                     contributorName={this.state.contributorName}
                     errorConributorMessage={this.state.errorConributorMessage}
