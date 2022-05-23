@@ -9,6 +9,10 @@ import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 import avatar_2 from '../../img/avatar_2.jpg';
 import { MyProjectsContainer } from './components/account-my-projects/container';
+import email from '../../img/email.png';
+import company from '../../img/company.png';
+import location from '../../img/location.png';
+import website from '../../img/website.png';
 
 const ViewAccountPageComponent = (props) => {
     const {
@@ -53,11 +57,44 @@ const ViewAccountPageComponent = (props) => {
                             onClick={handleShowChangeAccountDescriptionModal}>
                                 Edit account
                         </Button>
-                        <h5 className='userDescriptionText'>{user.bio}</h5>
-                        <h5 className='userDescriptionText smallTextAccount'>{user.publicEmail}</h5>
-                        <h5 className='userDescriptionText'>{user.company}</h5>
-                        <h5 className='userDescriptionText'>{user.location}</h5>
-                        <h5 className='userDescriptionText'>{user.website}</h5>
+                        {
+                            user.bio != "" ? 
+                                <h5 className='userDescriptionText'>{user.bio}</h5>
+                            : <span/>
+                        }
+                        {
+                            user.publicEmail != "" ? 
+                                <h5 className='userSmallDescriptionText'>
+                                    <img src={email} className={'descriptionSign'}/>
+                                    &ensp; {user.publicEmail}
+                                </h5>
+                            : <span/>
+                        }
+                        {
+                            user.company != "" ? 
+                                <h5 className='userSmallDescriptionText'>
+                                    <img src={company} className={'descriptionSign'}/>
+                                    &ensp; {user.company}
+                                </h5>
+                            : <span/>
+                        }
+                        {
+                            user.location != "" ? 
+                                <h5 className='userSmallDescriptionText'>
+                                    <img src={location} className={'descriptionSign'}/>
+                                    &ensp; {user.location}
+                                </h5>
+                            : <span/>
+                        }
+                        {
+                            user.website != "" ? 
+                                <h5 className='userSmallDescriptionText'>
+                                    <img src={website} className={'descriptionSign'} />
+                                    &ensp; {user.website}
+                                </h5>
+                            : <span/>
+                        }
+                        
                     </div>
                     <div className={'col'}>
                         <Tabs 
@@ -68,7 +105,7 @@ const ViewAccountPageComponent = (props) => {
                             onSelect={(k)=>setKey(k)}
                             style={{marginTop: "20px"}}>
                                 <Tab eventKey="overview" title="Overview">
-                                    
+                                    Here will be user statistics
                                 </Tab>
                                 <Tab eventKey="projects" title="Projects">
                                     <MyProjectsContainer 
