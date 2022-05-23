@@ -52,6 +52,11 @@ namespace CollabPlatformApp.Services
                 Name = user.Username,
                 Email = user.Email,
                 Password = user.Password,
+                Bio = "",
+                PublicEmail = "",
+                Company = "",
+                Location = "",
+                Website = "",
                 Projects = new List<string>(),
                 Cookies = new Dictionary<string, string>()
             };
@@ -74,6 +79,18 @@ namespace CollabPlatformApp.Services
             var user = _userRepository.GetUserById(userId);
             var cookies = user.Cookies;
             cookies[cookie.Key] = cookie.Value;
+            _userRepository.UpdateUser(user);
+        }
+
+        public void ChangeUserDescription(UserDescriptionDto userDescription, string userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            user.Bio = userDescription.Bio;
+            user.PublicEmail = userDescription.PublicEmail;
+            user.Company = userDescription.Company;
+            user.Location = userDescription.Location;
+            user.Website = userDescription.Website;
+
             _userRepository.UpdateUser(user);
         }
 

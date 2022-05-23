@@ -12,6 +12,7 @@ namespace CollabPlatformApp.Services
         public void CreateUser(UserSignUpDto user);
         public string SignIn(UserSignInDto user);
         public void SetCookie(Cookie cookie, string userId);
+        public void ChangeUserDescription(UserDescriptionDto userDescription, string userId);
 
         public bool UsernameIsExisting(string userName);
         public bool EmailIsExisting(string email);
