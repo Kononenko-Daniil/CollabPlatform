@@ -144,11 +144,15 @@
 .userSmallDescriptionText{
     font-weight: 400;
     width: 100%;
-    display: block;
     font-size: 15px;
+    overflow: hidden;
+    
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .avatarPlace{
-    width: min-content
+    width: min-content;
+    display: block;
 }
 .descriptionSign{
     width: 20px;

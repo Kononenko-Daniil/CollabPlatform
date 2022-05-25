@@ -125,7 +125,10 @@ const ViewAccountPageComponent = (props) => {
                             onSelect={(k)=>setKey(k)}
                             style={{marginTop: "20px"}}>
                                 <Tab eventKey="overview" title="Overview">
-                                    Here will be user statistics
+                                    <h5 style={{fontWeight: "lighter"}}>
+                                        This page is currently in <u>development</u>. 
+                                        Here will be <strong>{user.name}</strong>`s statistics
+                                    </h5>
                                 </Tab>
                                 <Tab eventKey="projects" title="Projects">
                                     <MyProjectsContainer 
