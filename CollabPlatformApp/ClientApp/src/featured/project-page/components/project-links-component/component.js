@@ -5,6 +5,7 @@ import LinkInfoModal from '../../modals/linkInfoModal';
 
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const ProjectLinksComponent = (props) => {
     const {
@@ -22,7 +23,10 @@ const ProjectLinksComponent = (props) => {
 
     const [showAddLinkModal, setShowAddLinkModal] = useState(false);
     const handleShowAddLinkModal = () => setShowAddLinkModal(true);
-    const handleCloseAddLinkModal = () => setShowAddLinkModal(false);
+    const handleCloseAddLinkModal = () => {
+        OnClearLinkForm();
+        setShowAddLinkModal(false);
+    }
 
     const [showLinkInfoModal, setShowLinkInfoModal] = useState(false);
     const [linkNameModal, setLinkNameModal] = useState("");
@@ -49,23 +53,26 @@ const ProjectLinksComponent = (props) => {
                         {
                             links.map((link, index) => 
                                 <div className='div-row' key={index}>
-                                    <Dropdown>
+                                    <Dropdown as={ButtonGroup} className={"linkElement"} >
+                                        <Button
+                                            variant={"outline-secondary"} 
+                                            className={'buutton'}
+                                            href={link.url}>
+                                            {link.name}
+                                        </Button>
+
                                         <Dropdown.Toggle 
-                                            variant={"inline-secondary"} 
-                                            className={"linkElement"} 
-                                            id="dropdown-basic">
-                                        {link.name}
-                                        </Dropdown.Toggle>
+                                            variant={"outline-secondary"} 
+                                            id="dropdown-basic" />
                                     
                                         <Dropdown.Menu>
-                                            <Dropdown.Item href={link.url}>Open</Dropdown.Item>
-                                            <Dropdown.Item 
-                                                onClick={() => OnDeleteLinkClick(link.id)}>
-                                                    Delete
-                                            </Dropdown.Item>
                                             <Dropdown.Item 
                                                 onClick={() => handleShowLinkInfoModal(link.name, link.url)}>
                                                     Detail info
+                                            </Dropdown.Item>
+                                            <Dropdown.Item 
+                                                onClick={() => OnDeleteLinkClick(link.id)}>
+                                                    Delete
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

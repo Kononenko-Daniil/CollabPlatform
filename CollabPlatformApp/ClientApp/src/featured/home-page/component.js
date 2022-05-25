@@ -3,8 +3,6 @@ import { Container } from 'reactstrap';
 import {NavbarContainer} from '../static-components/navbar/container';
 
 const HomePageComponent = (props) => {
-    const {} = props;
-
     return(
         <div>
             <NavbarContainer />

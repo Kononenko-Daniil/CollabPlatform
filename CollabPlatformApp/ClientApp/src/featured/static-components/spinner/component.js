@@ -3,8 +3,6 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Container } from "react-bootstrap";
 
 const SpinnerComponent = (props) => {
-    const {} = props;
-
     return(
         <Container>
             <div class="row">

@@ -38,7 +38,7 @@ export class ViewAccountPageContainer extends Component{
         Service.CheckCookies();
 
         const currentUserName = Service.getCookie("user_name");
-        if(currentUserName == this.state.userName){
+        if(currentUserName === this.state.userName){
             this.setState({ hasAccess: true });
         }
     }

@@ -30,7 +30,7 @@ export class NavbarContainer extends Component{
 
     checkIsUserLogged(){
         const logCookie = Service.getCookie("log_in");
-        const isLogged = logCookie == "yes" ? true : false;
+        const isLogged = logCookie === "yes" ? true : false;
 
         return isLogged;
     }
