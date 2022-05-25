@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SignUpPageComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
+import crc32 from 'crc-32';
 
 export class SignUpPageContainer extends Component{
     constructor(props){
@@ -42,10 +43,11 @@ export class SignUpPageContainer extends Component{
             errorPasswordMessage: ""
         });
 
+        const passwordHash = crc32.str(this.state.password);
         const user = {
             Username: this.state.userName,
             Email: this.state.email,
-            Password: this.state.password
+            Password: passwordHash
         }
 
         axios({

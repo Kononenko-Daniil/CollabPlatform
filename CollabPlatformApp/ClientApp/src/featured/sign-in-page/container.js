@@ -3,6 +3,7 @@ import SignInPageComponent from './component';
 import axios from 'axios';
 import constants from '../../Constants';
 import Service from '../../Service';
+import crc32 from 'crc-32';
 
 export class SignInPageContainer extends Component{
     constructor(props){
@@ -33,9 +34,10 @@ export class SignInPageContainer extends Component{
             errorMessage: "",
         });
 
+        const passwordHash = crc32.str(this.state.password);
         const user = {
             Email: this.state.email,
-            Password: this.state.password
+            Password: passwordHash
         }
         
         axios({

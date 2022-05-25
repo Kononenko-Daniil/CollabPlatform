@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.RegularExpressions;
 
 namespace CollabPlatformApp.Controllers
 {
@@ -100,6 +101,16 @@ namespace CollabPlatformApp.Controllers
                 {
                     ErrorType = "Email",
                     ErrorMessage = Constants.DoubleEmailMessage
+                };
+
+                return BadRequest(error);
+            }
+            if(!Regex.IsMatch(user.Email, Constants.emailPettern, RegexOptions.IgnoreCase))
+            {
+                BaseRequestError error = new BaseRequestError()
+                {
+                    ErrorType = "Email",
+                    ErrorMessage = Constants.InvalidEmailPatternMessage
                 };
 
                 return BadRequest(error);
