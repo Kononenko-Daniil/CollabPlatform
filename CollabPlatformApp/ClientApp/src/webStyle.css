@@ -158,3 +158,15 @@
     outline: none;
     box-shadow: none;
 }
+.input:focus, .input:hover, .input:active{
+    outline: none;
+    box-shadow: none;
+}
+.url{
+    color: black;
+    text-decoration: none;
+}
+.url:hover{
+    color: black;
+    text-decoration: underline;
+}

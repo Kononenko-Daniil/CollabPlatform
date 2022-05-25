@@ -17,10 +17,10 @@ export class ProjectPageContainer extends Component{
             id: this.props.match.params.id,
             hasAccess: true,
             project: undefined,
-            
+            isAuthor: false
         }
-
         this.OnDeleteProjectClick = this.OnDeleteProjectClick.bind(this);
+        this.CheckUserRoles = this.CheckUserRoles.bind(this);
     }
 
     componentDidMount(){
@@ -40,6 +40,17 @@ export class ProjectPageContainer extends Component{
         });
     }
 
+    CheckUserRoles = () => {
+        const currentUsername = Service.getCookie("user_name");
+        console.log(currentUsername);
+        console.log(this.state.project.author);
+        if(currentUsername === this.state.project.author){
+            this.setState({ isAuthor: true });
+        } else {
+            this.setState({ isAuthor: false });
+        }
+    }
+
     getProject(){
         axios({
             method: 'GET',
@@ -50,6 +61,7 @@ export class ProjectPageContainer extends Component{
             res => {
                 const project = res.data;
                 this.setState({ project: project });
+                this.CheckUserRoles();
             }
         ).catch(error => {
             this.setState({ hasAccess: false });
@@ -63,6 +75,7 @@ export class ProjectPageContainer extends Component{
                     <ProjectPageComponent
                         project={this.state.project}
                         OnDeleteProjectClick={this.OnDeleteProjectClick}
+                        isAuthor={this.state.isAuthor}
                         />
                 );
             } else {

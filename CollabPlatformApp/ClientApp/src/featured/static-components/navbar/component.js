@@ -23,6 +23,7 @@ const NavbarComponentSigned = (props) => {
                     </Nav>
                     <Nav>
                         <img 
+                            alt={'new'}
                             src={plus_icon} 
                             className={"plusIcon"}
                             />
@@ -34,7 +35,7 @@ const NavbarComponentSigned = (props) => {
                             >
                                 <NavDropdown.Item href="/create-project">New project</NavDropdown.Item>
                         </NavDropdown>
-                        <img src={avatar_2} className={'navbarAvatar'}/>
+                        <img alt={'avatar'} src={avatar_2} className={'navbarAvatar'}/>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
                             align="end"
@@ -71,8 +72,6 @@ const NavbarComponentSigned = (props) => {
 }
 
 const NavbarComponentUnsigned = (props) => {
-    const {} = props;
-
     return(
         <div>
             <Navbar bg="dark" variant="dark">

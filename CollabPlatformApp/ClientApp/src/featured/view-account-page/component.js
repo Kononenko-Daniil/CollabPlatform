@@ -51,7 +51,7 @@ const ViewAccountPageComponent = (props) => {
             <Container>
                 <div className={'row accountView'}>
                     <div className={'col-md-auto avatarPlace'}>
-                        <img src={avatar_2} className={'accountImgView'}/>
+                        <img alt={'avatar'} src={avatar_2} className={'accountImgView'}/>
                         <p className={'userName'}>{user.name}</p>
                         <p className={'smallTextAccount'}><b>{user.projectNum}</b> projects</p>
                         {
@@ -66,39 +66,51 @@ const ViewAccountPageComponent = (props) => {
                         }
                         
                         {
-                            user.bio != "" ? 
+                            user.bio !== "" ? 
                                 <h5 className='userDescriptionText'>{user.bio}</h5>
                             : <span/>
                         }
                         {
-                            user.publicEmail != "" ? 
+                            user.publicEmail !== "" ? 
                                 <h5 className='userSmallDescriptionText'>
-                                    <img src={email} className={'descriptionSign'}/>
+                                    <img 
+                                        alt={'public email'}
+                                        src={email} 
+                                        className={'descriptionSign'}/>
                                     &ensp; {user.publicEmail}
                                 </h5>
                             : <span/>
                         }
                         {
-                            user.company != "" ? 
+                            user.company !== "" ? 
                                 <h5 className='userSmallDescriptionText'>
-                                    <img src={company} className={'descriptionSign'}/>
+                                    <img 
+                                        alt={'company'}
+                                        src={company} 
+                                        className={'descriptionSign'}/>
                                     &ensp; {user.company}
                                 </h5>
                             : <span/>
                         }
                         {
-                            user.location != "" ? 
+                            user.location !== "" ? 
                                 <h5 className='userSmallDescriptionText'>
-                                    <img src={location} className={'descriptionSign'}/>
+                                    <img 
+                                        alt={'location'}
+                                        src={location} 
+                                        className={'descriptionSign'}/>
                                     &ensp; {user.location}
                                 </h5>
                             : <span/>
                         }
                         {
-                            user.website != "" ? 
+                            user.website !== "" ? 
                                 <h5 className='userSmallDescriptionText'>
-                                    <img src={website} className={'descriptionSign'} />
-                                    &ensp; {user.website}
+                                    <img 
+                                        alt={'website'}
+                                        src={website} 
+                                        className={'descriptionSign'} />
+                                    &ensp; <a href={user.website} className={"url"}>Website</a>
                                 </h5>
                             : <span/>
                         }

@@ -13,6 +13,6 @@ namespace CollabPlatformApp.Services
 
         public string CreateProject(ProjectDto project, string userId);
 
-        public void DeleteProject(string projectId);
+        public bool DeleteProject(string projectId, string userId);
     }
 }

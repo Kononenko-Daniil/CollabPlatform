@@ -14,7 +14,8 @@ import Button from 'react-bootstrap/Button';
 const ProjectPageComponent = (props) => {
     const {
         project,
-        OnDeleteProjectClick
+        OnDeleteProjectClick,
+        isAuthor
     } = props;
 
     const [key, setKey] = useState('tasks');
@@ -41,14 +42,19 @@ const ProjectPageComponent = (props) => {
             <Container>
                 <h1 className='pageName' style={{marginBottom: "0px"}}>{project.name}</h1>
                 <p>Author: <strong>{project.author}</strong></p>
-                <Button 
-                    onClick={()=>handleShowDeleteModal(project.name, project.id)}
-                    variant='outline-danger'
-                    style={{marginBottom: "20px"}}>Delete project</Button>
+                {
+                    isAuthor ? 
+                        <Button 
+                        onClick={()=>handleShowDeleteModal(project.name, project.id)}
+                        variant='outline-danger'
+                        style={{marginBottom: "20px"}}>Delete project</Button>
+                    : <span />
+                }
+                
                     
                 <Tabs 
                     defaultActiveKey="profile" 
-                    id="project-tab" 
+                    id="project-tab"
                     className="mb-3" 
                     activeKey={key} 
                     onSelect={(k)=>setKey(k)}>
