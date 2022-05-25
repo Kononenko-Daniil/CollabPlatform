@@ -11,7 +11,7 @@ CollabPlatform is a web-platform for collaborating with other people in order to
  - Add account page. There you may tell about yourself and see your projects
 ## Plans
  - Add possibility for changing contributors` roles
- - Add project chat
+ - Add user`s statistics at overview page
 ## Technology
  - .NET 6.0 (BACK-END)
  - React (FRONT-END) + Bootstrap
