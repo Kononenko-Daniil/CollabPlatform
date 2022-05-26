@@ -1,11 +1,12 @@
-# CollabPlatform
-This is a CollabPlatform repository
+<h1 align="center">CollabPlatform</h1>
+<p align="center">
+  <img src="/Drawable/for_readme/account.jpg" style=" border-style: solyd" title="hover text">
+</p>
+
 ## What is it?
 CollabPlatform is a web-platform for collaborating with other people in order to create projects
-<p align="center">
-  <img src="/Drawable/for_readme/account.jpg" width="350" title="hover text">
-</p>
-![Alt text](/Drawable/for_readme/account.jpg "Optional title")
+
+
 ## What can you do now?
  - Create projects. Every project may contain tasks, which you should do. Also you may add special links to some resources you need, for example Github, Google Drive and etc.
  - Collaborate with other people. If you want to create your project in a team, you may add contributors to your project. Contributors have the same role as you
