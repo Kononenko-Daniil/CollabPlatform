@@ -1,6 +1,6 @@
 <h1 align="center">CollabPlatform</h1>
 <p align="center">
-  <img src="/Drawable/for_readme/account.jpg" style=" border-style: solyd" title="hover text">
+  <img src="/Drawable/for_readme/account.png" style=" border-style: solyd" title="hover text">
 </p>
 
 ## What is it?
@@ -13,7 +13,7 @@ CollabPlatform is a web-platform for collaborating with other people in order to
  - Tell other people about yourself. At account page you may add your bio and public email, company and location, your own website
 
 <p align="center">
-  <img src="/Drawable/for_readme/project.jpg" style=" border-style: solyd" title="hover text">
+  <img src="/Drawable/for_readme/project_page.png" style=" border-style: solyd" title="hover text">
 </p>
 
 ## Last updates
