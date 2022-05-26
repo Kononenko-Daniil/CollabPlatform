@@ -11,9 +11,6 @@ namespace CollabPlatformApp.Validators
                 .MinimumLength(Constants.MinUsernameLength).WithMessage(Constants.UsernameInvalidLengthMessage)
                 .MaximumLength(Constants.MaxUsernameLength).WithMessage(Constants.UsernameInvalidLengthMessage);
             RuleFor(x => x.Email).NotEmpty().WithMessage(Constants.EmptyEmailMessage);
-            RuleFor(x => x.Password).NotEmpty().WithMessage(Constants.EmptyPasswordMessage)
-                .MinimumLength(Constants.MinPasswordLength).WithMessage(Constants.PasswordInvalidLengthMessage)
-                .MaximumLength(Constants.MaxPasswordLength).WithMessage(Constants.PasswordInvalidLengthMessage);
         }
     }
 }

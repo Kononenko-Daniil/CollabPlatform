@@ -112,7 +112,7 @@ namespace CollabPlatformApp.Services
             return false;
         }
 
-        public bool AccountIsExisting(string email, string password)
+        public bool AccountIsExisting(string email, long password)
         {
             if (EmailIsExisting(email))
             {

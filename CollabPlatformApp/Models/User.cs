@@ -5,7 +5,7 @@
         public string? Id { get; set; }
         public string? Name { get; set; }
         public string? Email { get; set; }
-        public string? Password { get; set; }
+        public long? Password { get; set; }
         public string? Bio { get; set; }
         public string? PublicEmail { get; set; }
         public string? Company { get; set; }

@@ -9,6 +9,7 @@
 
         public const string EmptyEmailMessage = "Enter your email address";
         public const string DoubleEmailMessage = "This email is already used";
+        public const string InvalidEmailPatternMessage = "Email must be like: collabPlatform@cp.com";
 
         public const string EmptyPasswordMessage = "Enter password";
         public const string PasswordInvalidLengthMessage = "Password must contain from 5 to 20 symbols";
@@ -19,6 +20,8 @@
         public const int MaxUsernameLength = 20;
         public const int MinPasswordLength = 5;
         public const int MaxPasswordLength = 20;
+
+        public const string emailPettern = @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))";
 
         //Project validation messages
         public const string EmptyProjectName = "Enter project title";

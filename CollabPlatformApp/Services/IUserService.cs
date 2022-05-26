@@ -16,6 +16,6 @@ namespace CollabPlatformApp.Services
 
         public bool UsernameIsExisting(string userName);
         public bool EmailIsExisting(string email);
-        public bool AccountIsExisting(string email, string password);
+        public bool AccountIsExisting(string email, long password);
     }
 }
